@@ -32,12 +32,12 @@ namespace Inventory
             bool source_result = mysql.check_connection(connection.conString);
             if (source_result == false)
             {
-                lblServerStatus.Text = "DISCONNECTED";
+                lblServerStatus.Text = "OFFLINE";
                 lblServerStatus.ForeColor = Color.Red;
             }
             else
             {
-                lblServerStatus.Text = "CONNECTED";
+                lblServerStatus.Text = "ONLINE";
                 lblServerStatus.ForeColor = Color.Green;
             }
         }
