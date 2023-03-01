@@ -18,6 +18,7 @@ namespace Inventory.forms
         functions.MySQL mysql = new functions.MySQL();
         functions.Logs logs = new functions.Logs();
         functions.Transactions transactions = new functions.Transactions();
+        functions.Items items = new functions.Items();
 
         public frmPOS()
         {
@@ -32,9 +33,42 @@ namespace Inventory.forms
             lblTime.Text = DateTime.Now.ToString("hh:mm:ss tt");
             timer1.Start();
 
+            //LOAD ITEMS TO CLIENT DATAGRID
+            transactions.loadClientData(dtgClients, lblRecordCount);
+            if (dtgClients.RowCount != 0)
+            {
+                items.SetRowNumber(dtgClients);
+                populateTextboxes(0, dtgClients);
+            }
         }
 
+        private void populateTextboxes(int row, DataGridView mDataGrid)
+        {
+            try
+            {
+                if (!row.Equals(null))
+                {
+                    int mClientID = (int)mDataGrid["clientid", row].Value;
+                    String mClientName = (string)mDataGrid["clientname", row].Value.ToString();
+                    String mClientAddress = (string)mDataGrid["clientaddress", row].Value.ToString();
+                    String mContactPerson = (string)mDataGrid["contactperson", row].Value.ToString();
+                    String mSalesAgent = (string)mDataGrid["salesagent", row].Value.ToString();
+                    String mRemarks = (string)mDataGrid["remarks", row].Value.ToString();
 
+                    this.lblClientID.Text = mClientID.ToString();
+                    this.txtCustomerName.Text = mClientName;
+                    this.txtCustomerAddress.Text = mClientAddress;
+                    this.txtContactPerson.Text= mContactPerson;
+                    this.txtSalesAgent.Text= mSalesAgent;
+                    this.txtRemarks.Text = mRemarks;
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error populating textboxes: " + e);
+            }
+        }
 
         private void frmPOS_KeyDown(object sender, KeyEventArgs e)
         {
@@ -117,8 +151,8 @@ namespace Inventory.forms
             transactions.GenerateTransactionCode();
             lblTransactionCode.Text = transactions.TransactionCode.ToString();
             grpCustomerInformation.Enabled = true;
-
-            EnableTransactionControls();
+            cmdNewTrans.Enabled = false;
+            cmdNewTrans.Style = MetroFramework.MetroColorStyle.Silver;
 
         }
 
@@ -197,10 +231,10 @@ namespace Inventory.forms
                 dtgCart.Rows[n].Cells[3].Value = 1;
                 dtgCart.Rows[n].Cells[4].Value = 0;
                 dtgCart.Rows[n].Cells[5].Value = 1 * val.CartItemPrice;
-                dtgCart.Rows[n].Cells[6].Value = val.CartItemID;
+                dtgCart.Rows[n].Cells[7].Value = val.CartItemID;
 
 
-                setRowNumber(dtgCart);
+                items.SetRowNumber(dtgCart);
 
                 ComputePrice();
 
@@ -208,14 +242,6 @@ namespace Inventory.forms
             }
         }
 
-        private void setRowNumber (DataGridView dtg)
-        {
-
-            foreach (DataGridViewRow row in dtg.Rows)
-            {
-                row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
-            }
-        }
 
         private void dtgCart_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
@@ -252,7 +278,7 @@ namespace Inventory.forms
             if (MessageBox.Show(this, "Are you sure you want to delete this row?", "Confirmation", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 dtgCart.Rows.RemoveAt(dtgCart.CurrentRow.Index);
-                setRowNumber(dtgCart);
+                items.SetRowNumber(dtgCart);
                 ComputePrice();
             }
         }
@@ -260,7 +286,7 @@ namespace Inventory.forms
         private void ComputePrice()
         {
             double sum = 0;
-            double vatableSale;
+            double vatableSale = 0;
             double discount = 0;
             double grandtotal = 0;
             //sum = val.CartItemPrice + double.Parse(lblTopPrice.Text);
@@ -277,7 +303,10 @@ namespace Inventory.forms
             lblSubTotal.Text = sum.ToString("n2");
             lblDiscount.Text = discount.ToString("n2");
             lblGrandTotal.Text = grandtotal.ToString("n2");
-            val.CartGrandTotal = grandtotal;
+            val.CartTotalDue = grandtotal;
+            val.CartDiscount = discount;
+            val.CartTotalSales = sum;
+            val.CartTax = vatableSale;
             //lblVatableSales.Text = vatableSale.ToString("n2");
         }
 
@@ -353,6 +382,21 @@ namespace Inventory.forms
 
         private void cmdSettlePayment_Click(object sender, EventArgs e)
         {
+            try
+            {
+                int itemscount = dtgCart.Rows.Count;
+                for (int i = 0; i < itemscount; i++)
+                {
+                    int itemid = Convert.ToInt32(dtgCart.Rows[i].Cells[7].Value);
+                    transactions.SaveTransactionDetails(transactions.TransactionCode, itemid);
+                }
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine("Error saving item details: " + error);
+            }
+
+
             forms.frmPOSSettlePayment settlePayment = new frmPOSSettlePayment();
             settlePayment.ShowDialog();
         }
@@ -370,6 +414,58 @@ namespace Inventory.forms
         private void cmdTransactions_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cmdAddClient_Click(object sender, EventArgs e)
+        {
+            forms.frmAddNewClient addClient = new frmAddNewClient();
+            addClient.FormClosing += new FormClosingEventHandler(AddClient_FormClosing);
+            addClient.ShowDialog();
+        }
+
+        private void AddClient_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            frmPOS_Load(sender, e);
+        }
+
+        private void dtgClients_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dtgClients.CurrentRow != null)
+            {
+                int i = dtgClients.CurrentRow.Index;
+                populateTextboxes(i, dtgClients);
+            }
+        }
+
+        private void dtgClients_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dtgClients.CurrentRow != null)
+            {
+                int i = dtgClients.CurrentRow.Index;
+                populateTextboxes(i, dtgClients);
+            }
+        }
+
+        private void dtgClients_KeyDown(object sender, KeyEventArgs e)
+        {
+            int i = dtgClients.CurrentRow.Index;
+
+            if (e.KeyCode == Keys.Down && i + 2 <= dtgClients.RowCount)
+            {
+                i = dtgClients.CurrentRow.Index + 1;
+                populateTextboxes(i, dtgClients);
+            }
+            else if (e.KeyCode == Keys.Up && i - 1 >= 0)
+            {
+                i = dtgClients.CurrentRow.Index - 1;
+                populateTextboxes(i, dtgClients);
+            }
+        }
+
+        private void cmdSelect_Click(object sender, EventArgs e)
+        {
+            grpCustomerInformation.Enabled = false;
+            EnableTransactionControls();
         }
     }
 }

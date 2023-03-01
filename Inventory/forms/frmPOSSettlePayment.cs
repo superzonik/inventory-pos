@@ -28,7 +28,8 @@ namespace Inventory.forms
 
         private void frmPOSSettlePayment_Load(object sender, EventArgs e)
         {
-            txtTotal.Text = val.CartGrandTotal.ToString("n2");
+            lbltransactionid.Text = transactions.TransactionCode.ToString();
+            txtTotal.Text = val.CartTotalDue.ToString("n2");
         }
 
         private void cmd7_Click(object sender, EventArgs e)
@@ -59,11 +60,13 @@ namespace Inventory.forms
             if (cashTendered.Length > 1)
             {
                 cashTendered = cashTendered.Substring(0, cashTendered.Length - 1);
+                ComputeChange();
             }
             else
             {
                 cashTendered = "0";
                 txtChange.Text = "0";
+                ComputeChange();
             }
 
             txtCashTendered.Text = double.Parse(cashTendered).ToString("n2");
@@ -125,6 +128,12 @@ namespace Inventory.forms
         {
             if (double.Parse(txtChange.Text) >= 0)
             {
+                val.CartTransactionDate = DateTime.Now;
+                val.CartChange = double.Parse(txtChange.Text);
+
+                transactions.SaveTransaction(int.Parse(transactions.TransactionCode.ToString()),"Test OR", val.CartTotalSales, val.CartDiscount, val.CartTax, val.CartTotalDue, val.CartCashTendered,
+                    val.CartChange, val.CartClientID, val.UserID, val.CartTransactionDate);
+
                 forms.frmRPTReceipt frmRPTReceipt = new forms.frmRPTReceipt();
                 frmRPTReceipt.Show();
             }

@@ -99,6 +99,12 @@
     <Compile Include="forms\frmAddNewArticle.Designer.cs">
       <DependentUpon>frmAddNewArticle.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\frmAddNewClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\frmAddNewClient.Designer.cs">
+      <DependentUpon>frmAddNewClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\frmAddNewItem.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,7 @@
       <DependentUpon>frmRPTReceipt.cs</DependentUpon>
     </Compile>
     <Compile Include="functions\Articles.cs" />
+    <Compile Include="functions\Delivery.cs" />
     <Compile Include="functions\Items.cs" />
     <Compile Include="functions\Login.cs" />
     <Compile Include="functions\Logs.cs" />
@@ -183,6 +190,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="forms\frmAddNewArticle.resx">
       <DependentUpon>frmAddNewArticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\frmAddNewClient.resx">
+      <DependentUpon>frmAddNewClient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\frmAddNewItem.resx">
       <DependentUpon>frmAddNewItem.cs</DependentUpon>

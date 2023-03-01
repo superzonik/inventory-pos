@@ -127,3 +127,4 @@ D:\Software\Inventory\Inventory\bin\Debug\ru\Microsoft.ReportViewer.WinForms.res
 D:\Software\Inventory\Inventory\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
 D:\Software\Inventory\Inventory\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
 D:\Software\Inventory\Inventory\bin\Debug\MySql.Data.xml
+D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmAddNewClient.resources

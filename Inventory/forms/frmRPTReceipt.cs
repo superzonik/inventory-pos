@@ -28,10 +28,10 @@ namespace Inventory.forms
             // settings.Margins = new System.Drawing.Printing.Margins(1, 1, 1, 1);
             // reportViewer1.SetPageSettings(settings);
 
-            items dsItems = Transactions.GetTransactionDetail(val.TransactionID);
+            items dsItems = Transactions.GetTransactionDetail(Transactions.TransactionCode);
             ReportDataSource datasource = new ReportDataSource("receipt", dsItems.Tables["receipt"]);
             ReportParameter[] rParams = new ReportParameter[] {
-                new ReportParameter("transaction_id", val.TransactionID),
+                new ReportParameter("transaction_id", Transactions.TransactionCode.ToString()),
             };
             this.reportViewer1.LocalReport.SetParameters(rParams);
             this.reportViewer1.LocalReport.DataSources.Clear();

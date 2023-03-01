@@ -42,7 +42,7 @@
             // 
             // cmdLogin
             // 
-            this.cmdLogin.Location = new System.Drawing.Point(82, 176);
+            this.cmdLogin.Location = new System.Drawing.Point(67, 176);
             this.cmdLogin.Name = "cmdLogin";
             this.cmdLogin.Size = new System.Drawing.Size(81, 52);
             this.cmdLogin.TabIndex = 3;
@@ -66,7 +66,7 @@
             this.txtUserName.CustomButton.Visible = false;
             this.txtUserName.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtUserName.Lines = new string[0];
-            this.txtUserName.Location = new System.Drawing.Point(16, 81);
+            this.txtUserName.Location = new System.Drawing.Point(32, 81);
             this.txtUserName.MaxLength = 32767;
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.PasswordChar = '\0';
@@ -76,7 +76,7 @@
             this.txtUserName.SelectionLength = 0;
             this.txtUserName.SelectionStart = 0;
             this.txtUserName.ShortcutsEnabled = true;
-            this.txtUserName.Size = new System.Drawing.Size(234, 23);
+            this.txtUserName.Size = new System.Drawing.Size(203, 23);
             this.txtUserName.TabIndex = 0;
             this.txtUserName.UseSelectable = true;
             this.txtUserName.WaterMark = "Username";
@@ -99,7 +99,7 @@
             this.txtPassword.CustomButton.Visible = false;
             this.txtPassword.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtPassword.Lines = new string[0];
-            this.txtPassword.Location = new System.Drawing.Point(16, 110);
+            this.txtPassword.Location = new System.Drawing.Point(32, 110);
             this.txtPassword.MaxLength = 32767;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
@@ -109,7 +109,7 @@
             this.txtPassword.SelectionLength = 0;
             this.txtPassword.SelectionStart = 0;
             this.txtPassword.ShortcutsEnabled = true;
-            this.txtPassword.Size = new System.Drawing.Size(234, 23);
+            this.txtPassword.Size = new System.Drawing.Size(203, 23);
             this.txtPassword.TabIndex = 1;
             this.txtPassword.UseSelectable = true;
             this.txtPassword.WaterMark = "Password";
@@ -151,7 +151,7 @@
             // 
             this.lblForgotPassword.AutoSize = true;
             this.lblForgotPassword.FontSize = MetroFramework.MetroLabelSize.Small;
-            this.lblForgotPassword.Location = new System.Drawing.Point(16, 136);
+            this.lblForgotPassword.Location = new System.Drawing.Point(32, 136);
             this.lblForgotPassword.Name = "lblForgotPassword";
             this.lblForgotPassword.Size = new System.Drawing.Size(99, 15);
             this.lblForgotPassword.TabIndex = 2;
@@ -160,7 +160,7 @@
             // 
             // cmdExit
             // 
-            this.cmdExit.Location = new System.Drawing.Point(169, 176);
+            this.cmdExit.Location = new System.Drawing.Point(154, 176);
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(81, 52);
             this.cmdExit.TabIndex = 4;

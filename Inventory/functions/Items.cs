@@ -200,5 +200,15 @@ namespace Inventory.functions
             }
         }
 
+        //SET ROW NUMBER FOR DATAGRID
+        public void SetRowNumber(DataGridView dtg)
+        {
+            foreach (DataGridViewRow row in dtg.Rows)
+            {
+                row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
+            }
+        }
+
+        
     }
 }

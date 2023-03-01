@@ -48,6 +48,7 @@
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
+            this.lbltransactionid = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
             // txtTotal
@@ -438,12 +439,22 @@
             this.metroLabel3.TabIndex = 55;
             this.metroLabel3.Text = "Change";
             // 
+            // lbltransactionid
+            // 
+            this.lbltransactionid.AutoSize = true;
+            this.lbltransactionid.Location = new System.Drawing.Point(198, 41);
+            this.lbltransactionid.Name = "lbltransactionid";
+            this.lbltransactionid.Size = new System.Drawing.Size(83, 19);
+            this.lbltransactionid.TabIndex = 56;
+            this.lbltransactionid.Text = "metroLabel4";
+            // 
             // frmPOSSettlePayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
             this.ClientSize = new System.Drawing.Size(310, 480);
+            this.Controls.Add(this.lbltransactionid);
             this.Controls.Add(this.metroLabel3);
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.metroLabel1);
@@ -499,5 +510,6 @@
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroLabel metroLabel3;
+        private MetroFramework.Controls.MetroLabel lbltransactionid;
     }
 }
