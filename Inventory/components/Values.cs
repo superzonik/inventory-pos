@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +31,15 @@ namespace Inventory.components
         }
 
         //</Authorization token to authorize admin transactions>
+
+        //<PUBLIC TRANSACTION DETAILS>
+        public static string transaction_id;
+
+        public string TransactionID
+        {
+            get { return transaction_id; }
+            set { transaction_id = value; }
+        }
 
         //<PUBLIC CART ITEM DETAILS>
         public static int cart_item_id;

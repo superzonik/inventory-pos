@@ -57,7 +57,13 @@ namespace Inventory.components
 
                 using (da = new MySqlDataAdapter(sql, con))
                 {
-                    da.Fill(ds, tbl);
+                    try
+                    {
+                        da.Fill(ds, tbl);
+                    } catch (Exception ex)
+                    {
+                        System.Console.WriteLine(ex.Message);
+                    }
                 }
             }
 

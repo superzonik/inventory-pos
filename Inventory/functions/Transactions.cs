@@ -56,5 +56,39 @@ namespace Inventory.functions
                 Console.WriteLine("Error creating transaction code: " + e);
             }
         }
+
+        public items GetTransactionDetail(string  transaction_id)
+        {
+            try
+            {
+                using(MySqlConnection con = new MySqlConnection(connection.conString))
+                {
+                    string sql = @"SELECT * FROM tbltransactions 
+                            inner join tbltransactiondetails on tbltransactions.transactionid = tbltransactiondetails.transactionid
+                            inner join tblitems on tbltransactiondetails.itemid = tblitems.itemid
+                            inner join tblclients on tbltransactions.clientid = tblclients.clientid
+                            where tblitems.itemid in (SELECT itemid from tbltransactiondetails where tbltransactiondetails.transactionid = @id)
+                            and tbltransactions.transactionid = @id
+                            ";
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@id", transaction_id);
+                        MySqlDataAdapter da = new MySqlDataAdapter();
+                        da.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        items dsItems = new items();
+                        dt.Clear();
+                        da.Fill(dt);
+                        da.Fill(dsItems, "receipt");
+
+                        return dsItems;
+                    }
+                }
+            } catch (Exception e)
+            {
+                Console.WriteLine("Error Getting Transaction Data: " + e);
+                return null;
+            }
+        }
     }
 }
