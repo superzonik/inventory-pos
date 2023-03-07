@@ -293,7 +293,7 @@ namespace Inventory {
             
             private global::System.Data.DataColumn columncashtendered;
             
-            private global::System.Data.DataColumn columnchange;
+            private global::System.Data.DataColumn columntotalchange;
             
             private global::System.Data.DataColumn columnclientid;
             
@@ -303,9 +303,9 @@ namespace Inventory {
             
             private global::System.Data.DataColumn columntransactiondetailid;
             
-            private global::System.Data.DataColumn _columntransactiondetails_transactionid;
+            private global::System.Data.DataColumn columntransactiondetails_transactionid;
             
-            private global::System.Data.DataColumn _columntransactiondetails_itemid;
+            private global::System.Data.DataColumn columntransactiondetails_itemid;
             
             private global::System.Data.DataColumn columnitemid;
             
@@ -329,7 +329,7 @@ namespace Inventory {
             
             private global::System.Data.DataColumn columnserialnumber;
             
-            private global::System.Data.DataColumn _columntblclients_clientid;
+            private global::System.Data.DataColumn columntblclients_clientid;
             
             private global::System.Data.DataColumn columnclientname;
             
@@ -432,9 +432,9 @@ namespace Inventory {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn changeColumn {
+            public global::System.Data.DataColumn totalchangeColumn {
                 get {
-                    return this.columnchange;
+                    return this.columntotalchange;
                 }
             }
             
@@ -472,17 +472,17 @@ namespace Inventory {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn _transactiondetails_transactionidColumn {
+            public global::System.Data.DataColumn transactiondetails_transactionidColumn {
                 get {
-                    return this._columntransactiondetails_transactionid;
+                    return this.columntransactiondetails_transactionid;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn _transactiondetails_itemidColumn {
+            public global::System.Data.DataColumn transactiondetails_itemidColumn {
                 get {
-                    return this._columntransactiondetails_itemid;
+                    return this.columntransactiondetails_itemid;
                 }
             }
             
@@ -576,9 +576,9 @@ namespace Inventory {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn _tblclients_clientidColumn {
+            public global::System.Data.DataColumn tblclients_clientidColumn {
                 get {
-                    return this._columntblclients_clientid;
+                    return this.columntblclients_clientid;
                 }
             }
             
@@ -667,13 +667,13 @@ namespace Inventory {
                         double tax, 
                         double totaldue, 
                         double cashtendered, 
-                        double change, 
+                        double totalchange, 
                         int clientid, 
                         int userid, 
                         System.DateTime transactiondate, 
                         string transactiondetailid, 
-                        string _transactiondetails_transactionid, 
-                        string _transactiondetails_itemid, 
+                        string transactiondetails_transactionid, 
+                        string transactiondetails_itemid, 
                         string itemid, 
                         string category, 
                         string productname, 
@@ -685,7 +685,7 @@ namespace Inventory {
                         string productprice, 
                         string isproductsold, 
                         string serialnumber, 
-                        string _tblclients_clientid, 
+                        string tblclients_clientid, 
                         string clientname, 
                         string clientaddress, 
                         string contactperson, 
@@ -700,13 +700,13 @@ namespace Inventory {
                         tax,
                         totaldue,
                         cashtendered,
-                        change,
+                        totalchange,
                         clientid,
                         userid,
                         transactiondate,
                         transactiondetailid,
-                        _transactiondetails_transactionid,
-                        _transactiondetails_itemid,
+                        transactiondetails_transactionid,
+                        transactiondetails_itemid,
                         itemid,
                         category,
                         productname,
@@ -718,7 +718,7 @@ namespace Inventory {
                         productprice,
                         isproductsold,
                         serialnumber,
-                        _tblclients_clientid,
+                        tblclients_clientid,
                         clientname,
                         clientaddress,
                         contactperson,
@@ -753,13 +753,13 @@ namespace Inventory {
                 this.columntax = base.Columns["tax"];
                 this.columntotaldue = base.Columns["totaldue"];
                 this.columncashtendered = base.Columns["cashtendered"];
-                this.columnchange = base.Columns["change"];
+                this.columntotalchange = base.Columns["totalchange"];
                 this.columnclientid = base.Columns["clientid"];
                 this.columnuserid = base.Columns["userid"];
                 this.columntransactiondate = base.Columns["transactiondate"];
                 this.columntransactiondetailid = base.Columns["transactiondetailid"];
-                this._columntransactiondetails_transactionid = base.Columns["transactiondetails.transactionid"];
-                this._columntransactiondetails_itemid = base.Columns["transactiondetails.itemid"];
+                this.columntransactiondetails_transactionid = base.Columns["transactiondetails_transactionid"];
+                this.columntransactiondetails_itemid = base.Columns["transactiondetails_itemid"];
                 this.columnitemid = base.Columns["itemid"];
                 this.columncategory = base.Columns["category"];
                 this.columnproductname = base.Columns["productname"];
@@ -771,7 +771,7 @@ namespace Inventory {
                 this.columnproductprice = base.Columns["productprice"];
                 this.columnisproductsold = base.Columns["isproductsold"];
                 this.columnserialnumber = base.Columns["serialnumber"];
-                this._columntblclients_clientid = base.Columns["tblclients.clientid"];
+                this.columntblclients_clientid = base.Columns["tblclients_clientid"];
                 this.columnclientname = base.Columns["clientname"];
                 this.columnclientaddress = base.Columns["clientaddress"];
                 this.columncontactperson = base.Columns["contactperson"];
@@ -796,8 +796,8 @@ namespace Inventory {
                 base.Columns.Add(this.columntotaldue);
                 this.columncashtendered = new global::System.Data.DataColumn("cashtendered", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncashtendered);
-                this.columnchange = new global::System.Data.DataColumn("change", typeof(double), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnchange);
+                this.columntotalchange = new global::System.Data.DataColumn("totalchange", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntotalchange);
                 this.columnclientid = new global::System.Data.DataColumn("clientid", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnclientid);
                 this.columnuserid = new global::System.Data.DataColumn("userid", typeof(int), null, global::System.Data.MappingType.Element);
@@ -806,14 +806,10 @@ namespace Inventory {
                 base.Columns.Add(this.columntransactiondate);
                 this.columntransactiondetailid = new global::System.Data.DataColumn("transactiondetailid", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntransactiondetailid);
-                this._columntransactiondetails_transactionid = new global::System.Data.DataColumn("transactiondetails.transactionid", typeof(string), null, global::System.Data.MappingType.Element);
-                this._columntransactiondetails_transactionid.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_columntransactiondetails_transactionid");
-                this._columntransactiondetails_transactionid.ExtendedProperties.Add("Generator_UserColumnName", "transactiondetails.transactionid");
-                base.Columns.Add(this._columntransactiondetails_transactionid);
-                this._columntransactiondetails_itemid = new global::System.Data.DataColumn("transactiondetails.itemid", typeof(string), null, global::System.Data.MappingType.Element);
-                this._columntransactiondetails_itemid.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_columntransactiondetails_itemid");
-                this._columntransactiondetails_itemid.ExtendedProperties.Add("Generator_UserColumnName", "transactiondetails.itemid");
-                base.Columns.Add(this._columntransactiondetails_itemid);
+                this.columntransactiondetails_transactionid = new global::System.Data.DataColumn("transactiondetails_transactionid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntransactiondetails_transactionid);
+                this.columntransactiondetails_itemid = new global::System.Data.DataColumn("transactiondetails_itemid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntransactiondetails_itemid);
                 this.columnitemid = new global::System.Data.DataColumn("itemid", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnitemid);
                 this.columncategory = new global::System.Data.DataColumn("category", typeof(string), null, global::System.Data.MappingType.Element);
@@ -836,10 +832,8 @@ namespace Inventory {
                 base.Columns.Add(this.columnisproductsold);
                 this.columnserialnumber = new global::System.Data.DataColumn("serialnumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnserialnumber);
-                this._columntblclients_clientid = new global::System.Data.DataColumn("tblclients.clientid", typeof(string), null, global::System.Data.MappingType.Element);
-                this._columntblclients_clientid.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_columntblclients_clientid");
-                this._columntblclients_clientid.ExtendedProperties.Add("Generator_UserColumnName", "tblclients.clientid");
-                base.Columns.Add(this._columntblclients_clientid);
+                this.columntblclients_clientid = new global::System.Data.DataColumn("tblclients_clientid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntblclients_clientid);
                 this.columnclientname = new global::System.Data.DataColumn("clientname", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnclientname);
                 this.columnclientaddress = new global::System.Data.DataColumn("clientaddress", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1104,17 +1098,17 @@ namespace Inventory {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public double change {
+            public double totalchange {
                 get {
                     try {
-                        return ((double)(this[this.tablereceipt.changeColumn]));
+                        return ((double)(this[this.tablereceipt.totalchangeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'change\' in table \'receipt\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'totalchange\' in table \'receipt\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablereceipt.changeColumn] = value;
+                    this[this.tablereceipt.totalchangeColumn] = value;
                 }
             }
             
@@ -1184,34 +1178,34 @@ namespace Inventory {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string _transactiondetails_transactionid {
+            public string transactiondetails_transactionid {
                 get {
                     try {
-                        return ((string)(this[this.tablereceipt._transactiondetails_transactionidColumn]));
+                        return ((string)(this[this.tablereceipt.transactiondetails_transactionidColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'transactiondetails.transactionid\' in table \'receipt\' is DBN" +
+                        throw new global::System.Data.StrongTypingException("The value for column \'transactiondetails_transactionid\' in table \'receipt\' is DBN" +
                                 "ull.", e);
                     }
                 }
                 set {
-                    this[this.tablereceipt._transactiondetails_transactionidColumn] = value;
+                    this[this.tablereceipt.transactiondetails_transactionidColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string _transactiondetails_itemid {
+            public string transactiondetails_itemid {
                 get {
                     try {
-                        return ((string)(this[this.tablereceipt._transactiondetails_itemidColumn]));
+                        return ((string)(this[this.tablereceipt.transactiondetails_itemidColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'transactiondetails.itemid\' in table \'receipt\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'transactiondetails_itemid\' in table \'receipt\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablereceipt._transactiondetails_itemidColumn] = value;
+                    this[this.tablereceipt.transactiondetails_itemidColumn] = value;
                 }
             }
             
@@ -1393,17 +1387,17 @@ namespace Inventory {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string _tblclients_clientid {
+            public string tblclients_clientid {
                 get {
                     try {
-                        return ((string)(this[this.tablereceipt._tblclients_clientidColumn]));
+                        return ((string)(this[this.tablereceipt.tblclients_clientidColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'tblclients.clientid\' in table \'receipt\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'tblclients_clientid\' in table \'receipt\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablereceipt._tblclients_clientidColumn] = value;
+                    this[this.tablereceipt.tblclients_clientidColumn] = value;
                 }
             }
             
@@ -1573,14 +1567,14 @@ namespace Inventory {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IschangeNull() {
-                return this.IsNull(this.tablereceipt.changeColumn);
+            public bool IstotalchangeNull() {
+                return this.IsNull(this.tablereceipt.totalchangeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetchangeNull() {
-                this[this.tablereceipt.changeColumn] = global::System.Convert.DBNull;
+            public void SettotalchangeNull() {
+                this[this.tablereceipt.totalchangeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1633,26 +1627,26 @@ namespace Inventory {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool Is_transactiondetails_transactionidNull() {
-                return this.IsNull(this.tablereceipt._transactiondetails_transactionidColumn);
+            public bool Istransactiondetails_transactionidNull() {
+                return this.IsNull(this.tablereceipt.transactiondetails_transactionidColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void Set_transactiondetails_transactionidNull() {
-                this[this.tablereceipt._transactiondetails_transactionidColumn] = global::System.Convert.DBNull;
+            public void Settransactiondetails_transactionidNull() {
+                this[this.tablereceipt.transactiondetails_transactionidColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool Is_transactiondetails_itemidNull() {
-                return this.IsNull(this.tablereceipt._transactiondetails_itemidColumn);
+            public bool Istransactiondetails_itemidNull() {
+                return this.IsNull(this.tablereceipt.transactiondetails_itemidColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void Set_transactiondetails_itemidNull() {
-                this[this.tablereceipt._transactiondetails_itemidColumn] = global::System.Convert.DBNull;
+            public void Settransactiondetails_itemidNull() {
+                this[this.tablereceipt.transactiondetails_itemidColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1789,14 +1783,14 @@ namespace Inventory {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool Is_tblclients_clientidNull() {
-                return this.IsNull(this.tablereceipt._tblclients_clientidColumn);
+            public bool Istblclients_clientidNull() {
+                return this.IsNull(this.tablereceipt.tblclients_clientidColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void Set_tblclients_clientidNull() {
-                this[this.tablereceipt._tblclients_clientidColumn] = global::System.Convert.DBNull;
+            public void Settblclients_clientidNull() {
+                this[this.tablereceipt.tblclients_clientidColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
