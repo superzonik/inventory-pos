@@ -15,7 +15,7 @@ namespace Inventory.forms
     {
         components.Values val = new components.Values();
         components.Connection connection = new components.Connection();
-        functions.Transactions Transactions = new functions.Transactions();
+        functions.Transactions transaction = new functions.Transactions();
 
         public frmRPTReceipt()
         {
@@ -28,10 +28,10 @@ namespace Inventory.forms
             // settings.Margins = new System.Drawing.Printing.Margins(1, 1, 1, 1);
             // reportViewer1.SetPageSettings(settings);
 
-            items dsItems = Transactions.GetTransactionDetail(Transactions.TransactionCode);
+            items dsItems = transaction.GetTransactionDetail(transaction.TransactionCode);
             ReportDataSource datasource = new ReportDataSource("receipt", dsItems.Tables["receipt"]);
             ReportParameter[] rParams = new ReportParameter[] {
-                new ReportParameter("transaction_id", Transactions.TransactionCode.ToString()),
+                new ReportParameter("transaction_id", transaction.TransactionCode.ToString()),
             };
             this.reportViewer1.LocalReport.SetParameters(rParams);
             this.reportViewer1.LocalReport.DataSources.Clear();
