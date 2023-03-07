@@ -464,6 +464,7 @@ namespace Inventory.forms
 
         private void cmdSelect_Click(object sender, EventArgs e)
         {
+            val.CartClientID = int.Parse(lblClientID.Text);
             grpCustomerInformation.Enabled = false;
             EnableTransactionControls();
         }

@@ -127,7 +127,7 @@ namespace Inventory.forms
         private void cmdEnter_Click(object sender, EventArgs e)
         {
             if (double.Parse(txtChange.Text) >= 0)
-            {
+            {                
                 val.CartTransactionDate = DateTime.Now;
                 val.CartChange = double.Parse(txtChange.Text);
 

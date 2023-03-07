@@ -364,21 +364,18 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=First(Fields!transactiondate.Value, "transactionds")</Value>
-                  <Style>
-                    <FontFamily>Courier New</FontFamily>
-                    <FontSize>8pt</FontSize>
-                  </Style>
+                  <Value>=First(Fields!transactiondate.Value, "receipt")</Value>
+                  <Style />
                 </TextRun>
               </TextRuns>
               <Style />
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>transactiondate</rd:DefaultName>
-          <Top>0.65625in</Top>
-          <Left>0.4375in</Left>
-          <Height>0.19792in</Height>
-          <Width>1.75917in</Width>
+          <Top>0.705in</Top>
+          <Left>0.49306in</Left>
+          <Height>0.13528in</Height>
+          <Width>1.28694in</Width>
           <ZIndex>4</ZIndex>
           <Style>
             <Border>
@@ -397,23 +394,18 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Sum(Fields!transactionid.Value, "transactionds")</Value>
-                  <Style>
-                    <FontFamily>Courier New</FontFamily>
-                    <FontSize>8pt</FontSize>
-                  </Style>
+                  <Value>=Sum(Fields!transactionid.Value, "receipt")</Value>
+                  <Style />
                 </TextRun>
               </TextRuns>
-              <Style>
-                <TextAlign>Left</TextAlign>
-              </Style>
+              <Style />
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>transactionid</rd:DefaultName>
-          <Top>0.85417in</Top>
+          <Top>0.86806in</Top>
           <Left>1.1875in</Left>
-          <Height>0.21181in</Height>
-          <Width>2.8125in</Width>
+          <Height>0.25in</Height>
+          <Width>1.55in</Width>
           <ZIndex>5</ZIndex>
           <Style>
             <Border>
@@ -459,66 +451,6 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="transactionds">
-      <Query>
-        <DataSourceName>items</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="transactionid">
-          <DataField>transactionid</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="ornumber">
-          <DataField>ornumber</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="totalsales">
-          <DataField>totalsales</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
-        <Field Name="discount">
-          <DataField>discount</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
-        <Field Name="tax">
-          <DataField>tax</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
-        <Field Name="totaldue">
-          <DataField>totaldue</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
-        <Field Name="cashtendered">
-          <DataField>cashtendered</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
-        <Field Name="change">
-          <DataField>change</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
-        <Field Name="clientid">
-          <DataField>clientid</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="userid">
-          <DataField>userid</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="transactiondate">
-          <DataField>transactiondate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>items</rd:DataSetName>
-        <rd:SchemaPath>D:\Software\Inventory\Inventory\items.xsd</rd:SchemaPath>
-        <rd:TableName>receipt</rd:TableName>
-        <rd:TableAdapterFillMethod />
-        <rd:TableAdapterGetDataMethod />
-        <rd:TableAdapterName />
-      </rd:DataSetInfo>
-    </DataSet>
     <DataSet Name="receipt">
       <Query>
         <DataSourceName>items</DataSourceName>
@@ -553,8 +485,8 @@
           <DataField>cashtendered</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
-        <Field Name="change">
-          <DataField>change</DataField>
+        <Field Name="totalchange">
+          <DataField>totalchange</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="clientid">
@@ -573,12 +505,12 @@
           <DataField>transactiondetailid</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="transactiondetails.transactionid">
-          <DataField>transactiondetails.transactionid</DataField>
+        <Field Name="transactiondetails_transactionid">
+          <DataField>transactiondetails_transactionid</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="transactiondetails.itemid">
-          <DataField>transactiondetails.itemid</DataField>
+        <Field Name="transactiondetails_itemid">
+          <DataField>transactiondetails_itemid</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="itemid">
@@ -625,8 +557,8 @@
           <DataField>serialnumber</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="tblclients.clientid">
-          <DataField>tblclients.clientid</DataField>
+        <Field Name="tblclients_clientid">
+          <DataField>tblclients_clientid</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="clientname">
@@ -652,7 +584,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>items</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Mark\source\repos\inventory-pos\Inventory\items.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\Software\Inventory\Inventory\items.xsd</rd:SchemaPath>
         <rd:TableName>receipt</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />

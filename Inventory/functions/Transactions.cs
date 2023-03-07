@@ -66,13 +66,13 @@ namespace Inventory.functions
             {
                 using(MySqlConnection con = new MySqlConnection(connection.conString))
                 {
-                    string sql = @"SELECT * FROM tbltransactions 
-                            inner join tbltransactiondetails on tbltransactions.transactionid = tbltransactiondetails.transactionid
-                            inner join tblitems on tbltransactiondetails.itemid = tblitems.itemid
-                            inner join tblclients on tbltransactions.clientid = tblclients.clientid
+                    string sql = @"SELECT * FROM inventorydb.tbltransactions 
+                            inner join inventorydb.tbltransactiondetails on tbltransactions.transactionid = tbltransactiondetails.transactionid
+                            inner join inventorydb.tblitems on tbltransactiondetails.itemid = tblitems.itemid
+                            inner join inventorydb.tblclients on tbltransactions.clientid = tblclients.clientid
                             where tblitems.itemid in (SELECT itemid from tbltransactiondetails where tbltransactiondetails.transactionid = @id)
-                            and tbltransactions.transactionid = @id
-                            ";
+                            and tbltransactions.transactionid = @id";
+
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
                         cmd.Parameters.AddWithValue("@id", transaction_id);
