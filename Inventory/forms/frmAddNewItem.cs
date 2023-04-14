@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroFramework.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -50,7 +51,8 @@ namespace Inventory.forms
 
                         for (int i = 0; i < quantity; i++)
                         {
-                            items.AddItemRecord("Fire Extinguisher", cboFXcontent.Text, cboFXtype.Text, cboFXcapacity.Text, "", cboFXproductStatus.Text, dtManufactureDate.Value.Date, double.Parse(txtFXprice.Text));
+                            items.AddItemRecord("Fire Extinguisher", cboFXcontent.Text, cboFXtype.Text, cboFXcapacity.Text, "", cboFXproductStatus.Text,
+                                dtManufactureDate.Value.Date, double.Parse(txtFXprice.Text), 0);
                         }
                         MessageBox.Show(this, "Item added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         forms.frmInventory frmInventory = new frmInventory();
@@ -72,32 +74,30 @@ namespace Inventory.forms
 
         }
 
-        private void cmdFDASsave_Click(object sender, EventArgs e)
+        private void SaveItem(string category, MetroTextBox mTxtPrice, MetroTextBox mTxtQuantity, MetroTextBox mTxtDescription, MetroComboBox mCboType)
         {
             try
             {
-                if ((txtFDASprice.Text == "") || (txtFDASquantity.Text == "") || (txtFDASdescription.Text == ""))
+                if ((mTxtPrice.Text == "") || (mTxtQuantity.Text == "") || (mTxtDescription.Text == ""))
                 {
                     MessageBox.Show(this, "Incomplete data. Please do not leave anything blank", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    if (MessageBox.Show(this, "Are you sure all data is correct?",
-                   "Verify", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show(this, "Are you sure all data is correct?", "Verify", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        int quantity = int.Parse(txtFDASquantity.Text);
+                        int quantity = int.Parse(mTxtQuantity.Text);
 
                         for (int i = 0; i < quantity; i++)
                         {
                             DateTime? sqldatenull = null;
 
-                            items.AddItemRecord("FDAS", cboFDAStype.Text, "", "", txtFDASdescription.Text, "", sqldatenull, double.Parse(txtFDASprice.Text));
+                            items.AddItemRecord(category, mCboType.Text, "", "", mTxtDescription.Text, "", sqldatenull, double.Parse(mTxtPrice.Text), 0);
                         }
-                        MessageBox.Show(this, "Item added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        forms.frmInventory frmInventory = new frmInventory();
+                        MessageBox.Show(this, "Item added succesfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        frmInventory frmInventory = new frmInventory();
                         frmInventory.Refresh();
                         Close();
-
                     }
                 }
             }
@@ -107,15 +107,47 @@ namespace Inventory.forms
             }
         }
 
+        private void cmdFDASsave_Click(object sender, EventArgs e)
+        {
+            SaveItem("FDAS", txtFDASprice, txtFDASquantity, txtFDASdescription, cboFDAStype);
+            //try
+            //{
+            //    if ((txtFDASprice.Text == "") || (txtFDASquantity.Text == "") || (txtFDASdescription.Text == ""))
+            //    {
+            //        MessageBox.Show(this, "Incomplete data. Please do not leave anything blank", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else
+            //    {
+            //        if (MessageBox.Show(this, "Are you sure all data is correct?",
+            //       "Verify", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //        {
+            //            int quantity = int.Parse(txtFDASquantity.Text);
+
+            //            for (int i = 0; i < quantity; i++)
+            //            {
+            //                DateTime? sqldatenull = null;
+
+            //                items.AddItemRecord("FDAS", cboFDAStype.Text, "", "", txtFDASdescription.Text, "", sqldatenull, double.Parse(txtFDASprice.Text));
+            //            }
+            //            MessageBox.Show(this, "Item added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //            forms.frmInventory frmInventory = new frmInventory();
+            //            frmInventory.Refresh();
+            //            Close();
+
+            //        }
+            //    }
+            //}
+            //catch (Exception error)
+            //{
+            //    Console.WriteLine(error.ToString());
+            //}
+        }
+
         private void cmdRawSave_Click(object sender, EventArgs e)
         {
-
+            SaveItem("Raw Materials", txtRawPrice, txtRawQuantity, txtRawDescription, cboRawMaterialName);
         }
-
-        private void metroTabControl1_Selected(object sender, TabControlEventArgs e)
-        {
-        }
-
+        
         private void AddNewArticle_FormClosing(object sender, FormClosingEventArgs e)
         {
             articles.loadArticleToCombobox(cboFXcontent, "FIRE EXTINGUISHER");

@@ -85,7 +85,8 @@ namespace Inventory.forms
                 String itemDescription = (string)dtgProducts["productdescription", i].Value.ToString();
                 double itemPrice = (double)dtgProducts["productprice", i].Value;
                 int itemID = (int)dtgProducts["itemid", i].Value;
-
+                int stockcount = items.CountStock(itemName);
+                
                 String productCartDecription = itemCategory + ", " + itemName + " (" + itemDescription + " " + fxcapacity + " " + fxtype + ")";
 
                 if (itemCategory == "Fire Extinguisher")
@@ -102,6 +103,10 @@ namespace Inventory.forms
                         val.CartItemID = itemID;
                         val.CartItemSerialNumber = serialnumber;
                         val.CartItemPrice = itemPrice;
+                        val.CartStockCount = stockcount;
+                        val.CartItemName = itemName;
+                        val.CartCategory = itemCategory;
+                        
                         Close();
                     }
                 }
@@ -111,11 +116,16 @@ namespace Inventory.forms
                     val.CartItemID = (int)dtgProducts["itemid", i].Value;
                     val.CartItemSerialNumber = "";
                     val.CartItemPrice = itemPrice;
+                    val.CartStockCount = stockcount;
+                    val.CartItemName = itemName;
+                    val.CartCategory = itemCategory;
+
                     Close();
                 }
 
             }
         }
+
 
         private static DialogResult ShowInputSerialDialog(ref string input)
         {

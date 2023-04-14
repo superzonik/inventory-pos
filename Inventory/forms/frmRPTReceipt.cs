@@ -17,9 +17,41 @@ namespace Inventory.forms
         components.Connection connection = new components.Connection();
         functions.Transactions transaction = new functions.Transactions();
 
+        string _total, _cashtendered, _change, _discount, _tax, _subtotal, _transactionid, _paymentmethod, _transactiondate;
+
+        private void frmRPTReceipt_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //frmPOSSettlePayment frmPOSSettlePayment = new frmPOSSettlePayment();
+            //frmPOSSettlePayment.Dispose();
+            FormCollection fc = Application.OpenForms;
+            foreach (Form frm in fc)
+            {
+                if (frm.Name == "frmPOSSettlePayment")
+                {
+                    Application.OpenForms["frmPOSSettlePayment"].Close();
+                }
+                else if (frm.Name == "frmCreateInstallment")
+                {
+                    Application.OpenForms["frmCreateInstallment"].Close();
+                }
+                    
+            }            
+
+        }
+
         public frmRPTReceipt()
         {
             InitializeComponent();
+            _subtotal = val.CartTotalSales.ToString();
+            _total = val.CartTotalDue.ToString();
+            _cashtendered = val.CartCashTendered.ToString();
+            _change = val.CartChange.ToString();
+            _discount = val.CartDiscount.ToString();
+            _tax = val.CartTax.ToString();
+            _transactionid = transaction.TransactionCode.ToString();
+            _paymentmethod = val.PaymentType;
+            _transactiondate = val.CartTransactionDate.ToShortDateString();
+            
         }
 
         private void frmRPTReceipt_Load(object sender, EventArgs e)
@@ -31,8 +63,18 @@ namespace Inventory.forms
             items dsItems = transaction.GetTransactionDetail(transaction.TransactionCode);
             ReportDataSource datasource = new ReportDataSource("receipt", dsItems.Tables["receipt"]);
             ReportParameter[] rParams = new ReportParameter[] {
-                new ReportParameter("transaction_id", transaction.TransactionCode.ToString()),
+                //new ReportParameter("transaction_id", transaction.TransactionCode.ToString()),
+                new ReportParameter("pSubTotal", _subtotal),
+                new ReportParameter("pTotal", _total),
+                new ReportParameter("pCashTendered", _cashtendered),
+                new ReportParameter("pDiscount", _discount),
+                new ReportParameter("pTax", _tax),
+                new ReportParameter("pChange", _change),
+                new ReportParameter("pTransactionID", _transactionid),
+                new ReportParameter("pPaymentMethod", _paymentmethod),
+                new ReportParameter("pTransactionDate", _transactiondate),
             };
+
             this.reportViewer1.LocalReport.SetParameters(rParams);
             this.reportViewer1.LocalReport.DataSources.Clear();
             this.reportViewer1.LocalReport.DataSources.Add(datasource);

@@ -24,8 +24,8 @@ namespace Inventory.forms
         {
             InitializeComponent();
         }
-
-        private void frmPOS_Load(object sender, EventArgs e)
+        
+        public void frmPOS_Load(object sender, EventArgs e)
         {
             //SET DATE AND CLOCK
             lblDateNow.Text = DateTime.Today.ToString("d");
@@ -38,29 +38,47 @@ namespace Inventory.forms
             if (dtgClients.RowCount != 0)
             {
                 items.SetRowNumber(dtgClients);
-                populateTextboxes(0, dtgClients);
+                PopulateTextboxes(0, dtgClients);
             }
+
+            
         }
 
-        private void populateTextboxes(int row, DataGridView mDataGrid)
+        private void FrmSettlePayment_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (transactions.TransactionSuccess == 1)
+            {
+                ClearCart();
+                DisableTransactionControls();
+                lblTransactionCode.Text = "----------------";
+                grpCustomerInformation.Enabled = false;
+                cmdNewTrans.Enabled = true;
+                cmdNewTrans.Style = MetroFramework.MetroColorStyle.Green;
+
+                transactions.TransactionSuccess = 0;
+            }
+            
+        }
+
+        private void PopulateTextboxes(int row, DataGridView mDataGrid)
         {
             try
             {
                 if (!row.Equals(null))
                 {
-                    int mClientID = (int)mDataGrid["clientid", row].Value;
-                    String mClientName = (string)mDataGrid["clientname", row].Value.ToString();
-                    String mClientAddress = (string)mDataGrid["clientaddress", row].Value.ToString();
-                    String mContactPerson = (string)mDataGrid["contactperson", row].Value.ToString();
-                    String mSalesAgent = (string)mDataGrid["salesagent", row].Value.ToString();
-                    String mRemarks = (string)mDataGrid["remarks", row].Value.ToString();
+                    transactions.ClientID = (int)mDataGrid["clientid", row].Value;
+                    transactions.ClientName = (string)mDataGrid["clientname", row].Value.ToString();
+                    transactions.ClientAddress = (string)mDataGrid["clientaddress", row].Value.ToString();
+                    transactions.ClientContact = (string)mDataGrid["contactperson", row].Value.ToString();
+                    transactions.ClientSalesAgent = (string)mDataGrid["salesagent", row].Value.ToString();
+                    transactions.ClientRemarks = (string)mDataGrid["remarks", row].Value.ToString();
 
-                    this.lblClientID.Text = mClientID.ToString();
-                    this.txtCustomerName.Text = mClientName;
-                    this.txtCustomerAddress.Text = mClientAddress;
-                    this.txtContactPerson.Text= mContactPerson;
-                    this.txtSalesAgent.Text= mSalesAgent;
-                    this.txtRemarks.Text = mRemarks;
+                    this.lblClientID.Text = transactions.ClientID.ToString();
+                    this.txtCustomerName.Text = transactions.ClientName;
+                    this.txtCustomerAddress.Text = transactions.ClientAddress;
+                    this.txtContactPerson.Text= transactions.ClientContact;
+                    this.txtSalesAgent.Text= transactions.ClientSalesAgent;
+                    this.txtRemarks.Text = transactions.ClientRemarks;
 
                 }
             }
@@ -103,18 +121,16 @@ namespace Inventory.forms
             }
             if (e.KeyCode == Keys.F5)
             {
-                if (cmdClearCart.Enabled == true)
+                if (cmdSettlePaymentInstallment.Enabled == true)
                 {
-                    cmdClearCart_Click(sender, e);
-                    Console.WriteLine("Clear Cart button pressed");
+                    cmdSettlePaymentInstallment_Click(sender, e);
                 }
             }
             if (e.KeyCode == Keys.F6)
             {
-                if (cmdDailySales.Enabled == true)
+                if (cmdClearCart.Enabled == true)
                 {
-                    cmdDailySales_Click(sender, e);
-                    Console.WriteLine("Daily Sales button pressed");
+                    cmdClearCart_Click(sender, e);
                 }
             }
             if (e.KeyCode == Keys.F7)
@@ -173,8 +189,8 @@ namespace Inventory.forms
             cmdSettlePayment.Style = MetroFramework.MetroColorStyle.Green;
             cmdClearCart.Enabled = true;
             cmdClearCart.Style = MetroFramework.MetroColorStyle.Green;
-            cmdDailySales.Enabled = true;
-            cmdDailySales.Style = MetroFramework.MetroColorStyle.Green;
+            cmdSettlePaymentInstallment.Enabled = true;
+            cmdSettlePaymentInstallment.Style = MetroFramework.MetroColorStyle.Green;
             cmdTransactions.Enabled = true;
             cmdTransactions.Style = MetroFramework.MetroColorStyle.Green;
             cmdCancelTransaction.Enabled = true;
@@ -193,8 +209,8 @@ namespace Inventory.forms
             cmdSettlePayment.Style = MetroFramework.MetroColorStyle.Silver;
             cmdClearCart.Enabled = false;
             cmdClearCart.Style = MetroFramework.MetroColorStyle.Silver;
-            cmdDailySales.Enabled = false;
-            cmdDailySales.Style = MetroFramework.MetroColorStyle.Silver;
+            cmdSettlePaymentInstallment.Enabled = false;
+            cmdSettlePaymentInstallment.Style = MetroFramework.MetroColorStyle.Silver;
             cmdTransactions.Enabled = false;
             cmdTransactions.Style = MetroFramework.MetroColorStyle.Silver;
             cmdCancelTransaction.Enabled = false;
@@ -215,6 +231,7 @@ namespace Inventory.forms
                 DisableTransactionControls();
                 lblTransactionCode.Text = "----------------";
                 grpCustomerInformation.Enabled = false;
+                ClearCart();
             }
         }
 
@@ -225,13 +242,16 @@ namespace Inventory.forms
             {
                 int n = dtgCart.Rows.Add();
 
-                dtgCart.Rows[n].Cells[0].Value = val.CartItemDescription;
-                dtgCart.Rows[n].Cells[1].Value = val.CartItemSerialNumber;
-                dtgCart.Rows[n].Cells[2].Value = val.CartItemPrice;
-                dtgCart.Rows[n].Cells[3].Value = 1;
-                dtgCart.Rows[n].Cells[4].Value = 0;
-                dtgCart.Rows[n].Cells[5].Value = 1 * val.CartItemPrice;
-                dtgCart.Rows[n].Cells[7].Value = val.CartItemID;
+                dtgCart.Rows[n].Cells["description"].Value = val.CartItemDescription;
+                dtgCart.Rows[n].Cells["serialnumber"].Value = val.CartItemSerialNumber;
+                dtgCart.Rows[n].Cells["price"].Value = val.CartItemPrice;
+                dtgCart.Rows[n].Cells["quantity"].Value = 1;
+                dtgCart.Rows[n].Cells["discount"].Value = 0;
+                dtgCart.Rows[n].Cells["total"].Value = double.Parse(dtgCart.Rows[n].Cells["quantity"].Value.ToString()) * val.CartItemPrice;
+                dtgCart.Rows[n].Cells["itemid"].Value = val.CartItemID;
+                dtgCart.Rows[n].Cells["instock"].Value = val.CartStockCount;
+                dtgCart.Rows[n].Cells["itemname"].Value = val.CartItemName;
+                dtgCart.Rows[n].Cells["category"].Value = val.CartCategory;
 
 
                 items.SetRowNumber(dtgCart);
@@ -258,6 +278,28 @@ namespace Inventory.forms
 
                 e.Handled = true;
             }
+
+            if (e.ColumnIndex == dtgCart.Columns["btnadd"].Index)
+            {
+                var image = Properties.Resources.plus; //An image
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                var x = e.CellBounds.Left + (e.CellBounds.Width - image.Width) / 2;
+                var y = e.CellBounds.Top + (e.CellBounds.Height - image.Height) / 2;
+                e.Graphics.DrawImage(image, new Point(x, y));
+
+                e.Handled = true;
+            }
+
+            if (e.ColumnIndex == dtgCart.Columns["btnminus"].Index)
+            {
+                var image = Properties.Resources.minus; //An image
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                var x = e.CellBounds.Left + (e.CellBounds.Width - image.Width) / 2;
+                var y = e.CellBounds.Top + (e.CellBounds.Height - image.Height) / 2;
+                e.Graphics.DrawImage(image, new Point(x, y));
+
+                e.Handled = true;
+            }
         }
 
         private void dtgCart_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -266,13 +308,63 @@ namespace Inventory.forms
             if (e.RowIndex == dtgCart.NewRowIndex || e.RowIndex < 0)
                 return;
 
-            //Check if click is on specific column 
+            //Check if click is on removeitem column
             if (e.ColumnIndex == dtgCart.Columns["removeitem"].Index)
             {
                 RemoveItemFromCart();
             }
+
+            //Check if click is on plus quantity column
+            if (e.ColumnIndex == dtgCart.Columns["btnadd"].Index)
+            {
+                IncreaseQuantity();
+            }
+
+            //Check if click is on minus quantity column
+            if (e.ColumnIndex == dtgCart.Columns["btnminus"].Index)
+            {
+                DecreaseQuantity();
+            }
         }
 
+        private void DecreaseQuantity()
+        {
+            int x = dtgCart.CurrentRow.Index;
+            double quantity = Convert.ToDouble(dtgCart.Rows[x].Cells["quantity"].Value);
+            double xStock = Convert.ToDouble(dtgCart.Rows[x].Cells["instock"].Value);
+            double price = Convert.ToDouble(dtgCart.Rows[x].Cells["price"].Value);
+            double discount = Convert.ToDouble(dtgCart.Rows[x].Cells["discount"].Value);
+
+            if ((string)dtgCart.Rows[x].Cells["serialnumber"].Value == "")
+            {
+                if (Convert.ToDouble(dtgCart.Rows[x].Cells["quantity"].Value) != 1)
+                {
+                    dtgCart.Rows[x].Cells["quantity"].Value = quantity - 1;
+                    dtgCart.Rows[x].Cells["total"].Value = (double.Parse(dtgCart.Rows[x].Cells["quantity"].Value.ToString()) * price) - discount;
+                    ComputePrice();
+                }
+
+            }
+        }
+        private void IncreaseQuantity()
+        {
+            int x = dtgCart.CurrentRow.Index;
+
+            double quantity = Convert.ToDouble(dtgCart.Rows[x].Cells["quantity"].Value);
+            double xStock = Convert.ToDouble(dtgCart.Rows[x].Cells["instock"].Value);
+            double price = Convert.ToDouble(dtgCart.Rows[x].Cells["price"].Value);
+            double discount = Convert.ToDouble(dtgCart.Rows[x].Cells["discount"].Value);
+
+            if ((string)dtgCart.Rows[x].Cells["serialnumber"].Value == "")
+            {
+                if (xStock > quantity)
+                {
+                    dtgCart.Rows[x].Cells["quantity"].Value = quantity + 1;
+                    dtgCart.Rows[x].Cells["total"].Value = (double.Parse(dtgCart.Rows[x].Cells["quantity"].Value.ToString()) * price) - discount;
+                    ComputePrice();
+                }                
+            }
+        }
         private void RemoveItemFromCart()
         {
             if (MessageBox.Show(this, "Are you sure you want to delete this row?", "Confirmation", MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
@@ -294,9 +386,9 @@ namespace Inventory.forms
 
             for (int i = 0; i < dtgCart.Rows.Count; i++)
             {
-                sum += Convert.ToDouble(dtgCart.Rows[i].Cells[2].Value);
-                discount += Convert.ToDouble(dtgCart.Rows[i].Cells[4].Value);
-                grandtotal += Convert.ToDouble(dtgCart.Rows[i].Cells[5].Value);
+                sum += Convert.ToDouble(dtgCart.Rows[i].Cells["price"].Value) * Convert.ToDouble(dtgCart.Rows[i].Cells["quantity"].Value);
+                discount += Convert.ToDouble(dtgCart.Rows[i].Cells["discount"].Value);
+                grandtotal += Convert.ToDouble(dtgCart.Rows[i].Cells["total"].Value);
             }
 
             lblTopPrice.Text = grandtotal.ToString("n2");
@@ -317,13 +409,18 @@ namespace Inventory.forms
             if (dtgCart.CurrentRow != null)
             {
                 int n = dtgCart.CurrentRow.Index;
-                double totalPrice = Convert.ToDouble(dtgCart.Rows[n].Cells[2].Value);
+                double price = Convert.ToDouble(dtgCart.Rows[n].Cells["price"].Value);
+                double quantity = Convert.ToDouble(dtgCart.Rows[n].Cells["quantity"].Value);
 
                 ShowInputDiscountDialog(ref discount);
-                dtgCart.Rows[n].Cells[4].Value = discount;
-                dtgCart.Rows[n].Cells[5].Value = totalPrice - double.Parse(discount);
+                if (discount != "")
+                {
+                    dtgCart.Rows[n].Cells["discount"].Value = discount;
+                    dtgCart.Rows[n].Cells["total"].Value = (price * quantity) - double.Parse(discount);
 
-                ComputePrice();
+                    ComputePrice();
+                }
+                
             }
             
         }
@@ -382,34 +479,45 @@ namespace Inventory.forms
 
         private void cmdSettlePayment_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int itemscount = dtgCart.Rows.Count;
-                for (int i = 0; i < itemscount; i++)
-                {
-                    int itemid = Convert.ToInt32(dtgCart.Rows[i].Cells[7].Value);
-                    transactions.SaveTransactionDetails(transactions.TransactionCode, itemid);
-                }
-            }
-            catch (Exception error)
-            {
-                Console.WriteLine("Error saving item details: " + error);
-            }
-
+            //try
+            //{
+            //    int itemscount = dtgCart.Rows.Count;
+            //    for (int i = 0; i < itemscount; i++)
+            //    {
+            //        int itemid = Convert.ToInt32(dtgCart.Rows[i].Cells[8].Value);
+            //        transactions.SaveTransactionDetails(transactions.TransactionCode, itemid);
+            //    }
+            //}
+            //catch (Exception error)
+            //{
+            //    Console.WriteLine("Error saving item details: " + error);
+            //}
 
             forms.frmPOSSettlePayment settlePayment = new frmPOSSettlePayment();
+            settlePayment.FormClosing += new FormClosingEventHandler(FrmSettlePayment_FormClosing);
             settlePayment.ShowDialog();
         }
 
         private void cmdClearCart_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show(this, "Are you sure you want to clear cart items?", "Clear Cart Items",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                ClearCart();
+            }
         }
 
-        private void cmdDailySales_Click(object sender, EventArgs e)
+        private void ClearCart()
         {
-
+            dtgCart.Rows.Clear();
+            dtgCart.Refresh();
+            lblSubTotal.Text = "0.00";
+            lblDiscount.Text = "0.00";
+            lblVatableSales.Text = "0.00";
+            lblGrandTotal.Text = "0.00";
+            lblTopPrice.Text = "0.00";
         }
+
+
 
         private void cmdTransactions_Click(object sender, EventArgs e)
         {
@@ -433,7 +541,7 @@ namespace Inventory.forms
             if (dtgClients.CurrentRow != null)
             {
                 int i = dtgClients.CurrentRow.Index;
-                populateTextboxes(i, dtgClients);
+                PopulateTextboxes(i, dtgClients);
             }
         }
 
@@ -442,7 +550,7 @@ namespace Inventory.forms
             if (dtgClients.CurrentRow != null)
             {
                 int i = dtgClients.CurrentRow.Index;
-                populateTextboxes(i, dtgClients);
+                PopulateTextboxes(i, dtgClients);
             }
         }
 
@@ -453,20 +561,44 @@ namespace Inventory.forms
             if (e.KeyCode == Keys.Down && i + 2 <= dtgClients.RowCount)
             {
                 i = dtgClients.CurrentRow.Index + 1;
-                populateTextboxes(i, dtgClients);
+                PopulateTextboxes(i, dtgClients);
             }
             else if (e.KeyCode == Keys.Up && i - 1 >= 0)
             {
                 i = dtgClients.CurrentRow.Index - 1;
-                populateTextboxes(i, dtgClients);
+                PopulateTextboxes(i, dtgClients);
             }
         }
 
         private void cmdSelect_Click(object sender, EventArgs e)
         {
             val.CartClientID = int.Parse(lblClientID.Text);
+            transactions.ClientID = int.Parse(lblClientID.Text);
             grpCustomerInformation.Enabled = false;
             EnableTransactionControls();
+        }
+
+        private void cmdSettlePaymentInstallment_Click(object sender, EventArgs e)
+        {
+            frmCreateInstallment frmCreateInstallment = new frmCreateInstallment();
+            frmCreateInstallment.FormClosing += new FormClosingEventHandler(FrmCreateInstallment_FormClosing);
+            frmCreateInstallment.ShowDialog();
+        }
+
+        private void FrmCreateInstallment_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (transactions.TransactionSuccess == 1)
+            {
+                ClearCart();
+                DisableTransactionControls();
+                lblTransactionCode.Text = "----------------";
+                grpCustomerInformation.Enabled = false;
+                cmdNewTrans.Enabled = true;
+                cmdNewTrans.Style = MetroFramework.MetroColorStyle.Green;
+
+                transactions.TransactionSuccess = 0;
+            }
+
         }
     }
 }

@@ -27,6 +27,7 @@ namespace Inventory.forms
             items.loadItemData(dtgInventory, lblRecordCount);
             if (dtgInventory.RowCount != 0)
             {
+                items.SetRowNumber(dtgInventory);
                 populateTextboxes(0, dtgInventory);
             }
         }
@@ -41,6 +42,11 @@ namespace Inventory.forms
         private void AddNew_FormClosing(object sender, FormClosingEventArgs e)
         {
             items.loadItemData(dtgInventory, lblRecordCount);
+            if (dtgInventory.RowCount != 0)
+            {
+                items.SetRowNumber(dtgInventory);
+                populateTextboxes(0, dtgInventory);
+            }
             dtgInventory.Update();
             dtgInventory.Refresh();
         }
@@ -303,6 +309,16 @@ namespace Inventory.forms
             {
                 MessageBox.Show(this, "Update not authorized!", "Invalid Authorization", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 val.AuthorizationToken = 0;
+            }
+        }
+
+        private void dtgInventory_Sorted(object sender, EventArgs e)
+        {
+            if (dtgInventory.RowCount != 0)
+            {
+                items.SetRowNumber(dtgInventory);
+                dtgInventory.CurrentCell = dtgInventory.Rows[0].Cells[1];
+                populateTextboxes(0, dtgInventory);
             }
         }
     }

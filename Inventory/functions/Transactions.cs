@@ -16,6 +16,57 @@ namespace Inventory.functions
         Logs logs = new Logs();
 
         public static long  transaction_code = 0;
+        public static int transaction_success = 0;
+
+        //CLIENT INFORMATION DURING TRANSACTION
+        public static int client_id;
+        public static string client_name;
+        public static string client_address;
+        public static string client_contact;
+        public static string client_salesagent;
+        public static string client_remarks;
+
+        public int ClientID
+        {
+            get { return client_id; }
+            set { client_id = value; }
+        }
+
+        public string ClientName
+        {
+            get { return client_name; }
+            set { client_name = value; }
+        }
+
+        public string ClientAddress
+        {
+            get { return client_address; }
+            set { client_address = value; }
+        }
+
+        public string ClientContact
+        {
+            get { return client_contact; }
+            set { client_contact = value; }
+        }
+
+        public string ClientSalesAgent
+        {
+            get { return client_salesagent; }
+            set { client_salesagent = value; }
+        }
+
+        public string ClientRemarks
+        {
+            get { return client_remarks; }
+            set { client_remarks = value; }
+        }
+
+        public int TransactionSuccess
+        {
+            get { return transaction_success; }
+            set { transaction_success = value; }
+        }
 
         public long TransactionCode
         {
@@ -70,7 +121,8 @@ namespace Inventory.functions
                             inner join inventorydb.tbltransactiondetails on tbltransactions.transactionid = tbltransactiondetails.transactionid
                             inner join inventorydb.tblitems on tbltransactiondetails.itemid = tblitems.itemid
                             inner join inventorydb.tblclients on tbltransactions.clientid = tblclients.clientid
-                            where tblitems.itemid in (SELECT itemid from tbltransactiondetails where tbltransactiondetails.transactionid = @id)
+                            inner join inventorydb.tblinstallment on tbltransactions.paymentrefnumber = tblinstallment.installmentid
+                            where tblitems.itemid in (SELECT itemid from inventorydb.tbltransactiondetails where tbltransactiondetails.transactionid = @id)
                             and tbltransactions.transactionid = @id";
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
@@ -82,7 +134,7 @@ namespace Inventory.functions
                         items dsItems = new items();
                         dt.Clear();
                         da.Fill(dt);
-                        da.Fill(dsItems, "receipt");
+                        da.Fill(dsItems, "installmentreceipt");
 
                         return dsItems;
                     }
@@ -95,15 +147,15 @@ namespace Inventory.functions
         }
 
         public bool SaveTransaction(int mTransactionID, string mORnum, double mTotalSales, double mDiscount, double mTax, double mTotalDue, double mCashtendered, 
-            double mChange, int mClientID, int mUserID, DateTime mTransactionDate)
+            double mChange, int mClientID, int mUserID, DateTime mTransactionDate, string mPaymentType, int mPaymentReference)
         {
             try
             {
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
-                    string sql = @"INSERT INTO inventorydb.tbltransactions(transactionid, ornumber, totalsales, discount, tax, totaldue, cashtendered, cashchange, " +
-                        "clientid, userid, transactiondate) VALUES(@transactionid, @ornumber, @totalsales, @discount, @tax, @totaldue, @cashtendered, @change, " +
-                        "@clientid, @userid, @transactiondate);";
+                    string sql = @"INSERT INTO inventorydb.tbltransactions" +
+                        "(transactionid, ornumber, totalsales, discount, tax, totaldue, cashtendered, cashchange, clientid, userid, transactiondate, paymenttype, paymentrefnumber) " + 
+                        "VALUES(@transactionid, @ornumber, @totalsales, @discount, @tax, @totaldue, @cashtendered, @change, @clientid, @userid, @transactiondate, @paymenttype, @paymentreference);";
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
@@ -118,6 +170,8 @@ namespace Inventory.functions
                         cmd.Parameters.AddWithValue("@clientid", mClientID);
                         cmd.Parameters.AddWithValue("@userid", mUserID);
                         cmd.Parameters.AddWithValue("@transactiondate", mTransactionDate);
+                        cmd.Parameters.AddWithValue("@paymenttype", mPaymentType);
+                        cmd.Parameters.AddWithValue("@paymentreference", mPaymentReference);
 
                         cmd.Connection.Open();
                         MySqlDataReader dr;
@@ -135,17 +189,20 @@ namespace Inventory.functions
             }
         }
 
-        public bool SaveTransactionDetails(long mTransactionID, int mItemID)
+        public bool SaveTransactionDetails(long mTransactionID, int mItemID, int mQuantity, double mTotalPrice)
         {
             try
             {
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
-                    string sql = @"INSERT INTO inventorydb.tbltransactiondetails(transactionid, itemid) VALUES (@transactionid, @itemid);";
+                    string sql = @"INSERT INTO inventorydb.tbltransactiondetails(transactionid, itemid, itemquantity, itemtotalprice) " +
+                        "VALUES (@transactionid, @itemid, @itemquantity, @itemtotalprice);";
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
                         cmd.Parameters.AddWithValue("@transactionid", mTransactionID);
                         cmd.Parameters.AddWithValue("@itemid", mItemID);
+                        cmd.Parameters.AddWithValue("@itemquantity", mQuantity);
+                        cmd.Parameters.AddWithValue("@itemtotalprice", mTotalPrice);
 
                         cmd.Connection.Open();
                         MySqlDataReader dr;

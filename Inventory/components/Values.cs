@@ -45,6 +45,8 @@ namespace Inventory.components
         public static int cart_item_id;
         public static string cart_item_description;
         public static string cart_item_serialnumber;
+        public static string cart_item_name;
+        public static string cart_category;
         public static double cart_item_price;
         public static double cart_total_sales;
         public static double cart_total_due;
@@ -52,8 +54,24 @@ namespace Inventory.components
         public static double cart_tax;
         public static double cart_cash_tendered;
         public static double cart_change;
+        public static int cart_item_stock;
         public static DateTime cart_transaction_date;
         public static int cart_client_id;
+        public static string payment_type;
+        public static int payment_reference;
+
+
+        public string PaymentType
+        {
+            get { return payment_type; }
+            set { payment_type = value; }
+        }
+
+        public int PaymentReference
+        {
+            get { return payment_reference; }
+            set { payment_reference = value; }
+        }
                
         public int CartItemID
         {
@@ -65,6 +83,18 @@ namespace Inventory.components
         {
             get { return cart_item_description; }
             set { cart_item_description = value; }
+        }
+        
+        public string CartCategory
+        {
+            get { return cart_category; }
+            set { cart_category = value; }
+        }
+
+        public string CartItemName
+        {
+            get { return cart_item_name; }
+            set { cart_item_name = value; }
         }
 
         public string CartItemSerialNumber
@@ -125,6 +155,13 @@ namespace Inventory.components
         {
             get { return cart_client_id; }
             set { cart_client_id = value; }
+        }
+
+
+        public int CartStockCount
+        {
+            get { return cart_item_stock; }
+            set { cart_item_stock = value; }
         }
         //</PUBLIC CART ITEM DETAILS>
 

@@ -62,7 +62,7 @@ namespace Inventory
             if (login.AuthenticateUser(txtUserName.Text, txtPassword.Text))
             {
                 logs.logthis(val.UserName + " logged in the system");
-                MessageBox.Show(this, "Login Successful" + val.UserPassword, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, "Login Successful", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 val.AuthorizationToken = 0;
                 this.Hide();
                 forms.frmDashboard dashboard = new forms.frmDashboard();

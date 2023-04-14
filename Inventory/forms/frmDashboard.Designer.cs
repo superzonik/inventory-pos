@@ -31,7 +31,7 @@
             this.tilePOS = new MetroFramework.Controls.MetroTile();
             this.tileInventory = new MetroFramework.Controls.MetroTile();
             this.tileDelivery = new MetroFramework.Controls.MetroTile();
-            this.tileCollectibles = new MetroFramework.Controls.MetroTile();
+            this.tileInstallment = new MetroFramework.Controls.MetroTile();
             this.tileReports = new MetroFramework.Controls.MetroTile();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,17 +77,17 @@
             this.tileDelivery.UseSelectable = true;
             this.tileDelivery.Click += new System.EventHandler(this.tileDelivery_Click);
             // 
-            // tileCollectibles
+            // tileInstallment
             // 
-            this.tileCollectibles.ActiveControl = null;
-            this.tileCollectibles.Location = new System.Drawing.Point(450, 145);
-            this.tileCollectibles.Name = "tileCollectibles";
-            this.tileCollectibles.Size = new System.Drawing.Size(130, 95);
-            this.tileCollectibles.Style = MetroFramework.MetroColorStyle.Red;
-            this.tileCollectibles.TabIndex = 3;
-            this.tileCollectibles.Text = "Collectibles";
-            this.tileCollectibles.UseSelectable = true;
-            this.tileCollectibles.Click += new System.EventHandler(this.tileCollectibles_Click);
+            this.tileInstallment.ActiveControl = null;
+            this.tileInstallment.Location = new System.Drawing.Point(450, 145);
+            this.tileInstallment.Name = "tileInstallment";
+            this.tileInstallment.Size = new System.Drawing.Size(130, 95);
+            this.tileInstallment.Style = MetroFramework.MetroColorStyle.Red;
+            this.tileInstallment.TabIndex = 3;
+            this.tileInstallment.Text = "Installment";
+            this.tileInstallment.UseSelectable = true;
+            this.tileInstallment.Click += new System.EventHandler(this.tileCollectibles_Click);
             // 
             // tileReports
             // 
@@ -148,7 +148,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 615);
             this.Controls.Add(this.tileReports);
-            this.Controls.Add(this.tileCollectibles);
+            this.Controls.Add(this.tileInstallment);
             this.Controls.Add(this.tileDelivery);
             this.Controls.Add(this.tileInventory);
             this.Controls.Add(this.tilePOS);
@@ -172,7 +172,7 @@
         private MetroFramework.Controls.MetroTile tilePOS;
         private MetroFramework.Controls.MetroTile tileInventory;
         private MetroFramework.Controls.MetroTile tileDelivery;
-        private MetroFramework.Controls.MetroTile tileCollectibles;
+        private MetroFramework.Controls.MetroTile tileInstallment;
         private MetroFramework.Controls.MetroTile tileReports;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;

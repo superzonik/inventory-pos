@@ -7,11 +7,11 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>fba869b7-e9d2-4803-a958-79b42a9b61a3</rd:DataSourceID>
+      <rd:DataSourceID>f7e5e74d-50eb-484d-af4c-1d84467e892f</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="receipt">
+    <DataSet Name="installmentreceipt">
       <Query>
         <DataSourceName>items</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
@@ -149,11 +149,51 @@
           <DataField>itemtotalprice</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="installmentid">
+          <DataField>installmentid</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="paymentrefnumber">
+          <DataField>paymentrefnumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="paymenttype">
+          <DataField>paymenttype</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="tblinstallment_clientid">
+          <DataField>tblinstallment_clientid</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="principalamount">
+          <DataField>principalamount</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="monthlydue">
+          <DataField>monthlydue</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="interest">
+          <DataField>interest</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="installmentdatecreated">
+          <DataField>installmentdatecreated</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="duedate">
+          <DataField>duedate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="installmentbalance">
+          <DataField>installmentbalance</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>items</rd:DataSetName>
         <rd:SchemaPath>D:\Software\Inventory\Inventory\items.xsd</rd:SchemaPath>
-        <rd:TableName>receipt</rd:TableName>
+        <rd:TableName>installmentreceipt</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
@@ -164,16 +204,6 @@
     <ReportSection>
       <Body>
         <ReportItems>
-          <Line Name="Line1">
-            <Top>0.04167in</Top>
-            <Height>0in</Height>
-            <Width>5in</Width>
-            <Style>
-              <Border>
-                <Style>Solid</Style>
-              </Border>
-            </Style>
-          </Line>
           <Tablix Name="Tablix2">
             <TablixBody>
               <TablixColumns>
@@ -421,11 +451,10 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>receipt</DataSetName>
-            <Top>0.05556in</Top>
+            <DataSetName>installmentreceipt</DataSetName>
+            <Left>0.01389in</Left>
             <Height>0.5in</Height>
             <Width>5in</Width>
-            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -435,13 +464,13 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>0.55556in</Height>
+        <Height>0.5in</Height>
         <Style />
       </Body>
-      <Width>5in</Width>
+      <Width>5.01389in</Width>
       <Page>
         <PageHeader>
-          <Height>1.59723in</Height>
+          <Height>1.59376in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -762,7 +791,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>1.2458in</Height>
+          <Height>0.86109in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -773,7 +802,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Subtotal:</Value>
+                      <Value>Principal Amount:</Value>
                       <Style>
                         <FontFamily>Courier New</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -786,46 +815,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.07917in</Top>
-              <Left>2.74653in</Left>
+              <Top>0.02777in</Top>
+              <Left>2.50348in</Left>
               <Height>0.17708in</Height>
-              <Width>1.23958in</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox9">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Discount:</Value>
-                      <Style>
-                        <FontFamily>Courier New</FontFamily>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.25626in</Top>
-              <Left>2.74653in</Left>
-              <Height>0.17708in</Height>
-              <Width>1.23958in</Width>
-              <ZIndex>1</ZIndex>
+              <Width>1.48958in</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -844,7 +837,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>TAX:</Value>
+                      <Value>Remaining Balance:</Value>
                       <Style>
                         <FontFamily>Courier New</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -857,47 +850,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.43334in</Top>
-              <Left>2.74653in</Left>
+              <Top>0.20486in</Top>
+              <Left>2.50348in</Left>
               <Height>0.17708in</Height>
-              <Width>1.23958in</Width>
-              <ZIndex>2</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox11">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>TOTAL:</Value>
-                      <Style>
-                        <FontFamily>Courier New</FontFamily>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.61042in</Top>
-              <Left>2.74653in</Left>
-              <Height>0.17708in</Height>
-              <Width>1.23958in</Width>
-              <ZIndex>3</ZIndex>
+              <Width>1.48958in</Width>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -929,11 +886,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.7875in</Top>
-              <Left>2.74653in</Left>
+              <Top>0.40902in</Top>
+              <Left>2.50348in</Left>
               <Height>0.17708in</Height>
-              <Width>1.23958in</Width>
-              <ZIndex>4</ZIndex>
+              <Width>1.48958in</Width>
+              <ZIndex>2</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -952,7 +909,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Change:</Value>
+                      <Value>New Balance:</Value>
                       <Style>
                         <FontFamily>Courier New</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -965,11 +922,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.96458in</Top>
-              <Left>2.74653in</Left>
+              <Top>0.5861in</Top>
+              <Left>2.50348in</Left>
               <Height>0.17708in</Height>
-              <Width>1.23958in</Width>
-              <ZIndex>5</ZIndex>
+              <Width>1.48958in</Width>
+              <ZIndex>3</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -988,7 +945,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Format(CDec(Parameters!pSubTotal.Value),"N")</Value>
+                      <Value>=Format(CDec(Parameters!pPrincipalAmount.Value),"N")</Value>
                       <Style>
                         <FontFamily>Courier New</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -1001,83 +958,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.07918in</Top>
-              <Left>4in</Left>
+              <Top>0.02778in</Top>
+              <Left>4.00695in</Left>
               <Height>0.17708in</Height>
               <Width>0.98611in</Width>
-              <ZIndex>6</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox15">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Format(CDec(Parameters!pDiscount.Value),"N")</Value>
-                      <Style>
-                        <FontFamily>Courier New</FontFamily>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.25626in</Top>
-              <Left>4in</Left>
-              <Height>0.17708in</Height>
-              <Width>0.98611in</Width>
-              <ZIndex>7</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox16">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Format(CDec(Parameters!pTotal.Value),"N")</Value>
-                      <Style>
-                        <FontFamily>Courier New</FontFamily>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.61042in</Top>
-              <Left>4in</Left>
-              <Height>0.17708in</Height>
-              <Width>0.98611in</Width>
-              <ZIndex>8</ZIndex>
+              <ZIndex>4</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1096,7 +981,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Format(CDec(Parameters!pTax.Value),"N")</Value>
+                      <Value>=Format(CDec(Parameters!pRemainingBalance.Value),"N")</Value>
                       <Style>
                         <FontFamily>Courier New</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -1109,11 +994,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.43334in</Top>
-              <Left>4in</Left>
+              <Top>0.20486in</Top>
+              <Left>4.00695in</Left>
               <Height>0.17708in</Height>
               <Width>0.98611in</Width>
-              <ZIndex>9</ZIndex>
+              <ZIndex>5</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1132,7 +1017,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Format(CDec(Parameters!pChange.Value),"N")</Value>
+                      <Value>=Format(CDec(Parameters!pNewBalance.Value),"N")</Value>
                       <Style>
                         <FontFamily>Courier New</FontFamily>
                         <FontSize>8pt</FontSize>
@@ -1145,11 +1030,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.95244in</Top>
-              <Left>4in</Left>
+              <Top>0.57396in</Top>
+              <Left>4.00695in</Left>
               <Height>0.17708in</Height>
               <Width>0.98611in</Width>
-              <ZIndex>10</ZIndex>
+              <ZIndex>6</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1181,11 +1066,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.77536in</Top>
-              <Left>4in</Left>
+              <Top>0.39688in</Top>
+              <Left>4.00695in</Left>
               <Height>0.17708in</Height>
               <Width>0.98611in</Width>
-              <ZIndex>11</ZIndex>
+              <ZIndex>7</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1197,17 +1082,6 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
-            <Line Name="Line2">
-              <Top>0.0375in</Top>
-              <Height>0in</Height>
-              <Width>5in</Width>
-              <ZIndex>12</ZIndex>
-              <Style>
-                <Border>
-                  <Style>Solid</Style>
-                </Border>
-              </Style>
-            </Line>
           </ReportItems>
           <Style>
             <Border>
@@ -1224,11 +1098,11 @@
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="pSubTotal">
+    <ReportParameter Name="pPrincipalAmount">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="pTotal">
+    <ReportParameter Name="pRemainingBalance">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
@@ -1236,15 +1110,7 @@
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="pDiscount">
-      <DataType>String</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="pTax">
-      <DataType>String</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="pChange">
+    <ReportParameter Name="pNewBalance">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
@@ -1264,17 +1130,17 @@
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>3</NumberOfRows>
+      <NumberOfRows>2</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>0</RowIndex>
-          <ParameterName>pSubTotal</ParameterName>
+          <ParameterName>pPrincipalAmount</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>0</RowIndex>
-          <ParameterName>pTotal</ParameterName>
+          <ParameterName>pRemainingBalance</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>2</ColumnIndex>
@@ -1284,36 +1150,26 @@
         <CellDefinition>
           <ColumnIndex>3</ColumnIndex>
           <RowIndex>0</RowIndex>
-          <ParameterName>pDiscount</ParameterName>
+          <ParameterName>pNewBalance</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>1</RowIndex>
-          <ParameterName>pTax</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>1</RowIndex>
-          <ParameterName>pChange</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>2</ColumnIndex>
           <RowIndex>1</RowIndex>
           <ParameterName>pTransactionID</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>3</ColumnIndex>
+          <ColumnIndex>1</ColumnIndex>
           <RowIndex>1</RowIndex>
           <ParameterName>pPaymentMethod</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>2</RowIndex>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>1</RowIndex>
           <ParameterName>pTransactionDate</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>e4ad5de4-226f-44b0-878e-b18616667caf</rd:ReportID>
+  <rd:ReportID>168426ee-225e-4cb9-bd7b-816d0dcd88c6</rd:ReportID>
 </Report>

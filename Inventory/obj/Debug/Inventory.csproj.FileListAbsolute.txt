@@ -128,3 +128,6 @@ D:\Software\Inventory\Inventory\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms
 D:\Software\Inventory\Inventory\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
 D:\Software\Inventory\Inventory\bin\Debug\MySql.Data.xml
 D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmAddNewClient.resources
+D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmCreateInstallment.resources
+D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmCollectibleSettlePayment.resources
+D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmRPTInstallmentReceipt.resources

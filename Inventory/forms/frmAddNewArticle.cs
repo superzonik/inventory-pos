@@ -36,12 +36,19 @@ namespace Inventory.forms
             string article_category = cboCategory.Text;
             string article_name = txtProductName.Text;
 
-            if (MessageBox.Show(this, "Are you sure you want to add " + article_name + " to the list?", "Confirm Add",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            if ((txtProductName.Text == "") || (cboCategory.Text == ""))
             {
-                articles.addArticle(article_category, article_name);
-                MessageBox.Show(this, "New product name successfully added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, "Product details cannot be empty!", "Empty Product Details", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else
+            {
+                if (MessageBox.Show(this, "Are you sure you want to add " + article_name + " to the list?", "Confirm Add",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                {
+                    articles.addArticle(article_category, article_name);
+                    MessageBox.Show(this, "New product name successfully added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }            
         }
     }
 }

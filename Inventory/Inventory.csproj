@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -123,6 +138,18 @@
     <Compile Include="forms\frmCollectibles.Designer.cs">
       <DependentUpon>frmCollectibles.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\frmCollectibleSettlePayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\frmCollectibleSettlePayment.Designer.cs">
+      <DependentUpon>frmCollectibleSettlePayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\frmCreateInstallment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\frmCreateInstallment.Designer.cs">
+      <DependentUpon>frmCreateInstallment.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\frmDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +192,12 @@
     <Compile Include="forms\frmPOSSettlePayment.Designer.cs">
       <DependentUpon>frmPOSSettlePayment.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\frmRPTInstallmentReceipt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\frmRPTInstallmentReceipt.Designer.cs">
+      <DependentUpon>frmRPTInstallmentReceipt.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\frmRPTReceipt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,6 +206,7 @@
     </Compile>
     <Compile Include="functions\Articles.cs" />
     <Compile Include="functions\Delivery.cs" />
+    <Compile Include="functions\Installment.cs" />
     <Compile Include="functions\Items.cs" />
     <Compile Include="functions\Login.cs" />
     <Compile Include="functions\Logs.cs" />
@@ -203,6 +237,12 @@
     <EmbeddedResource Include="forms\frmCollectibles.resx">
       <DependentUpon>frmCollectibles.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="forms\frmCollectibleSettlePayment.resx">
+      <DependentUpon>frmCollectibleSettlePayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\frmCreateInstallment.resx">
+      <DependentUpon>frmCreateInstallment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\frmDashboard.resx">
       <DependentUpon>frmDashboard.cs</DependentUpon>
     </EmbeddedResource>
@@ -224,6 +264,9 @@
     <EmbeddedResource Include="forms\frmPOSSettlePayment.resx">
       <DependentUpon>frmPOSSettlePayment.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="forms\frmRPTInstallmentReceipt.resx">
+      <DependentUpon>frmRPTInstallmentReceipt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\frmRPTReceipt.resx">
       <DependentUpon>frmRPTReceipt.cs</DependentUpon>
     </EmbeddedResource>
@@ -237,6 +280,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="reports\rptInstallmentReceipt.rdlc" />
     <EmbeddedResource Include="reports\rptReceipt.rdlc" />
     <None Include="items.xsc">
       <DependentUpon>items.xsd</DependentUpon>
@@ -475,6 +519,24 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,14 +15,15 @@ namespace Inventory.functions
         components.Values val = new components.Values();
         functions.Logs logs = new functions.Logs();
 
-        public bool AddItemRecord(string category, string product_name, string fxtype, string fxcapacity, string product_description, string product_status, DateTime? manufacture_date, Double product_price)
+        public bool AddItemRecord(string category, string product_name, string fxtype, string fxcapacity, string product_description, string product_status, DateTime? manufacture_date,
+            Double product_price, int is_product_sold)
         {
             try
             {
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
-                    string sql = @"INSERT INTO inventorydb.tblitems(category, productname, fxtype, fxcapacity, productdescription, productstatus, manufacturedate, productprice)" +
-                        "VALUES(@category, @productname, @fxtype, @fxcapacity, @productdescription, @productstatus, @manufacturedate, @productprice)";
+                    string sql = @"INSERT INTO inventorydb.tblitems(category, productname, fxtype, fxcapacity, productdescription, productstatus, manufacturedate, productprice, isproductsold)" +
+                        "VALUES(@category, @productname, @fxtype, @fxcapacity, @productdescription, @productstatus, @manufacturedate, @productprice, @isproductsold)";
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
@@ -34,6 +35,7 @@ namespace Inventory.functions
                         cmd.Parameters.AddWithValue("@productstatus", product_status);
                         cmd.Parameters.AddWithValue("@manufacturedate", manufacture_date);
                         cmd.Parameters.AddWithValue("@productprice", product_price);
+                        cmd.Parameters.AddWithValue("@isproductsold", is_product_sold);
 
                         cmd.Connection.Open();
                         MySqlDataReader dr;
@@ -56,13 +58,50 @@ namespace Inventory.functions
             }
         }
 
+        public int CountStock(string mProductName)
+        {
+
+            int countstock = 0;
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connection.conString))
+                {
+                    string sql = @"SELECT * FROM inventorydb.tblitems WHERE productname = @productname AND isproductsold = 0";
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+
+                        cmd.Parameters.AddWithValue("@productname", mProductName);
+
+                        MySqlDataAdapter da = new MySqlDataAdapter();
+                        da.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        dt.Clear();
+                        da.Fill(dt);
+                                               
+                        if (dt.Rows.Count != 0)
+                        {
+                            countstock = dt.Rows.Count;
+                            return countstock;
+                        }
+                        return countstock;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                //LOG ERROR IN COUNTING ITEM STOCK DATA
+                logs.logthis("Error counting item stock: " + e);
+                return countstock;
+            }
+        }
+
         public void loadItemData(DataGridView mDatagrid, Label lblRecordCount)
         {
             try
             {
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
-                    string sql = @"SELECT * FROM inventorydb.tblitems";
+                    string sql = @"SELECT * FROM inventorydb.tblitems WHERE isproductsold = 0";
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
                         MySqlDataAdapter da = new MySqlDataAdapter();
@@ -196,6 +235,38 @@ namespace Inventory.functions
             catch (Exception e)
             {
                 Console.WriteLine("Error Updating Product Record: " + e);
+                return false;
+            }
+        }
+
+        public bool updateItemStatus(int mItemID, String mSerialNumber)
+        {
+            try
+            {
+
+                using (MySqlConnection con = new MySqlConnection(connection.conString))
+                {
+                    string sql = @"UPDATE inventorydb.tblitems SET isproductsold=@isproductsold, serialnumber=@serialnumber
+                                WHERE itemid=@itemid;";
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@serialnumber", mSerialNumber);
+                        cmd.Parameters.AddWithValue("@isproductsold", 1);
+                        cmd.Parameters.AddWithValue("@itemid", mItemID);
+
+                        cmd.Connection.Open();
+                        MySqlDataReader dr;
+                        dr = cmd.ExecuteReader();
+                        dr.Close();
+
+                        return true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error Updating Product Status: " + e);
                 return false;
             }
         }
