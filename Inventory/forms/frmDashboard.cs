@@ -64,8 +64,8 @@ namespace Inventory.forms
 
         private void tileReports_Click(object sender, EventArgs e)
         {
-            forms.frmRPTReceipt rPTReceipt = new frmRPTReceipt();
-            rPTReceipt.ShowDialog();
+            frmReportList frmReportList = new frmReportList();
+            frmReportList.ShowDialog();
         }
     }
 }

@@ -60,10 +60,10 @@ namespace Inventory.forms
             // settings.Margins = new System.Drawing.Printing.Margins(1, 1, 1, 1);
             // reportViewer1.SetPageSettings(settings);
 
-            items dsItems = transaction.GetTransactionDetail(transaction.TransactionCode);
+            dataset.items dsItems = transaction.GetTransactionDetail(transaction.TransactionCode);
             ReportDataSource datasource = new ReportDataSource("receipt", dsItems.Tables["receipt"]);
             ReportParameter[] rParams = new ReportParameter[] {
-                //new ReportParameter("transaction_id", transaction.TransactionCode.ToString()),
+                new ReportParameter("pTransactionID", transaction.TransactionCode.ToString()),
                 new ReportParameter("pSubTotal", _subtotal),
                 new ReportParameter("pTotal", _total),
                 new ReportParameter("pCashTendered", _cashtendered),
@@ -79,7 +79,7 @@ namespace Inventory.forms
             this.reportViewer1.LocalReport.DataSources.Clear();
             this.reportViewer1.LocalReport.DataSources.Add(datasource);
             this.reportViewer1.RefreshReport();
-            
+
             //reportViewer1.LocalReport.DataSources.Clear();
             //reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("transactionds", connection.DataSet($"SELECT * FROM (((tbltransactions inner join " +
             //    "tbltransactiondetails on tbltransactions.transactionid = tbltransactiondetails.transactionid) inner join " +

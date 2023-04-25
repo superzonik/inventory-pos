@@ -53,6 +53,7 @@
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.txtCashTendered = new MetroFramework.Controls.MetroTextBox();
             this.txtTotal = new MetroFramework.Controls.MetroTextBox();
+            this.lblInstallmentID = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
             // cmdDecimal
@@ -516,11 +517,21 @@
             this.txtTotal.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtTotal.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
+            // lblInstallmentID
+            // 
+            this.lblInstallmentID.AutoSize = true;
+            this.lblInstallmentID.Location = new System.Drawing.Point(211, 88);
+            this.lblInstallmentID.Name = "lblInstallmentID";
+            this.lblInstallmentID.Size = new System.Drawing.Size(83, 19);
+            this.lblInstallmentID.TabIndex = 78;
+            this.lblInstallmentID.Text = "metroLabel4";
+            // 
             // frmCollectibleSettlePayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(330, 593);
+            this.Controls.Add(this.lblInstallmentID);
             this.Controls.Add(this.lblCheckNumber);
             this.Controls.Add(this.txtCheckNumber);
             this.Controls.Add(this.rdoCheck);
@@ -553,6 +564,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Style = MetroFramework.MetroColorStyle.Red;
             this.Text = "Installment Payment";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmCollectibleSettlePayment_FormClosing);
             this.Load += new System.EventHandler(this.frmCollectibleSettlePayment_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -586,5 +598,6 @@
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroTextBox txtCashTendered;
         private MetroFramework.Controls.MetroTextBox txtTotal;
+        private MetroFramework.Controls.MetroLabel lblInstallmentID;
     }
 }

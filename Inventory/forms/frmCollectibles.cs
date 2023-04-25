@@ -17,6 +17,9 @@ namespace Inventory.forms
         functions.Logs logs = new functions.Logs();
         functions.Installment installment = new functions.Installment();
         functions.Items items = new functions.Items();
+        functions.Transactions transactions = new functions.Transactions();
+
+        int _installmentid = 0;
 
         public frmCollectibles()
         {
@@ -29,6 +32,8 @@ namespace Inventory.forms
             if (dtgInstallment.RowCount != 0)
             {
                 items.SetRowNumber(dtgInstallment);
+                int i = 0;
+                DataChangeTriggers(i);
                 //populateTextboxes(0, dtgInstallment);
             }
         }
@@ -77,7 +82,8 @@ namespace Inventory.forms
         {
             if (dtgInstallment.RowCount != 0)
             {
-                items.SetRowNumber(dtgInstallment);
+                int i = dtgInstallment.CurrentRow.Index;
+                DataChangeTriggers(i);
                 //populateTextboxes(0, dtgInstallment);
             }
         }
@@ -86,7 +92,8 @@ namespace Inventory.forms
         {
             if (dtgInstallment.RowCount != 0)
             {
-                items.SetRowNumber(dtgInstallment);
+                int i = dtgInstallment.CurrentRow.Index;
+                DataChangeTriggers(i);
                 //populateTextboxes(0, dtgInstallment);
             }
         }
@@ -108,6 +115,88 @@ namespace Inventory.forms
             //int installmentid = (int)dtgInstallment["installmentid", i].Value;
 
             //installment.LoadPaymentDataToGrid(dtgPayments, installmentid);
+        }
+
+        private void dtgInstallment_KeyDown(object sender, KeyEventArgs e)
+        {
+            int i = dtgInstallment.CurrentRow.Index;
+
+            if (e.KeyCode == Keys.Down && i + 2 <= dtgInstallment.RowCount)
+            {
+                i = dtgInstallment.CurrentRow.Index + 1;
+                DataChangeTriggers(i);
+                //populateTextboxes(i, dtgInstallment);
+            }
+            else if (e.KeyCode == Keys.Up && i - 1 >= 0)
+            {
+                i = dtgInstallment.CurrentRow.Index - 1;
+                DataChangeTriggers(i);
+                //populateTextboxes(i, dtgInstallment);
+            }
+        }
+
+        //TRIGGERS COMMANDS WHEN DATA FROM dtgInstallment CHANGES
+        private void DataChangeTriggers(int i)
+        {
+            _installmentid = (int)dtgInstallment["installmentid", i].Value;
+            items.SetRowNumber(dtgInstallment);
+            installment.LoadPaymentDataToGrid(dtgPayments, _installmentid);
+            transactions.TransactionCode = (long)dtgInstallment["transactionid", i].Value;
+            lblTransactionCode.Text = transactions.TransactionCode.ToString();
+            items.SetRowNumber(dtgPayments);
+
+            //SET INSTALLMENT ID FOR UPDATING INSTALLMENT RECORD
+            installment.InstallmentID = _installmentid;
+        }
+
+        private void cmdPay_Click(object sender, EventArgs e)
+        {
+
+            //SEND PAYMENT BALANCE TO SETTLE PAYMENT WINDOW
+            int i = dtgInstallment.CurrentRow.Index;
+            double balance = (double)dtgInstallment["balance", i].Value;
+            double principalamount = (double)dtgInstallment["principalamount", i].Value;
+
+            val.CartTotalDue = balance;
+            installment.InstallmentBalance = balance;
+            installment.InstallmentPrincipalAmount = principalamount;
+
+            //CHECK IF THERE IS STILL BALANCE ON THE INSTALLMENT
+            if (balance == 0)
+            {
+                MessageBox.Show(this, "This record is already fully paid!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                //OPEN COLLECTIBLE SETTLE PAYMENT DIALOG
+                forms.frmCollectibleSettlePayment CollectibleSettlePayment = new frmCollectibleSettlePayment();
+                CollectibleSettlePayment.FormClosing += new FormClosingEventHandler(FrmCollectibleSettlePayment_FormClosing);
+                CollectibleSettlePayment.ShowDialog();
+            }
+            
+        }
+
+        private void FrmCollectibleSettlePayment_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (transactions.TransactionSuccess == 1)
+            {
+                if (dtgInstallment.RowCount != 0)
+                {
+                    int i = dtgInstallment.CurrentRow.Index;
+                    DataChangeTriggers(i);
+                    //populateTextboxes(0, dtgInstallment);
+                }
+                dtgInstallment.Refresh();
+                dtgPayments.Refresh();
+
+                transactions.TransactionSuccess = 0;
+            }
+
+        }
+
+        private void cmdPrint_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

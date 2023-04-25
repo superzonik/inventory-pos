@@ -30,11 +30,18 @@ namespace Inventory.forms
 
         private void frmDelivery_Load(object sender, EventArgs e)
         {
-            delivery.LoadDeliveryDataToGrid(dtgDelivery, lblRecordCount);
+            delivery.LoadDeliveryDataToGrid(dtgDelivery, lblDeliveryCount);
+            delivery.LoadDeliveredDataToGrid(dtgDelivered, lblDeliveredCount);
+
             if (dtgDelivery.RowCount != 0)
             {
                 items.SetRowNumber(dtgDelivery);
                 populateTextboxes(0, dtgDelivery);
+            }
+
+            if (dtgDelivered.RowCount != 0)
+            {
+                items.SetRowNumber(dtgDelivered);
             }
         }
 
@@ -49,17 +56,19 @@ namespace Inventory.forms
             {
                 if (!row.Equals(null))
                 {
-                    int mDeliveryID = (int)mDataGrid["deliveryid", row].Value;
-                    String mDRNum = (string)mDataGrid["drnum", row].Value.ToString();
-                    String mDeliveredBy = (string)mDataGrid["deliveredby", row].Value.ToString();
-                    DateTime mDeliveryDate = (DateTime)mDataGrid["deliverydate", row].Value;
-                    String mDeliveryRemarks = (string)mDataGrid["deliveryremarks", row].Value.ToString();
+                    lblTransactionID.Text = (string)mDataGrid["transactionid", row].Value.ToString();
 
-                    this.lblDeliveryID.Text = mDeliveryID.ToString();
-                    this.txtDRNum.Text = mDRNum;
-                    this.txtDeliveredBy.Text = mDeliveredBy;
-                    this.dtDeliveryDate.Value = mDeliveryDate.Date;
-                    this.txtRemarks.Text = mDeliveryRemarks;
+
+                    //String mDRNum = (string)mDataGrid["drnum", row].Value.ToString();
+                    //String mDeliveredBy = (string)mDataGrid["deliveredby", row].Value.ToString();
+                    //DateTime mDeliveryDate = (DateTime)mDataGrid["deliverydate", row].Value;
+                    //String mDeliveryRemarks = (string)mDataGrid["deliveryremarks", row].Value.ToString();
+
+                    //this.lblDeliveryID.Text = mDeliveryID.ToString();
+                    //this.txtDRNum.Text = mDRNum;
+                    //this.txtDeliveredBy.Text = mDeliveredBy;
+                    //this.dtDeliveryDate.Value = mDeliveryDate.Date;
+                    //this.txtRemarks.Text = mDeliveryRemarks;
 
                 }
             }
@@ -88,13 +97,10 @@ namespace Inventory.forms
 
         private void EnableControls()
         {
-            panelControls.Enabled = true;
+            grpDeliver.Visible = true;
 
             //DISABLE OTHER CONTROLS
-            cmdAdd.Enabled = false;
-            cmdDelete.Enabled = false;
             cmdPrint.Enabled = false;
-            cmdEdit.Enabled = false;
             cmdExit.Enabled = false;
 
             cmdSave.Enabled = true;
@@ -106,13 +112,22 @@ namespace Inventory.forms
 
         private void DisableControls()
         {
-            panelControls.Enabled = false;
+            grpDeliver.Visible = false;
+
+            dtgDelivered.Refresh();
+            dtgDelivery.Refresh();
+
+            //if (dtgDelivery.Rows.Count <= 0)
+            //{
+            //    grpForDelivery.Refresh();
+            //    dtgDelivery.Update();
+            //    dtgDelivery.Refresh();
+            //    dtgDelivery.Parent.Refresh();
+            //    dtgDelivery.Visible = false;
+            //}
 
             //DISABLE OTHER CONTROLS
-            cmdAdd.Enabled = true;
-            cmdDelete.Enabled = true;
             cmdPrint.Enabled = true;
-            cmdEdit.Enabled = true;
             cmdExit.Enabled = true;
 
             cmdSave.Enabled = false;
@@ -137,18 +152,24 @@ namespace Inventory.forms
         {
             if (MessageBox.Show(this, "Are the data you entered correct?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                //AddOrEdit = 0 means save button should call ADD function
-                //AddOrEdit = 1 means save button should call EDIT function
-                if (AddorEdit == 0)
+                if (txtDRNum.Text != "" || txtDeliveredBy.Text != "" || txtRemarks.Text != "")
                 {
-                    delivery.AddDeliveryInfo(txtDRNum.Text, txtDeliveredBy.Text, dtDeliveryDate.Value.Date, txtRemarks.Text);
+                    delivery.AddDeliveryInfo(txtDRNum.Text, txtDeliveredBy.Text, dtDeliveryDate.Value.Date, txtRemarks.Text, int.Parse(lblTransactionID.Text));
+                    transactions.SaveTransactionDelivery(2, int.Parse(lblTransactionID.Text));
+
+                    frmDelivery_Load(sender, e);
+                    delivery.LoadDeliveryDataToGrid(dtgDelivery, lblDeliveryCount);
+                    DisableControls();
+
+                    if (lblDeliveryCount.Text == "0")
+                    {
+                        cmdDeliver.Enabled = false;
+                    }
                 }
-                else if (AddorEdit == 1)
+                else
                 {
-                    delivery.EditDeliveryInfo(int.Parse(lblDeliveryID.Text), txtDRNum.Text, txtDeliveredBy.Text, dtDeliveryDate.Value.Date, txtRemarks.Text);
-                }
-                frmDelivery_Load(sender, e);
-                DisableControls();
+                    MessageBox.Show(this, "All fields are required!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }                
             }
             else
             {
@@ -207,6 +228,16 @@ namespace Inventory.forms
                 MessageBox.Show(this, "Delete not authorized!", "Invalid Authorization", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 val.AuthorizationToken = 0;
             }
+        }
+
+        private void cmdDeliver_Click(object sender, EventArgs e)
+        {
+            EnableControls();
+        }
+
+        private void lblTransactionID_TextChanged(object sender, EventArgs e)
+        {
+            cmdDeliver.Enabled = true;
         }
     }
 }

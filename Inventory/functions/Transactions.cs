@@ -110,8 +110,73 @@ namespace Inventory.functions
             }
         }
 
+        public dataset.salesreport GetDailySales(DateTime mTransactionDate)
+        {
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connection.conString))
+                {
+                    string sql = @"SELECT * FROM inventorydb.tbltransactions WHERE date(tbltransactions.transactiondate) = @transactiondate";
 
-        public items GetTransactionDetail(long  transaction_id)
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@transactiondate", mTransactionDate);
+                        MySqlDataAdapter da = new MySqlDataAdapter();
+                        da.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        dataset.salesreport dsDailySales = new dataset.salesreport();
+                        dt.Clear();
+                        da.Fill(dt);
+                        da.Fill(dsDailySales, "dailysales");
+
+                        return dsDailySales;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error Getting Transaction Data: " + e);
+                return null;
+            }
+        }
+
+        public dataset.items GetTransactionDetail(long transaction_id)
+        {
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connection.conString))
+                {
+                    string sql = @"SELECT * FROM inventorydb.tbltransactions 
+                            inner join inventorydb.tbltransactiondetails on tbltransactions.transactionid = tbltransactiondetails.transactionid
+                            inner join inventorydb.tblitems on tbltransactiondetails.itemid = tblitems.itemid
+                            inner join inventorydb.tblclients on tbltransactions.clientid = tblclients.clientid
+                            where tblitems.itemid in (SELECT itemid from inventorydb.tbltransactiondetails where tbltransactiondetails.transactionid = @id)
+                            and tbltransactions.transactionid = @id";
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@id", transaction_id);
+                        MySqlDataAdapter da = new MySqlDataAdapter();
+                        da.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        dataset.items dsItems = new dataset.items();
+                        dt.Clear();
+                        da.Fill(dt);
+                        da.Fill(dsItems, "receipt");
+
+                        return dsItems;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error Getting Transaction Data: " + e);
+                return null;
+            }
+        }
+
+
+        public dataset.items GetInstallmentTransactionDetail(long transaction_id)
         {
             try
             {
@@ -131,7 +196,7 @@ namespace Inventory.functions
                         MySqlDataAdapter da = new MySqlDataAdapter();
                         da.SelectCommand = cmd;
                         DataTable dt = new DataTable();
-                        items dsItems = new items();
+                        dataset.items dsItems = new dataset.items();
                         dt.Clear();
                         da.Fill(dt);
                         da.Fill(dsItems, "installmentreceipt");
@@ -147,15 +212,16 @@ namespace Inventory.functions
         }
 
         public bool SaveTransaction(int mTransactionID, string mORnum, double mTotalSales, double mDiscount, double mTax, double mTotalDue, double mCashtendered, 
-            double mChange, int mClientID, int mUserID, DateTime mTransactionDate, string mPaymentType, int mPaymentReference)
+            double mChange, int mClientID, int mUserID, DateTime mTransactionDate, string mPaymentType, int mPaymentReference, int mForDelivery)
         {
             try
             {
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
                     string sql = @"INSERT INTO inventorydb.tbltransactions" +
-                        "(transactionid, ornumber, totalsales, discount, tax, totaldue, cashtendered, cashchange, clientid, userid, transactiondate, paymenttype, paymentrefnumber) " + 
-                        "VALUES(@transactionid, @ornumber, @totalsales, @discount, @tax, @totaldue, @cashtendered, @change, @clientid, @userid, @transactiondate, @paymenttype, @paymentreference);";
+                        "(transactionid, ornumber, totalsales, discount, tax, totaldue, cashtendered, cashchange, clientid, userid, transactiondate, paymenttype, paymentrefnumber, fordelivery) " + 
+                        "VALUES(@transactionid, @ornumber, @totalsales, @discount, @tax, @totaldue, @cashtendered, @change, @clientid, @userid, @transactiondate, @paymenttype," +
+                        "@paymentreference, @fordelivery);";
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
@@ -172,6 +238,7 @@ namespace Inventory.functions
                         cmd.Parameters.AddWithValue("@transactiondate", mTransactionDate);
                         cmd.Parameters.AddWithValue("@paymenttype", mPaymentType);
                         cmd.Parameters.AddWithValue("@paymentreference", mPaymentReference);
+                        cmd.Parameters.AddWithValue("@fordelivery", mForDelivery);
 
                         cmd.Connection.Open();
                         MySqlDataReader dr;
@@ -185,6 +252,35 @@ namespace Inventory.functions
             catch (Exception e)
             {
                 Console.WriteLine("Error saving transaction: " + e);
+                return false;
+            }
+        }
+
+        public bool SaveTransactionDelivery(int mForDelivery, int mTransactionID)
+        {
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connection.conString))
+                {
+                    string sql = @"UPDATE inventorydb.tbltransactions SET fordelivery=@fordelivery WHERE transactionid=@transactionid;";
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@transactionid", mTransactionID);
+                        cmd.Parameters.AddWithValue("@fordelivery", mForDelivery);
+
+                        cmd.Connection.Open();
+                        MySqlDataReader dr;
+                        dr = cmd.ExecuteReader();
+                        dr.Close();
+
+                        return true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error updating delivery transaction: " + e);
                 return false;
             }
         }

@@ -62,6 +62,7 @@
             this.cmdSave = new MetroFramework.Controls.MetroButton();
             this.cmdUpdate = new MetroFramework.Controls.MetroButton();
             this.cmdExit = new MetroFramework.Controls.MetroTile();
+            this.cmdRestock = new MetroFramework.Controls.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.dtgInventory)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -135,9 +136,9 @@
             // 
             // 
             this.txtProductName.CustomButton.Image = null;
-            this.txtProductName.CustomButton.Location = new System.Drawing.Point(211, 1);
+            this.txtProductName.CustomButton.Location = new System.Drawing.Point(281, 1);
             this.txtProductName.CustomButton.Name = "";
-            this.txtProductName.CustomButton.Size = new System.Drawing.Size(23, 25);
+            this.txtProductName.CustomButton.Size = new System.Drawing.Size(31, 31);
             this.txtProductName.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtProductName.CustomButton.TabIndex = 1;
             this.txtProductName.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -169,9 +170,9 @@
             // 
             // 
             this.txtFireExType.CustomButton.Image = null;
-            this.txtFireExType.CustomButton.Location = new System.Drawing.Point(72, 1);
+            this.txtFireExType.CustomButton.Location = new System.Drawing.Point(96, 1);
             this.txtFireExType.CustomButton.Name = "";
-            this.txtFireExType.CustomButton.Size = new System.Drawing.Size(23, 25);
+            this.txtFireExType.CustomButton.Size = new System.Drawing.Size(31, 31);
             this.txtFireExType.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtFireExType.CustomButton.TabIndex = 1;
             this.txtFireExType.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -203,9 +204,9 @@
             // 
             // 
             this.txtFireExCapacity.CustomButton.Image = null;
-            this.txtFireExCapacity.CustomButton.Location = new System.Drawing.Point(72, 1);
+            this.txtFireExCapacity.CustomButton.Location = new System.Drawing.Point(96, 1);
             this.txtFireExCapacity.CustomButton.Name = "";
-            this.txtFireExCapacity.CustomButton.Size = new System.Drawing.Size(23, 25);
+            this.txtFireExCapacity.CustomButton.Size = new System.Drawing.Size(31, 31);
             this.txtFireExCapacity.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtFireExCapacity.CustomButton.TabIndex = 1;
             this.txtFireExCapacity.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -259,9 +260,9 @@
             // 
             // 
             this.txtKeyword.CustomButton.Image = null;
-            this.txtKeyword.CustomButton.Location = new System.Drawing.Point(160, 1);
+            this.txtKeyword.CustomButton.Location = new System.Drawing.Point(214, 1);
             this.txtKeyword.CustomButton.Name = "";
-            this.txtKeyword.CustomButton.Size = new System.Drawing.Size(20, 22);
+            this.txtKeyword.CustomButton.Size = new System.Drawing.Size(27, 27);
             this.txtKeyword.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtKeyword.CustomButton.TabIndex = 1;
             this.txtKeyword.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -437,9 +438,9 @@
             // 
             // 
             this.txtProductPrice.CustomButton.Image = null;
-            this.txtProductPrice.CustomButton.Location = new System.Drawing.Point(106, 1);
+            this.txtProductPrice.CustomButton.Location = new System.Drawing.Point(141, 1);
             this.txtProductPrice.CustomButton.Name = "";
-            this.txtProductPrice.CustomButton.Size = new System.Drawing.Size(23, 25);
+            this.txtProductPrice.CustomButton.Size = new System.Drawing.Size(31, 31);
             this.txtProductPrice.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtProductPrice.CustomButton.TabIndex = 1;
             this.txtProductPrice.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -475,7 +476,7 @@
             this.dtManufactureDate.Location = new System.Drawing.Point(148, 243);
             this.dtManufactureDate.MinimumSize = new System.Drawing.Size(0, 29);
             this.dtManufactureDate.Name = "dtManufactureDate";
-            this.dtManufactureDate.Size = new System.Drawing.Size(173, 30);
+            this.dtManufactureDate.Size = new System.Drawing.Size(173, 29);
             this.dtManufactureDate.TabIndex = 9;
             // 
             // txtProductStatus
@@ -484,9 +485,9 @@
             // 
             // 
             this.txtProductStatus.CustomButton.Image = null;
-            this.txtProductStatus.CustomButton.Location = new System.Drawing.Point(106, 1);
+            this.txtProductStatus.CustomButton.Location = new System.Drawing.Point(141, 1);
             this.txtProductStatus.CustomButton.Name = "";
-            this.txtProductStatus.CustomButton.Size = new System.Drawing.Size(23, 25);
+            this.txtProductStatus.CustomButton.Size = new System.Drawing.Size(31, 31);
             this.txtProductStatus.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtProductStatus.CustomButton.TabIndex = 1;
             this.txtProductStatus.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -518,9 +519,9 @@
             // 
             // 
             this.txtCategory.CustomButton.Image = null;
-            this.txtCategory.CustomButton.Location = new System.Drawing.Point(144, 1);
+            this.txtCategory.CustomButton.Location = new System.Drawing.Point(192, 1);
             this.txtCategory.CustomButton.Name = "";
-            this.txtCategory.CustomButton.Size = new System.Drawing.Size(23, 25);
+            this.txtCategory.CustomButton.Size = new System.Drawing.Size(31, 31);
             this.txtCategory.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtCategory.CustomButton.TabIndex = 1;
             this.txtCategory.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -552,9 +553,9 @@
             // 
             // 
             this.txtProductDescription.CustomButton.Image = null;
-            this.txtProductDescription.CustomButton.Location = new System.Drawing.Point(127, 2);
+            this.txtProductDescription.CustomButton.Location = new System.Drawing.Point(169, 2);
             this.txtProductDescription.CustomButton.Name = "";
-            this.txtProductDescription.CustomButton.Size = new System.Drawing.Size(106, 115);
+            this.txtProductDescription.CustomButton.Size = new System.Drawing.Size(141, 141);
             this.txtProductDescription.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtProductDescription.CustomButton.TabIndex = 1;
             this.txtProductDescription.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -583,6 +584,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cmdRestock);
             this.groupBox2.Controls.Add(this.cmdCancel);
             this.groupBox2.Controls.Add(this.cmdSave);
             this.groupBox2.Controls.Add(this.cmdUpdate);
@@ -599,7 +601,7 @@
             this.cmdCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdCancel.Enabled = false;
             this.cmdCancel.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.cmdCancel.Location = new System.Drawing.Point(300, 40);
+            this.cmdCancel.Location = new System.Drawing.Point(360, 40);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(101, 83);
             this.cmdCancel.Style = MetroFramework.MetroColorStyle.Red;
@@ -615,7 +617,7 @@
             this.cmdSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdSave.Enabled = false;
             this.cmdSave.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.cmdSave.Location = new System.Drawing.Point(193, 40);
+            this.cmdSave.Location = new System.Drawing.Point(253, 40);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(101, 83);
             this.cmdSave.Style = MetroFramework.MetroColorStyle.Red;
@@ -630,7 +632,7 @@
             this.cmdUpdate.BackgroundImage = global::Inventory.Properties.Resources.edit;
             this.cmdUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.cmdUpdate.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.cmdUpdate.Location = new System.Drawing.Point(86, 40);
+            this.cmdUpdate.Location = new System.Drawing.Point(146, 40);
             this.cmdUpdate.Name = "cmdUpdate";
             this.cmdUpdate.Size = new System.Drawing.Size(101, 83);
             this.cmdUpdate.Style = MetroFramework.MetroColorStyle.Red;
@@ -643,7 +645,7 @@
             // cmdExit
             // 
             this.cmdExit.ActiveControl = null;
-            this.cmdExit.Location = new System.Drawing.Point(1139, 63);
+            this.cmdExit.Location = new System.Drawing.Point(1237, 63);
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(101, 83);
             this.cmdExit.Style = MetroFramework.MetroColorStyle.Red;
@@ -654,6 +656,21 @@
             this.cmdExit.UseSelectable = true;
             this.cmdExit.UseTileImage = true;
             this.cmdExit.Click += new System.EventHandler(this.metroTile4_Click);
+            // 
+            // cmdRestock
+            // 
+            this.cmdRestock.BackgroundImage = global::Inventory.Properties.Resources.add;
+            this.cmdRestock.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cmdRestock.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.cmdRestock.Location = new System.Drawing.Point(39, 40);
+            this.cmdRestock.Name = "cmdRestock";
+            this.cmdRestock.Size = new System.Drawing.Size(101, 83);
+            this.cmdRestock.Style = MetroFramework.MetroColorStyle.Red;
+            this.cmdRestock.TabIndex = 16;
+            this.cmdRestock.Text = "RESTOCK";
+            this.cmdRestock.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.cmdRestock.UseSelectable = true;
+            this.cmdRestock.Click += new System.EventHandler(this.cmdRestock_Click);
             // 
             // frmInventory
             // 
@@ -722,5 +739,6 @@
         private MetroFramework.Controls.MetroButton cmdCancel;
         private MetroFramework.Controls.MetroButton cmdSave;
         private MetroFramework.Controls.MetroLabel lblRecordID;
+        private MetroFramework.Controls.MetroButton cmdRestock;
     }
 }

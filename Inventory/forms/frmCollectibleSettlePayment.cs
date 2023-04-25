@@ -20,6 +20,7 @@ namespace Inventory.forms
         functions.Transactions transactions = new functions.Transactions();
 
         string cashTendered = "";
+        double installmentNewBalance = 0;
 
         public frmCollectibleSettlePayment()
         {
@@ -29,6 +30,7 @@ namespace Inventory.forms
         private void frmCollectibleSettlePayment_Load(object sender, EventArgs e)
         {
             lbltransactionid.Text = transactions.TransactionCode.ToString();
+            lblInstallmentID.Text = installment.InstallmentID.ToString();
             txtTotal.Text = val.CartTotalDue.ToString("n2");
             rdoCash.Checked = true;
             val.PaymentType = "CASH";
@@ -123,19 +125,30 @@ namespace Inventory.forms
             {
                 if (txtORnumber.Text != "")
                 {
-                    if (rdoCash.Checked == true)
-                    {
-                        ProcessPayment();
+                    double mCashTendered, mTotal;
+                    mCashTendered = double.Parse(cashTendered);
+                    mTotal = double.Parse(txtTotal.Text);
+
+                    if (mCashTendered > mTotal)
+                    { 
+                        MessageBox.Show(this, "Cash tendered exceeds payment required! Please input exact amount for full payment", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    else if (rdoCheck.Checked == true)
+                    else
                     {
-                        if (txtCheckNumber.Text != "")
+                        if (rdoCash.Checked == true)
                         {
                             ProcessPayment();
                         }
-                        else
+                        else if (rdoCheck.Checked == true)
                         {
-                            MessageBox.Show(this, "Please provide check number for check payments", "Input Check Number", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            if (txtCheckNumber.Text != "")
+                            {
+                                ProcessPayment();
+                            }
+                            else
+                            {
+                                MessageBox.Show(this, "Please provide check number for check payments", "Input Check Number", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
                     }
                 }
@@ -160,17 +173,35 @@ namespace Inventory.forms
                 {
                     val.PaymentReference = int.Parse(txtCheckNumber.Text);
                 }
+
+                //SET GLOBAL INSTALLMENT VARIABLE VALUES
+                installmentNewBalance = installment.InstallmentBalance - double.Parse(txtCashTendered.Text);
+
                 val.CartTransactionDate = DateTime.Now;
                 val.CartChange = 0;
                 val.CartCashTendered = double.Parse(txtCashTendered.Text);
 
-                transactions.SaveTransaction(int.Parse(transactions.TransactionCode.ToString()), txtORnumber.Text, val.CartTotalSales, val.CartDiscount, val.CartTax,
-                    val.CartTotalDue, val.CartCashTendered, val.CartChange, val.CartClientID, val.UserID, val.CartTransactionDate, val.PaymentType, val.PaymentReference);
+                String installmentstatus;
+
+                if (installmentNewBalance == 0)
+                {
+                    installmentstatus = "PAID";
+                }
+                else
+                {
+                    installmentstatus = "OPEN";
+                }
+
+            
+                installment.UpdateInstallment(installment.InstallmentID,installmentNewBalance, installmentstatus);
+                installment.SaveInstallmentDetails(installment.InstallmentID, double.Parse(txtCashTendered.Text), val.CartTransactionDate, val.UserName, txtORnumber.Text);
+                //transactions.SaveTransaction(int.Parse(transactions.TransactionCode.ToString()), txtORnumber.Text, val.CartTotalSales, val.CartDiscount, val.CartTax,
+                //    val.CartTotalDue, val.CartCashTendered, val.CartChange, val.CartClientID, val.UserID, val.CartTransactionDate, val.PaymentType, val.PaymentReference, 0);              
 
                 transactions.TransactionSuccess = 1;
 
-                forms.frmRPTReceipt frmRPTReceipt = new forms.frmRPTReceipt();
-                frmRPTReceipt.ShowDialog();
+                forms.frmRPTInstallmentReceipt frmRPTInstallmentReceipt = new forms.frmRPTInstallmentReceipt();
+                frmRPTInstallmentReceipt.ShowDialog();
             }
         }
 
@@ -178,6 +209,12 @@ namespace Inventory.forms
         {
             cashTendered += "0";
             txtCashTendered.Text = double.Parse(cashTendered).ToString("n2");
+        }
+
+        private void frmCollectibleSettlePayment_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            frmCollectibles frmCollectibles = new frmCollectibles();
+            frmCollectibles.Refresh();
         }
     }
 }

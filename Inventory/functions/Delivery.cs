@@ -21,7 +21,7 @@ namespace Inventory.functions
             {
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
-                    string sql = @"SELECT * FROM inventorydb.tbldelivery;";
+                    string sql = @"SELECT * FROM inventorydb.tbltransactions INNER JOIN inventorydb.tblclients ON tbltransactions.clientid = tblclients.clientid WHERE fordelivery = 1;";
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
                         MySqlDataAdapter da = new MySqlDataAdapter();
@@ -33,13 +33,88 @@ namespace Inventory.functions
                         if (dt.Rows.Count != 0)
                         {
                             mDatagrid.DataSource = dt;
-                            mDatagrid.Columns["deliveryid"].Visible = false;
-                            mDatagrid.Columns["drnum"].HeaderText = "DR Number";
-                            mDatagrid.Columns["deliveredby"].HeaderText = "Delivered By";
-                            mDatagrid.Columns["deliveredby"].Width = 200;
-                            mDatagrid.Columns["deliverydate"].HeaderText = "Delivery Date";
-                            mDatagrid.Columns["deliveryremarks"].HeaderText = "Remarks";
-                            mDatagrid.Columns["deliveryremarks"].Width = 300;
+                            mDatagrid.Columns["transactionid"].HeaderText = "Transaction ID";
+                            mDatagrid.Columns["ornumber"].HeaderText = "OR Number";
+                            mDatagrid.Columns["totalsales"].Visible = false;
+                            mDatagrid.Columns["discount"].Visible = false;
+                            mDatagrid.Columns["tax"].Visible = false;
+                            mDatagrid.Columns["totaldue"].HeaderText = "Total Due";
+                            mDatagrid.Columns["cashtendered"].Visible = false;
+                            mDatagrid.Columns["cashchange"].Visible = false;
+                            mDatagrid.Columns["clientid1"].Visible = false;
+                            mDatagrid.Columns["userid"].Visible = false;
+                            mDatagrid.Columns["transactiondate"].HeaderText = "Transaction Date";
+                            mDatagrid.Columns["paymenttype"].Visible = false;
+                            mDatagrid.Columns["paymentrefnumber"].Visible = false;
+                            mDatagrid.Columns["fordelivery"].Visible = false;
+                            mDatagrid.Columns["clientid"].Visible = false;
+                            mDatagrid.Columns["clientname"].HeaderText = "Client Name";
+                            mDatagrid.Columns["clientaddress"].HeaderText = "Address";
+                            mDatagrid.Columns["clientaddress"].Width = 200;
+                            mDatagrid.Columns["contactperson"].HeaderText = "Contact Person";
+                            mDatagrid.Columns["salesagent"].Visible = false;
+                            mDatagrid.Columns["remarks"].Visible = false;
+
+                            lblRecordCount.Text = mDatagrid.RowCount.ToString();
+                        } 
+                        else
+                        {
+                            mDatagrid.Refresh();
+                            mDatagrid.Visible = false;
+                            lblRecordCount.Text = "0";
+                        }
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                //LOG ERROR IN LOADING ITEM DATA TO DATAGRID
+                logs.logthis("Error loading delivery data to datagrid: " + e);
+            }
+        }
+
+        public void LoadDeliveredDataToGrid(DataGridView mDatagrid, Label lblRecordCount)
+        {
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connection.conString))
+                {
+                    string sql = @"SELECT * FROM inventorydb.tbltransactions INNER JOIN inventorydb.tblclients ON tbltransactions.clientid = tblclients.clientid WHERE fordelivery = 2 ORDER BY transactiondate ASC;";
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        MySqlDataAdapter da = new MySqlDataAdapter();
+                        da.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        dt.Clear();
+                        da.Fill(dt);
+
+                        if (dt.Rows.Count != 0)
+                        {
+                            mDatagrid.DataSource = dt;
+                            mDatagrid.Columns["transactionid"].HeaderText = "Transaction ID";
+                            mDatagrid.Columns["ornumber"].HeaderText = "OR Number";
+                            mDatagrid.Columns["totalsales"].Visible = false;
+                            mDatagrid.Columns["discount"].Visible = false;
+                            mDatagrid.Columns["tax"].Visible = false;
+                            mDatagrid.Columns["totaldue"].HeaderText = "Total Due";
+                            mDatagrid.Columns["totaldue"].DefaultCellStyle.Format = "N2";
+                            mDatagrid.Columns["cashtendered"].Visible = false;
+                            mDatagrid.Columns["cashchange"].Visible = false;
+                            mDatagrid.Columns["clientid"].Visible = false;
+                            mDatagrid.Columns["userid"].Visible = false;
+                            mDatagrid.Columns["transactiondate"].HeaderText = "Transaction Date";
+                            mDatagrid.Columns["transactiondate"].DisplayIndex = 0;
+                            mDatagrid.Columns["paymenttype"].Visible = false;
+                            mDatagrid.Columns["paymentrefnumber"].Visible = false;
+                            mDatagrid.Columns["fordelivery"].Visible = false;
+                            mDatagrid.Columns["clientid1"].Visible = false;
+                            mDatagrid.Columns["clientname"].HeaderText = "Client Name";
+                            mDatagrid.Columns["clientaddress"].HeaderText = "Address";
+                            mDatagrid.Columns["clientaddress"].Width = 200;
+                            mDatagrid.Columns["contactperson"].HeaderText = "Contact Person";
+                            mDatagrid.Columns["salesagent"].Visible = false;
+                            mDatagrid.Columns["remarks"].Visible = false;
 
                             lblRecordCount.Text = mDatagrid.RowCount.ToString();
                         }
@@ -54,14 +129,14 @@ namespace Inventory.functions
             }
         }
 
-        public bool AddDeliveryInfo(string mDRnum, string mDeliveredBy, DateTime mDeliveryDate, string mDeliveryRemarks)
+        public bool AddDeliveryInfo(string mDRnum, string mDeliveredBy, DateTime mDeliveryDate, string mDeliveryRemarks, int mTransactionID)
         {
             try
             {
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
-                    string sql = @"INSERT INTO inventorydb.tbldelivery(drnum, deliveredby, deliverydate, deliveryremarks) " +
-                        "VALUES (@drnum, @deliveredby, @deliverydate, @deliveryremarks);";
+                    string sql = @"INSERT INTO inventorydb.tbldelivery(drnum, deliveredby, deliverydate, deliveryremarks, transactionid) " +
+                        "VALUES (@drnum, @deliveredby, @deliverydate, @deliveryremarks, @transactionid);";
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
@@ -69,6 +144,7 @@ namespace Inventory.functions
                         cmd.Parameters.AddWithValue("@deliveredby", mDeliveredBy);
                         cmd.Parameters.AddWithValue("@deliverydate", mDeliveryDate);
                         cmd.Parameters.AddWithValue("@deliveryremarks", mDeliveryRemarks);
+                        cmd.Parameters.AddWithValue("@transactionid", mTransactionID);
 
                         cmd.Connection.Open();
                         MySqlDataReader dr;

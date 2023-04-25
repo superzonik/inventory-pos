@@ -19,15 +19,16 @@ namespace Inventory.forms
         functions.Installment installment = new functions.Installment();
 
         string _principalamount, _remainingbalance, _cashtendered, _newbalance, _transactionid, _paymentmethod, _transactiondate;
+        double numNewBalance;
 
         private void frmRPTInstallmentReceipt_FormClosing(object sender, FormClosingEventArgs e)
         {
             FormCollection fc = Application.OpenForms;
             foreach (Form frm in fc)
             {
-                if (frm.Name == "frmPOSSettlePayment")
+                if (frm.Name == "frmCollectibleSettlePayment")
                 {
-                    Application.OpenForms["frmPOSSettlePayment"].Close();
+                    Application.OpenForms["frmCollectibleSettlePayment"].Close();
                 }
                 else if (frm.Name == "frmCreateInstallment")
                 {
@@ -42,7 +43,8 @@ namespace Inventory.forms
             _principalamount = installment.InstallmentPrincipalAmount.ToString();
             _remainingbalance = installment.InstallmentBalance.ToString();
             _cashtendered = val.CartCashTendered.ToString();
-            _newbalance = installment.InstallmentBalance.ToString();
+            numNewBalance = double.Parse(_remainingbalance) - double.Parse(_cashtendered);
+            _newbalance = numNewBalance.ToString();
             _transactionid = transaction.TransactionCode.ToString();
             _paymentmethod = val.PaymentType;
             _transactiondate = val.CartTransactionDate.ToShortDateString();
@@ -51,10 +53,10 @@ namespace Inventory.forms
         private void frmRPTInstallmentReceipt_Load(object sender, EventArgs e)
         {
 
-            items dsInstallment = transaction.GetTransactionDetail(transaction.TransactionCode);
+            dataset.items dsInstallment = transaction.GetInstallmentTransactionDetail(transaction.TransactionCode);
             ReportDataSource datasource = new ReportDataSource("installmentreceipt", dsInstallment.Tables["installmentreceipt"]);
             ReportParameter[] rParams = new ReportParameter[] {
-                //new ReportParameter("transaction_id", transaction.TransactionCode.ToString()),
+                new ReportParameter("pTransactionID", transaction.TransactionCode.ToString()),
                 new ReportParameter("pPrincipalAmount", _principalamount),
                 new ReportParameter("pRemainingBalance", _remainingbalance),
                 new ReportParameter("pCashTendered", _cashtendered),

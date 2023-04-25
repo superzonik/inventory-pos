@@ -131,3 +131,5 @@ D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmAddNewClient.resour
 D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmCreateInstallment.resources
 D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmCollectibleSettlePayment.resources
 D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmRPTInstallmentReceipt.resources
+D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmReportList.resources
+D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmReportDaily.resources

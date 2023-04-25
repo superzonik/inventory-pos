@@ -754,7 +754,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Parameters!pPaymentMethod.Value</Value>
+                      <Value>=Parameters!pPaymentMethod.Value + "/INSTALLMENT"</Value>
                       <Style>
                         <FontFamily>Courier New</FontFamily>
                         <FontSize>8pt</FontSize>

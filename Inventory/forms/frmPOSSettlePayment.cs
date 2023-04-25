@@ -21,6 +21,7 @@ namespace Inventory.forms
         functions.Items items = new functions.Items();
 
         string cashTendered = "";
+        int forDelivery = 0;
 
         public frmPOSSettlePayment()
         {
@@ -172,22 +173,27 @@ namespace Inventory.forms
                     {
                         int itemid = Convert.ToInt32(((frmPOS)frm).dtgCart.Rows[i].Cells["itemid"].Value);
                         int quantity = Convert.ToInt32(((frmPOS)frm).dtgCart.Rows[i].Cells["quantity"].Value);
+                        int inStock = Convert.ToInt32(((frmPOS)frm).dtgCart.Rows[i].Cells["instock"].Value);
                         double totalprice = Convert.ToDouble(((frmPOS)frm).dtgCart.Rows[i].Cells["total"].Value);
                         string serialnumber = ((frmPOS)frm).dtgCart.Rows[i].Cells["serialnumber"].Value.ToString();
                         string itemname = ((frmPOS)frm).dtgCart.Rows[i].Cells["itemname"].Value.ToString();
                         string itemcategory = ((frmPOS)frm).dtgCart.Rows[i].Cells["category"].Value.ToString();
 
                         transactions.SaveTransactionDetails(transactions.TransactionCode, itemid, quantity, totalprice);
-                        
+
+
+                        int quantity_remaining = inStock - quantity;
+
                         //UPDATE ITEM 
                         //CHECK IF PRODUCT IS NOT FIRE EXTINGUISHER
-                        if (itemcategory == "FDAS" || itemcategory == "Raw Materials")
+                        if (itemcategory == "Fire Extinguisher")
                         {
-                            // I-count ko tani kung pila kabilog gin add nya sa cart nga FDAS or Raw Materials, then i-filter ko sa database tnan nga available sa stock,
-                            // tapos kwaon ko dayon ang itemid sang mga item nga na query kag i-update ko sa tblitems nga gin-bakal na ang amo na nga item.
-
+                            items.updateItemStatus(itemid, 1, serialnumber, quantity);
                         }
-                        items.updateItemStatus(itemid, serialnumber);
+                        else
+                        {
+                            items.updateItemStatus(itemid, 0, serialnumber, quantity_remaining);
+                        }
 
                     }
 
@@ -205,7 +211,7 @@ namespace Inventory.forms
                     val.CartCashTendered = double.Parse(txtCashTendered.Text);
 
                     transactions.SaveTransaction(int.Parse(transactions.TransactionCode.ToString()), txtORnumber.Text, val.CartTotalSales, val.CartDiscount, val.CartTax,
-                        val.CartTotalDue, val.CartCashTendered, val.CartChange, val.CartClientID, val.UserID, val.CartTransactionDate, val.PaymentType, val.PaymentReference);
+                        val.CartTotalDue, val.CartCashTendered, val.CartChange, val.CartClientID, val.UserID, val.CartTransactionDate, val.PaymentType, val.PaymentReference, forDelivery);
 
                     transactions.TransactionSuccess = 1;
 
@@ -347,6 +353,24 @@ namespace Inventory.forms
             {
                 e.Handled = true;
             }
+        }
+
+        private void rdoInStore_CheckedChanged(object sender, EventArgs e)
+        {
+            //FOR DELIVERY 
+            //0 = IN-STORE PURCHASE OR FOR PICK-UP
+            //1 = FOR DELIVERY
+            //2 = DELIVERED
+            forDelivery = 0;
+        }
+
+        private void rdoDelivery_CheckedChanged(object sender, EventArgs e)
+        {
+            //FOR DELIVERY 
+            //0 = IN-STORE PURCHASE OR FOR PICK-UP
+            //1 = FOR DELIVERY
+            //2 = DELIVERED
+            forDelivery = 1;
         }
     }
 }

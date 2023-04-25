@@ -192,6 +192,18 @@
     <Compile Include="forms\frmPOSSettlePayment.Designer.cs">
       <DependentUpon>frmPOSSettlePayment.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\frmReportDaily.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\frmReportDaily.Designer.cs">
+      <DependentUpon>frmReportDaily.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\frmReportList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\frmReportList.Designer.cs">
+      <DependentUpon>frmReportList.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\frmRPTInstallmentReceipt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -212,16 +224,21 @@
     <Compile Include="functions\Logs.cs" />
     <Compile Include="functions\MySQL.cs" />
     <Compile Include="functions\Transactions.cs" />
-    <Compile Include="items.cs">
+    <Compile Include="dataset\items.cs">
       <DependentUpon>items.xsd</DependentUpon>
     </Compile>
-    <Compile Include="items.Designer.cs">
+    <Compile Include="dataset\items.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>items.xsd</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="dataset\salesreport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>salesreport.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="forms\frmAddNewArticle.resx">
       <DependentUpon>frmAddNewArticle.cs</DependentUpon>
     </EmbeddedResource>
@@ -264,6 +281,12 @@
     <EmbeddedResource Include="forms\frmPOSSettlePayment.resx">
       <DependentUpon>frmPOSSettlePayment.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="forms\frmReportDaily.resx">
+      <DependentUpon>frmReportDaily.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\frmReportList.resx">
+      <DependentUpon>frmReportList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\frmRPTInstallmentReceipt.resx">
       <DependentUpon>frmRPTInstallmentReceipt.cs</DependentUpon>
     </EmbeddedResource>
@@ -281,16 +304,17 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="reports\rptInstallmentReceipt.rdlc" />
+    <EmbeddedResource Include="reports\rptDailySales.rdlc" />
     <EmbeddedResource Include="reports\rptReceipt.rdlc" />
-    <None Include="items.xsc">
+    <None Include="dataset\items.xsc">
       <DependentUpon>items.xsd</DependentUpon>
     </None>
-    <None Include="items.xsd">
+    <None Include="dataset\items.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>items.Designer.cs</LastGenOutput>
     </None>
-    <None Include="items.xss">
+    <None Include="dataset\items.xss">
       <DependentUpon>items.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
@@ -449,6 +473,17 @@
     <None Include="Resources\rename.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="dataset\salesreport.xsc">
+      <DependentUpon>salesreport.xsd</DependentUpon>
+    </None>
+    <None Include="dataset\salesreport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>salesreport.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dataset\salesreport.xss">
+      <DependentUpon>salesreport.xsd</DependentUpon>
+    </None>
     <None Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>

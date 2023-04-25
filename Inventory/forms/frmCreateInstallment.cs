@@ -22,6 +22,7 @@ namespace Inventory.forms
         functions.Installment installment = new functions.Installment();
 
         double principal_amount = 0, interest = 0, monthly_due = 0, terms = 0, downpayment = 0, balance = 0;
+        int forDelivery = 0;
 
         public frmCreateInstallment()
         {
@@ -66,6 +67,25 @@ namespace Inventory.forms
             cmdCompute_Click(sender, e);
         }
 
+        private void rdoInStore_CheckedChanged(object sender, EventArgs e)
+        {
+            //FOR DELIVERY 
+            //0 = IN-STORE PURCHASE OR FOR PICK-UP
+            //1 = FOR DELIVERY
+            //2 = DELIVERED
+            forDelivery = 0;
+        }
+
+        private void rdoDelivery_CheckedChanged(object sender, EventArgs e)
+        {
+            //FOR DELIVERY 
+            //0 = IN-STORE PURCHASE OR FOR PICK-UP
+            //1 = FOR DELIVERY
+            //2 = DELIVERED
+            forDelivery = 1;
+        }
+
+
         private void txtInterest_KeyPress(object sender, KeyPressEventArgs e)
         {
             cmdCompute_Click(sender, e);
@@ -80,21 +100,20 @@ namespace Inventory.forms
         {
             if (txtPrincipalAmount.Text != "")
             {
-                
-            
+
+
                 principal_amount = double.Parse(txtPrincipalAmount.Text);
                 terms = double.Parse(cboTerms.Text);
-                balance = principal_amount;
 
                 if (txtDownpayment.Text == "")
                 {
                     downpayment = 0;
                 }
                 else
-                { 
+                {
                     downpayment = double.Parse(txtDownpayment.Text);
                 }
-                
+
 
                 if (txtInterest.Text == "")
                 {
@@ -106,7 +125,7 @@ namespace Inventory.forms
                     interest = double.Parse(txtInterest.Text);
                     balance = principal_amount - downpayment;
                     monthly_due = (balance + (balance * (interest / 100))) / terms;
-                }              
+                }
 
                 txtMonthyDue.Text = monthly_due.ToString("n2");
                 txtBalance.Text = balance.ToString("n2");
@@ -122,50 +141,60 @@ namespace Inventory.forms
         {
             if (txtMonthyDue.Text != "")
             {
-                if (MessageBox.Show(this, "Are the data entered correct?", "Verify", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (txtORNumber.Text != "")
                 {
-                    installment.InstallmentBalance = val.CartTotalDue;
-                    installment.InstallmentPrincipalAmount = val.CartTotalDue;
-                    installment.InstallmentBalance = balance;
-
-                    System.Windows.Forms.Form frm = System.Windows.Forms.Application.OpenForms["frmPOS"];
-                    try
+                    if (MessageBox.Show(this, "Are the data entered correct?", "Verify", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        int itemscount = ((frmPOS)frm).dtgCart.Rows.Count;
-                        for (int i = 0; i < itemscount; i++)
+                        installment.InstallmentPrincipalAmount = principal_amount;
+                        installment.InstallmentBalance = balance;
+
+                        System.Windows.Forms.Form frm = System.Windows.Forms.Application.OpenForms["frmPOS"];
+                        try
                         {
-                            int itemid = Convert.ToInt32(((frmPOS)frm).dtgCart.Rows[i].Cells["itemid"].Value);
-                            int quantity = Convert.ToInt32(((frmPOS)frm).dtgCart.Rows[i].Cells["quantity"].Value);
-                            double totalprice = Convert.ToDouble(((frmPOS)frm).dtgCart.Rows[i].Cells["total"].Value);
+                            int itemscount = ((frmPOS)frm).dtgCart.Rows.Count;
+                            for (int i = 0; i < itemscount; i++)
+                            {
+                                int itemid = Convert.ToInt32(((frmPOS)frm).dtgCart.Rows[i].Cells["itemid"].Value);
+                                int quantity = Convert.ToInt32(((frmPOS)frm).dtgCart.Rows[i].Cells["quantity"].Value);
+                                double totalprice = Convert.ToDouble(((frmPOS)frm).dtgCart.Rows[i].Cells["total"].Value);
 
-                            transactions.SaveTransactionDetails(transactions.TransactionCode, itemid, quantity, totalprice);
+                                transactions.SaveTransactionDetails(transactions.TransactionCode, itemid, quantity, totalprice);
+                            }
                         }
+                        catch (Exception error)
+                        {
+                            Console.WriteLine("Error saving item details: " + error);
+                        }
+
+                        val.PaymentReference = int.Parse(lblInstallmentID.Text);
+
+                        val.CartTransactionDate = DateTime.Now;
+                        val.CartChange = 0;
+                        val.CartCashTendered = downpayment;
+                        val.PaymentType = "INSTALLMENT";
+
+                        transactions.SaveTransaction(int.Parse(transactions.TransactionCode.ToString()), "", val.CartTotalSales, val.CartDiscount, val.CartTax,
+                            val.CartTotalDue, val.CartCashTendered, val.CartChange, val.CartClientID, val.UserID, val.CartTransactionDate, val.PaymentType, val.PaymentReference, forDelivery);
+                        transactions.TransactionSuccess = 1;
+
+                        installment.SaveInstallment(val.PaymentReference, val.CartClientID, principal_amount,
+                            int.Parse(terms.ToString()), monthly_due, interest, val.UserID, val.CartTransactionDate, txtDueDate.Text,
+                            balance, downpayment, "OPEN", int.Parse(transactions.TransactionCode.ToString()));
+
+                        installment.SaveInstallmentDetails(val.PaymentReference, downpayment, val.CartTransactionDate, val.UserName, txtORNumber.Text);
+
+                        MessageBox.Show(this, "Installment plan created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        forms.frmRPTInstallmentReceipt frmRPTInstallmentReceipt = new forms.frmRPTInstallmentReceipt();
+                        frmRPTInstallmentReceipt.ShowDialog();
                     }
-                    catch (Exception error)
-                    {
-                        Console.WriteLine("Error saving item details: " + error);
-                    }
+                }
+                else
+                {
+                    MessageBox.Show(this, "OR Number required for receipt!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtORNumber.Focus();
+                }
 
-                    val.PaymentReference = int.Parse(lblInstallmentID.Text);
-
-                    val.CartTransactionDate = DateTime.Now;
-                    val.CartChange = 0;
-                    val.CartCashTendered = downpayment;
-                    val.PaymentType = "INSTALLMENT";
-
-                    transactions.SaveTransaction(int.Parse(transactions.TransactionCode.ToString()), "", val.CartTotalSales, val.CartDiscount, val.CartTax,
-                        val.CartTotalDue, val.CartCashTendered, val.CartChange, val.CartClientID, val.UserID, val.CartTransactionDate, val.PaymentType, val.PaymentReference);
-                    transactions.TransactionSuccess = 1;
-
-                    installment.SaveInstallment(val.PaymentReference, val.CartClientID, installment.InstallmentPrincipalAmount,
-                        int.Parse(terms.ToString()), monthly_due, interest, val.UserID, val.CartTransactionDate, txtDueDate.Text,
-                        installment.InstallmentPrincipalAmount, downpayment);
-                    
-                    MessageBox.Show(this, "Installment plan created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
-                    forms.frmRPTInstallmentReceipt frmRPTInstallmentReceipt= new forms.frmRPTInstallmentReceipt();
-                    frmRPTInstallmentReceipt.ShowDialog();
-                }                
             }
         }
     }

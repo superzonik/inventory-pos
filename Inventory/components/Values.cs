@@ -60,7 +60,6 @@ namespace Inventory.components
         public static string payment_type;
         public static int payment_reference;
 
-
         public string PaymentType
         {
             get { return payment_type; }

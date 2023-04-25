@@ -492,10 +492,17 @@ namespace Inventory.forms
             //{
             //    Console.WriteLine("Error saving item details: " + error);
             //}
-
-            forms.frmPOSSettlePayment settlePayment = new frmPOSSettlePayment();
-            settlePayment.FormClosing += new FormClosingEventHandler(FrmSettlePayment_FormClosing);
-            settlePayment.ShowDialog();
+            if (dtgCart.Rows.Count == 0)
+            {
+                MessageBox.Show(this, "Cart is empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                forms.frmPOSSettlePayment settlePayment = new frmPOSSettlePayment();
+                settlePayment.FormClosing += new FormClosingEventHandler(FrmSettlePayment_FormClosing);
+                settlePayment.ShowDialog();
+            }
+           
         }
 
         private void cmdClearCart_Click(object sender, EventArgs e)

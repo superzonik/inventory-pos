@@ -44,6 +44,8 @@
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.txtAddress = new MetroFramework.Controls.MetroTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtORNumber = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
             this.txtBalance = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
             this.txtDownpayment = new MetroFramework.Controls.MetroTextBox();
@@ -54,8 +56,12 @@
             this.cmdSave = new MetroFramework.Controls.MetroButton();
             this.cmdCancel = new MetroFramework.Controls.MetroButton();
             this.lblInstallmentID = new MetroFramework.Controls.MetroLabel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.rdoInStore = new MetroFramework.Controls.MetroRadioButton();
+            this.rdoDelivery = new MetroFramework.Controls.MetroRadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // metroLabel1
@@ -63,9 +69,9 @@
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.Location = new System.Drawing.Point(18, 33);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(110, 19);
+            this.metroLabel1.Size = new System.Drawing.Size(113, 19);
             this.metroLabel1.TabIndex = 1;
-            this.metroLabel1.Text = "Principal Amount";
+            this.metroLabel1.Text = "Principal Amount:";
             // 
             // txtPrincipalAmount
             // 
@@ -108,9 +114,9 @@
             this.metroLabel2.AutoSize = true;
             this.metroLabel2.Location = new System.Drawing.Point(18, 120);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(112, 19);
+            this.metroLabel2.Size = new System.Drawing.Size(115, 19);
             this.metroLabel2.TabIndex = 3;
-            this.metroLabel2.Text = "Terms (in Months)";
+            this.metroLabel2.Text = "Terms (in Months):";
             // 
             // cboTerms
             // 
@@ -173,9 +179,9 @@
             this.metroLabel3.AutoSize = true;
             this.metroLabel3.Location = new System.Drawing.Point(18, 184);
             this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(83, 19);
+            this.metroLabel3.Size = new System.Drawing.Size(86, 19);
             this.metroLabel3.TabIndex = 5;
-            this.metroLabel3.Text = "Monthly Due";
+            this.metroLabel3.Text = "Monthly Due:";
             // 
             // txtDueDate
             // 
@@ -215,9 +221,9 @@
             this.metroLabel4.AutoSize = true;
             this.metroLabel4.Location = new System.Drawing.Point(18, 213);
             this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(63, 19);
+            this.metroLabel4.Size = new System.Drawing.Size(66, 19);
             this.metroLabel4.TabIndex = 7;
-            this.metroLabel4.Text = "Due Date";
+            this.metroLabel4.Text = "Due Date:";
             // 
             // txtCustomerName
             // 
@@ -225,7 +231,7 @@
             // 
             // 
             this.txtCustomerName.CustomButton.Image = null;
-            this.txtCustomerName.CustomButton.Location = new System.Drawing.Point(276, 1);
+            this.txtCustomerName.CustomButton.Location = new System.Drawing.Point(351, 1);
             this.txtCustomerName.CustomButton.Name = "";
             this.txtCustomerName.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.txtCustomerName.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -245,7 +251,7 @@
             this.txtCustomerName.SelectionLength = 0;
             this.txtCustomerName.SelectionStart = 0;
             this.txtCustomerName.ShortcutsEnabled = true;
-            this.txtCustomerName.Size = new System.Drawing.Size(298, 23);
+            this.txtCustomerName.Size = new System.Drawing.Size(373, 23);
             this.txtCustomerName.TabIndex = 10;
             this.txtCustomerName.UseSelectable = true;
             this.txtCustomerName.WaterMark = "Customer name";
@@ -255,11 +261,11 @@
             // metroLabel5
             // 
             this.metroLabel5.AutoSize = true;
-            this.metroLabel5.Location = new System.Drawing.Point(22, 30);
+            this.metroLabel5.Location = new System.Drawing.Point(6, 30);
             this.metroLabel5.Name = "metroLabel5";
-            this.metroLabel5.Size = new System.Drawing.Size(106, 19);
+            this.metroLabel5.Size = new System.Drawing.Size(109, 19);
             this.metroLabel5.TabIndex = 9;
-            this.metroLabel5.Text = "Customer Name";
+            this.metroLabel5.Text = "Customer Name:";
             // 
             // groupBox1
             // 
@@ -272,19 +278,19 @@
             this.groupBox1.Enabled = false;
             this.groupBox1.Location = new System.Drawing.Point(23, 63);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(438, 192);
+            this.groupBox1.Size = new System.Drawing.Size(533, 192);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Customer Information";
+            this.groupBox1.Text = "CUSTOMER INFORMATION";
             // 
             // metroLabel7
             // 
             this.metroLabel7.AutoSize = true;
-            this.metroLabel7.Location = new System.Drawing.Point(21, 146);
+            this.metroLabel7.Location = new System.Drawing.Point(6, 146);
             this.metroLabel7.Name = "metroLabel7";
-            this.metroLabel7.Size = new System.Drawing.Size(97, 19);
+            this.metroLabel7.Size = new System.Drawing.Size(100, 19);
             this.metroLabel7.TabIndex = 13;
-            this.metroLabel7.Text = "Contact Person";
+            this.metroLabel7.Text = "Contact Person:";
             // 
             // txtContactPerson
             // 
@@ -292,7 +298,7 @@
             // 
             // 
             this.txtContactPerson.CustomButton.Image = null;
-            this.txtContactPerson.CustomButton.Location = new System.Drawing.Point(276, 1);
+            this.txtContactPerson.CustomButton.Location = new System.Drawing.Point(351, 1);
             this.txtContactPerson.CustomButton.Name = "";
             this.txtContactPerson.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.txtContactPerson.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -312,7 +318,7 @@
             this.txtContactPerson.SelectionLength = 0;
             this.txtContactPerson.SelectionStart = 0;
             this.txtContactPerson.ShortcutsEnabled = true;
-            this.txtContactPerson.Size = new System.Drawing.Size(298, 23);
+            this.txtContactPerson.Size = new System.Drawing.Size(373, 23);
             this.txtContactPerson.TabIndex = 14;
             this.txtContactPerson.UseSelectable = true;
             this.txtContactPerson.WaterMark = "Contact person";
@@ -322,11 +328,11 @@
             // metroLabel6
             // 
             this.metroLabel6.AutoSize = true;
-            this.metroLabel6.Location = new System.Drawing.Point(11, 59);
+            this.metroLabel6.Location = new System.Drawing.Point(6, 59);
             this.metroLabel6.Name = "metroLabel6";
-            this.metroLabel6.Size = new System.Drawing.Size(117, 19);
+            this.metroLabel6.Size = new System.Drawing.Size(120, 19);
             this.metroLabel6.TabIndex = 11;
-            this.metroLabel6.Text = "Customer Address";
+            this.metroLabel6.Text = "Customer Address:";
             // 
             // txtAddress
             // 
@@ -334,7 +340,7 @@
             // 
             // 
             this.txtAddress.CustomButton.Image = null;
-            this.txtAddress.CustomButton.Location = new System.Drawing.Point(218, 1);
+            this.txtAddress.CustomButton.Location = new System.Drawing.Point(293, 1);
             this.txtAddress.CustomButton.Name = "";
             this.txtAddress.CustomButton.Size = new System.Drawing.Size(79, 79);
             this.txtAddress.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -355,7 +361,7 @@
             this.txtAddress.SelectionLength = 0;
             this.txtAddress.SelectionStart = 0;
             this.txtAddress.ShortcutsEnabled = true;
-            this.txtAddress.Size = new System.Drawing.Size(298, 81);
+            this.txtAddress.Size = new System.Drawing.Size(373, 81);
             this.txtAddress.TabIndex = 12;
             this.txtAddress.UseSelectable = true;
             this.txtAddress.WaterMark = "Customer address";
@@ -364,6 +370,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtORNumber);
+            this.groupBox2.Controls.Add(this.metroLabel11);
             this.groupBox2.Controls.Add(this.txtBalance);
             this.groupBox2.Controls.Add(this.metroLabel10);
             this.groupBox2.Controls.Add(this.txtDownpayment);
@@ -379,12 +387,54 @@
             this.groupBox2.Controls.Add(this.cboTerms);
             this.groupBox2.Controls.Add(this.txtMonthyDue);
             this.groupBox2.Controls.Add(this.metroLabel3);
-            this.groupBox2.Location = new System.Drawing.Point(66, 265);
+            this.groupBox2.Location = new System.Drawing.Point(194, 265);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(347, 310);
+            this.groupBox2.Size = new System.Drawing.Size(362, 310);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Installment Information";
+            this.groupBox2.Text = "INSTALLMENT INFORMATION";
+            // 
+            // txtORNumber
+            // 
+            // 
+            // 
+            // 
+            this.txtORNumber.CustomButton.Image = null;
+            this.txtORNumber.CustomButton.Location = new System.Drawing.Point(182, 1);
+            this.txtORNumber.CustomButton.Name = "";
+            this.txtORNumber.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.txtORNumber.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtORNumber.CustomButton.TabIndex = 1;
+            this.txtORNumber.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtORNumber.CustomButton.UseSelectable = true;
+            this.txtORNumber.CustomButton.Visible = false;
+            this.txtORNumber.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.txtORNumber.Lines = new string[0];
+            this.txtORNumber.Location = new System.Drawing.Point(134, 242);
+            this.txtORNumber.MaxLength = 32767;
+            this.txtORNumber.Name = "txtORNumber";
+            this.txtORNumber.PasswordChar = '\0';
+            this.txtORNumber.PromptText = "Official receipt number";
+            this.txtORNumber.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtORNumber.SelectedText = "";
+            this.txtORNumber.SelectionLength = 0;
+            this.txtORNumber.SelectionStart = 0;
+            this.txtORNumber.ShortcutsEnabled = true;
+            this.txtORNumber.Size = new System.Drawing.Size(204, 23);
+            this.txtORNumber.TabIndex = 20;
+            this.txtORNumber.UseSelectable = true;
+            this.txtORNumber.WaterMark = "Official receipt number";
+            this.txtORNumber.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtORNumber.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // metroLabel11
+            // 
+            this.metroLabel11.AutoSize = true;
+            this.metroLabel11.Location = new System.Drawing.Point(18, 242);
+            this.metroLabel11.Name = "metroLabel11";
+            this.metroLabel11.Size = new System.Drawing.Size(85, 19);
+            this.metroLabel11.TabIndex = 19;
+            this.metroLabel11.Text = "OR Number:";
             // 
             // txtBalance
             // 
@@ -427,9 +477,9 @@
             this.metroLabel10.AutoSize = true;
             this.metroLabel10.Location = new System.Drawing.Point(18, 91);
             this.metroLabel10.Name = "metroLabel10";
-            this.metroLabel10.Size = new System.Drawing.Size(54, 19);
+            this.metroLabel10.Size = new System.Drawing.Size(57, 19);
             this.metroLabel10.TabIndex = 18;
-            this.metroLabel10.Text = "Balance";
+            this.metroLabel10.Text = "Balance:";
             // 
             // txtDownpayment
             // 
@@ -473,9 +523,9 @@
             this.metroLabel9.AutoSize = true;
             this.metroLabel9.Location = new System.Drawing.Point(18, 62);
             this.metroLabel9.Name = "metroLabel9";
-            this.metroLabel9.Size = new System.Drawing.Size(93, 19);
+            this.metroLabel9.Size = new System.Drawing.Size(96, 19);
             this.metroLabel9.TabIndex = 16;
-            this.metroLabel9.Text = "Downpayment";
+            this.metroLabel9.Text = "Downpayment:";
             // 
             // cmdCompute
             // 
@@ -529,13 +579,13 @@
             this.metroLabel8.AutoSize = true;
             this.metroLabel8.Location = new System.Drawing.Point(18, 155);
             this.metroLabel8.Name = "metroLabel8";
-            this.metroLabel8.Size = new System.Drawing.Size(74, 19);
+            this.metroLabel8.Size = new System.Drawing.Size(77, 19);
             this.metroLabel8.TabIndex = 9;
-            this.metroLabel8.Text = "Interest (%)";
+            this.metroLabel8.Text = "Interest (%):";
             // 
             // cmdSave
             // 
-            this.cmdSave.Location = new System.Drawing.Point(318, 581);
+            this.cmdSave.Location = new System.Drawing.Point(412, 581);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(69, 53);
             this.cmdSave.TabIndex = 10;
@@ -545,7 +595,7 @@
             // 
             // cmdCancel
             // 
-            this.cmdCancel.Location = new System.Drawing.Point(393, 581);
+            this.cmdCancel.Location = new System.Drawing.Point(487, 581);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(69, 53);
             this.cmdCancel.TabIndex = 11;
@@ -562,12 +612,48 @@
             this.lblInstallmentID.TabIndex = 15;
             this.lblInstallmentID.Text = "installment_id";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.rdoInStore);
+            this.groupBox3.Controls.Add(this.rdoDelivery);
+            this.groupBox3.Location = new System.Drawing.Point(23, 265);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(165, 78);
+            this.groupBox3.TabIndex = 65;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "DELIVERY OPTION";
+            // 
+            // rdoInStore
+            // 
+            this.rdoInStore.AutoSize = true;
+            this.rdoInStore.Checked = true;
+            this.rdoInStore.Location = new System.Drawing.Point(10, 24);
+            this.rdoInStore.Name = "rdoInStore";
+            this.rdoInStore.Size = new System.Drawing.Size(118, 15);
+            this.rdoInStore.TabIndex = 59;
+            this.rdoInStore.TabStop = true;
+            this.rdoInStore.Text = "IN-STORE/PICKUP";
+            this.rdoInStore.UseSelectable = true;
+            this.rdoInStore.CheckedChanged += new System.EventHandler(this.rdoInStore_CheckedChanged);
+            // 
+            // rdoDelivery
+            // 
+            this.rdoDelivery.AutoSize = true;
+            this.rdoDelivery.Location = new System.Drawing.Point(10, 45);
+            this.rdoDelivery.Name = "rdoDelivery";
+            this.rdoDelivery.Size = new System.Drawing.Size(98, 15);
+            this.rdoDelivery.TabIndex = 60;
+            this.rdoDelivery.Text = "FOR DELIVERY";
+            this.rdoDelivery.UseSelectable = true;
+            this.rdoDelivery.CheckedChanged += new System.EventHandler(this.rdoDelivery_CheckedChanged);
+            // 
             // frmCreateInstallment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
-            this.ClientSize = new System.Drawing.Size(485, 657);
+            this.ClientSize = new System.Drawing.Size(579, 657);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.lblInstallmentID);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdSave);
@@ -585,6 +671,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -617,5 +705,10 @@
         private MetroFramework.Controls.MetroLabel metroLabel9;
         private MetroFramework.Controls.MetroTextBox txtBalance;
         private MetroFramework.Controls.MetroLabel metroLabel10;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private MetroFramework.Controls.MetroRadioButton rdoInStore;
+        private MetroFramework.Controls.MetroRadioButton rdoDelivery;
+        private MetroFramework.Controls.MetroTextBox txtORNumber;
+        private MetroFramework.Controls.MetroLabel metroLabel11;
     }
 }

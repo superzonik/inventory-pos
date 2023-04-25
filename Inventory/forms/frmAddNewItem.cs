@@ -16,7 +16,7 @@ namespace Inventory.forms
         components.Connection connection = new components.Connection();
         functions.Items items = new functions.Items();
         functions.Articles articles = new functions.Articles();
-        
+
         public frmAddNewItem()
         {
             InitializeComponent();
@@ -52,7 +52,7 @@ namespace Inventory.forms
                         for (int i = 0; i < quantity; i++)
                         {
                             items.AddItemRecord("Fire Extinguisher", cboFXcontent.Text, cboFXtype.Text, cboFXcapacity.Text, "", cboFXproductStatus.Text,
-                                dtManufactureDate.Value.Date, double.Parse(txtFXprice.Text), 0);
+                                dtManufactureDate.Value.Date, double.Parse(txtFXprice.Text), 0, 1);
                         }
                         MessageBox.Show(this, "Item added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         forms.frmInventory frmInventory = new frmInventory();
@@ -61,7 +61,7 @@ namespace Inventory.forms
 
                     }
                 }
-                
+
             }
             catch (Exception error)
             {
@@ -88,12 +88,10 @@ namespace Inventory.forms
                     {
                         int quantity = int.Parse(mTxtQuantity.Text);
 
-                        for (int i = 0; i < quantity; i++)
-                        {
-                            DateTime? sqldatenull = null;
+                        DateTime? sqldatenull = null;
 
-                            items.AddItemRecord(category, mCboType.Text, "", "", mTxtDescription.Text, "", sqldatenull, double.Parse(mTxtPrice.Text), 0);
-                        }
+                        items.AddItemRecord(category, mCboType.Text, "", "", mTxtDescription.Text, "", sqldatenull, double.Parse(mTxtPrice.Text), 0, quantity);
+
                         MessageBox.Show(this, "Item added succesfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         frmInventory frmInventory = new frmInventory();
                         frmInventory.Refresh();
@@ -147,7 +145,7 @@ namespace Inventory.forms
         {
             SaveItem("Raw Materials", txtRawPrice, txtRawQuantity, txtRawDescription, cboRawMaterialName);
         }
-        
+
         private void AddNewArticle_FormClosing(object sender, FormClosingEventArgs e)
         {
             articles.loadArticleToCombobox(cboFXcontent, "FIRE EXTINGUISHER");
@@ -157,7 +155,7 @@ namespace Inventory.forms
 
         private void cboFXcontent_SelectedIndexChanged(object sender, EventArgs e)
         {
-            addnewproduct(cboFXcontent);   
+            addnewproduct(cboFXcontent);
         }
 
         private void cboFDAStype_SelectedIndexChanged(object sender, EventArgs e)
@@ -170,7 +168,7 @@ namespace Inventory.forms
             addnewproduct(cboRawMaterialName);
         }
 
-        private void addnewproduct (ComboBox mComboBox)
+        private void addnewproduct(ComboBox mComboBox)
         {
             string selected = mComboBox.GetItemText(mComboBox.SelectedItem);
 

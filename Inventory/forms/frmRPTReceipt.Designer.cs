@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.receiptBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.items = new Inventory.items();
+            this.items = new Inventory.dataset.items();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             ((System.ComponentModel.ISupportInitialize)(this.receiptBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.items)).BeginInit();
@@ -84,6 +84,6 @@
 
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
         private System.Windows.Forms.BindingSource receiptBindingSource;
-        private items items;
+        private dataset.items items;
     }
 }

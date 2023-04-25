@@ -17,6 +17,8 @@ namespace Inventory.forms
         functions.Items items = new functions.Items();
         functions.Logs logs = new functions.Logs();
 
+        int StockQuantity = 0;
+        
         public frmInventory()
         {
             InitializeComponent();
@@ -29,6 +31,14 @@ namespace Inventory.forms
             {
                 items.SetRowNumber(dtgInventory);
                 populateTextboxes(0, dtgInventory);
+                if (txtCategory.Text == "Fire Extinguisher")
+                {
+                    cmdRestock.Enabled = false;
+                }
+                else
+                {
+                    cmdRestock.Enabled = true;
+                }
             }
         }
 
@@ -46,6 +56,14 @@ namespace Inventory.forms
             {
                 items.SetRowNumber(dtgInventory);
                 populateTextboxes(0, dtgInventory);
+                if (txtCategory.Text == "Fire Extinguisher")
+                {
+                    cmdRestock.Enabled = false;
+                }
+                else
+                {
+                    cmdRestock.Enabled = true;
+                }
             }
             dtgInventory.Update();
             dtgInventory.Refresh();
@@ -84,6 +102,15 @@ namespace Inventory.forms
             {
                 int i = dtgInventory.CurrentRow.Index;
                 populateTextboxes(i, dtgInventory);
+                if (txtCategory.Text == "Fire Extinguisher")
+                {
+                    cmdRestock.Enabled = false;
+                }
+                else
+                {
+                    cmdRestock.Enabled = true;
+                }
+
             }
         }
 
@@ -180,11 +207,27 @@ namespace Inventory.forms
             {
                 i = dtgInventory.CurrentRow.Index + 1;
                 populateTextboxes(i, dtgInventory);
+                if (txtCategory.Text == "Fire Extinguisher")
+                {
+                    cmdRestock.Enabled = false;
+                }
+                else
+                {
+                    cmdRestock.Enabled = true;
+                }
             }
             else if (e.KeyCode == Keys.Up && i - 1 >= 0)
             {
                 i = dtgInventory.CurrentRow.Index - 1;
                 populateTextboxes(i, dtgInventory);
+                if (txtCategory.Text == "Fire Extinguisher")
+                {
+                    cmdRestock.Enabled = false;
+                }
+                else
+                {
+                    cmdRestock.Enabled = true;
+                }
             }
         }
 
@@ -264,12 +307,14 @@ namespace Inventory.forms
 
         private void AuthenticateAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
+            int i = dtgInventory.CurrentRow.Index;
+
             if (val.AuthorizationToken == 1)
             {                                
                 if (txtCategory.Text == "Fire Extinguisher")
                 {
                     items.updateRecord(int.Parse(lblRecordID.Text), txtCategory.Text, txtProductName.Text, txtFireExType.Text, txtFireExCapacity.Text, "",
-                    txtProductStatus.Text, dtManufactureDate.Value, double.Parse(txtProductPrice.Text));
+                    txtProductStatus.Text, dtManufactureDate.Value, double.Parse(txtProductPrice.Text), 1);
                    
                     //LOG ADMIN AUTHORIZING UPDATE OF RECORD
                     logs.logthis(val.UserName + " authorized update of record for: " + txtProductName.Text + ", " + txtFireExCapacity.Text + " " + txtFireExType.Text);
@@ -277,18 +322,29 @@ namespace Inventory.forms
                 }
                 else if (txtCategory.Text == "FDAS")
                 {
+                    int xStock = (int)dtgInventory["quantity", i].Value;
+                    MessageBox.Show(this, "Current Stock: " + xStock + " Additional Stock: " + StockQuantity, "Current Stock: " + xStock + " Additional Stock: " + StockQuantity, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    StockQuantity = StockQuantity + (int)dtgInventory["quantity", i].Value;
+                    
                     items.updateRecord(int.Parse(lblRecordID.Text), txtCategory.Text, txtProductName.Text, "", "", txtProductDescription.Text,
-                    "", null, double.Parse(txtProductPrice.Text));
+                    "", null, double.Parse(txtProductPrice.Text), StockQuantity);
                     
                     //LOG ADMIN AUTHORIZING UPDATE OF RECORD
                     logs.logthis(val.UserName + " authorized update of record for: " + txtProductName.Text );
+                    StockQuantity = 0;
+
                 }
                 else if (txtCategory.Text == "Raw Materials")
-                {
+                {                   
+                    int xStock = (int)dtgInventory["quantity", i].Value;
+                    MessageBox.Show(this, "Current Stock: " + xStock + " Additional Stock: " + StockQuantity, "Current Stock: " + xStock + " Additional Stock: " + StockQuantity, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    StockQuantity = StockQuantity + (int)dtgInventory["quantity", i].Value;
+                   
                     items.updateRecord(int.Parse(lblRecordID.Text), txtCategory.Text, txtProductName.Text, "", "", txtProductDescription.Text,
-                    "", null, double.Parse(txtProductPrice.Text));
+                    "", null, double.Parse(txtProductPrice.Text), StockQuantity);
                     //LOG ADMIN AUTHORIZING UPDATE OF RECORD
                     logs.logthis(val.UserName + " authorized update of record for: " + txtProductName.Text);
+                    StockQuantity = 0;
                 }
 
                 MessageBox.Show(this, "Item record updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -320,6 +376,77 @@ namespace Inventory.forms
                 dtgInventory.CurrentCell = dtgInventory.Rows[0].Cells[1];
                 populateTextboxes(0, dtgInventory);
             }
+        }
+
+        private void cmdRestock_Click(object sender, EventArgs e)
+        {
+            ShowInputQuantityDialog(ref StockQuantity);
+
+            if (StockQuantity != 0 )
+            {
+                try
+                {
+                    forms.frmAuthenticateAdmin authenticateAdmin = new forms.frmAuthenticateAdmin();
+                    authenticateAdmin.FormClosing += new FormClosingEventHandler(AuthenticateAdmin_FormClosing);
+                    authenticateAdmin.ShowDialog();
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine("Error Saving Record: " + error);
+                }
+            }
+        }
+
+        private static DialogResult ShowInputQuantityDialog(ref int input)
+        {
+            System.Drawing.Size size = new System.Drawing.Size(300, 70);
+            Form inputBox = new Form();
+
+            inputBox.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            inputBox.ClientSize = size;
+            inputBox.Text = "Enter Additional Stocks";
+            inputBox.StartPosition = FormStartPosition.CenterScreen;
+            inputBox.MaximizeBox = false;
+            inputBox.MinimizeBox = false;
+
+            System.Windows.Forms.TextBox textBox = new TextBox();
+            textBox.Size = new System.Drawing.Size(size.Width - 10, 50);
+            textBox.Location = new System.Drawing.Point(5, 5);
+            textBox.Text = input.ToString();
+            inputBox.Controls.Add(textBox);
+
+            Button okButton = new Button();
+            okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            okButton.Name = "okButton";
+            okButton.Size = new System.Drawing.Size(75, 23);
+            okButton.Text = "&OK";
+            okButton.Location = new System.Drawing.Point(size.Width - 80 - 80, 39);
+            inputBox.Controls.Add(okButton);
+
+            Button cancelButton = new Button();
+            cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            cancelButton.Name = "cancelButton";
+            cancelButton.Size = new System.Drawing.Size(75, 23);
+            cancelButton.Text = "&Cancel";
+            cancelButton.Location = new System.Drawing.Point(size.Width - 80, 39);
+            inputBox.Controls.Add(cancelButton);
+
+            inputBox.AcceptButton = okButton;
+            inputBox.CancelButton = cancelButton;
+
+            DialogResult result = inputBox.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                input = int.Parse(textBox.Text);
+            }
+            else
+            {
+                input = 0;
+            }
+
+            return result;
+
         }
     }
 }

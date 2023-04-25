@@ -16,14 +16,14 @@ namespace Inventory.functions
         functions.Logs logs = new functions.Logs();
 
         public bool AddItemRecord(string category, string product_name, string fxtype, string fxcapacity, string product_description, string product_status, DateTime? manufacture_date,
-            Double product_price, int is_product_sold)
+            Double product_price, int is_product_sold, int quantity)
         {
             try
             {
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
-                    string sql = @"INSERT INTO inventorydb.tblitems(category, productname, fxtype, fxcapacity, productdescription, productstatus, manufacturedate, productprice, isproductsold)" +
-                        "VALUES(@category, @productname, @fxtype, @fxcapacity, @productdescription, @productstatus, @manufacturedate, @productprice, @isproductsold)";
+                    string sql = @"INSERT INTO inventorydb.tblitems(category, productname, fxtype, fxcapacity, productdescription, productstatus, manufacturedate, productprice, isproductsold, quantity)" +
+                        "VALUES(@category, @productname, @fxtype, @fxcapacity, @productdescription, @productstatus, @manufacturedate, @productprice, @isproductsold, @quantity)";
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
@@ -36,6 +36,7 @@ namespace Inventory.functions
                         cmd.Parameters.AddWithValue("@manufacturedate", manufacture_date);
                         cmd.Parameters.AddWithValue("@productprice", product_price);
                         cmd.Parameters.AddWithValue("@isproductsold", is_product_sold);
+                        cmd.Parameters.AddWithValue("@quantity", quantity);
 
                         cmd.Connection.Open();
                         MySqlDataReader dr;
@@ -60,7 +61,6 @@ namespace Inventory.functions
 
         public int CountStock(string mProductName)
         {
-
             int countstock = 0;
             try
             {
@@ -80,8 +80,17 @@ namespace Inventory.functions
                                                
                         if (dt.Rows.Count != 0)
                         {
-                            countstock = dt.Rows.Count;
-                            return countstock;
+                            string category = dt.Rows[0].Field<string>("category");
+                            if (category == "Fire Extinguisher")
+                            {
+                                countstock = dt.Rows.Count;
+                                return countstock;
+                            }
+                            else
+                            {
+                                countstock = dt.Rows[0].Field<int>("quantity");
+                            }
+                            
                         }
                         return countstock;
                     }
@@ -116,17 +125,18 @@ namespace Inventory.functions
                             mDatagrid.Columns["itemid"].Visible = false;
                             mDatagrid.Columns["category"].HeaderText = "Category";
                             mDatagrid.Columns["productname"].HeaderText = "Product Name";
-                            mDatagrid.Columns["productname"].Width = 300;
+                            mDatagrid.Columns["productname"].Width = 100;
                             mDatagrid.Columns["fxtype"].HeaderText = "FireEx Type";
                             mDatagrid.Columns["fxcapacity"].HeaderText = "Capacity";
                             mDatagrid.Columns["productdescription"].HeaderText = "Description";
-                            mDatagrid.Columns["productdescription"].Width = 300;
+                            mDatagrid.Columns["productdescription"].Width = 250;
                             mDatagrid.Columns["productstatus"].HeaderText = "Status";
                             mDatagrid.Columns["manufacturedate"].HeaderText = "Manufacture Date";
                             mDatagrid.Columns["productprice"].HeaderText = "Price";
                             mDatagrid.Columns["productprice"].DefaultCellStyle.Format = "N2";
                             mDatagrid.Columns["isproductsold"].Visible = false;
                             mDatagrid.Columns["serialnumber"].Visible = false;
+                            mDatagrid.Columns["quantity"].HeaderText = "Quantity";
 
                             lblRecordCount.Text = mDatagrid.RowCount.ToString();
                         }
@@ -201,14 +211,14 @@ namespace Inventory.functions
         }
 
         public bool updateRecord(int mItemID, String mCategory, String mProductName, String mFXtype, String mFXcapacity, String mProductDescription,
-            String mProductStatus, DateTime? mManufactureDate, double mProductPrice)
+            String mProductStatus, DateTime? mManufactureDate, double mProductPrice, int mQuantity)
         {
             try
             {
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
                     string sql = @"UPDATE inventorydb.tblitems SET category=@category, productname=@productname, fxtype=@fxtype, fxcapacity=@fxcapacity,
-                                productdescription=@productdescription, productstatus=@productstatus, manufacturedate=@manufacturedate, productprice=@productprice
+                                productdescription=@productdescription, productstatus=@productstatus, manufacturedate=@manufacturedate, productprice=@productprice, quantity=@quantity
                                 WHERE itemid=@itemid;";
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
@@ -221,6 +231,7 @@ namespace Inventory.functions
                         cmd.Parameters.AddWithValue("@productstatus", mProductStatus);
                         cmd.Parameters.AddWithValue("@manufacturedate", mManufactureDate);
                         cmd.Parameters.AddWithValue("@productprice", mProductPrice);
+                        cmd.Parameters.AddWithValue("@quantity", mQuantity);
                         cmd.Parameters.AddWithValue("@itemid", mItemID);
 
                         cmd.Connection.Open();
@@ -239,21 +250,22 @@ namespace Inventory.functions
             }
         }
 
-        public bool updateItemStatus(int mItemID, String mSerialNumber)
+        public bool updateItemStatus(int mItemID, int mIsProductSold, String mSerialNumber, int mQuantity)
         {
             try
             {
 
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
-                    string sql = @"UPDATE inventorydb.tblitems SET isproductsold=@isproductsold, serialnumber=@serialnumber
+                    string sql = @"UPDATE inventorydb.tblitems SET isproductsold = @isproductsold, serialnumber = @serialnumber, quantity = @quantity
                                 WHERE itemid=@itemid;";
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
                         cmd.Parameters.AddWithValue("@serialnumber", mSerialNumber);
-                        cmd.Parameters.AddWithValue("@isproductsold", 1);
+                        cmd.Parameters.AddWithValue("@isproductsold", mIsProductSold);
                         cmd.Parameters.AddWithValue("@itemid", mItemID);
+                        cmd.Parameters.AddWithValue("@quantity", mQuantity);
 
                         cmd.Connection.Open();
                         MySqlDataReader dr;
@@ -278,8 +290,6 @@ namespace Inventory.functions
             {
                 row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
             }
-        }
-
-        
+        }                
     }
 }
