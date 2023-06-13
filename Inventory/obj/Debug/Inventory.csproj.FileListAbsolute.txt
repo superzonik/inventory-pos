@@ -23,7 +23,6 @@ D:\Software\Inventory\Inventory\bin\Debug\Inventory.pdb
 D:\Software\Inventory\Inventory\bin\Debug\MetroFramework.Design.dll
 D:\Software\Inventory\Inventory\bin\Debug\MetroFramework.dll
 D:\Software\Inventory\Inventory\bin\Debug\MetroFramework.Fonts.dll
-D:\Software\Inventory\Inventory\obj\Debug\Inventory.csprojAssemblyReference.cache
 D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmCollectibles.resources
 D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmDashboard.resources
 D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmDelivery.resources
@@ -133,3 +132,4 @@ D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmCollectibleSettlePa
 D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmRPTInstallmentReceipt.resources
 D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmReportList.resources
 D:\Software\Inventory\Inventory\obj\Debug\Inventory.forms.frmReportDaily.resources
+D:\Software\Inventory\Inventory\obj\Debug\Inventory.csprojAssemblyReference.cache

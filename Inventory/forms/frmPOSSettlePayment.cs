@@ -178,8 +178,10 @@ namespace Inventory.forms
                         string serialnumber = ((frmPOS)frm).dtgCart.Rows[i].Cells["serialnumber"].Value.ToString();
                         string itemname = ((frmPOS)frm).dtgCart.Rows[i].Cells["itemname"].Value.ToString();
                         string itemcategory = ((frmPOS)frm).dtgCart.Rows[i].Cells["category"].Value.ToString();
+                        double discount = Convert.ToDouble(((frmPOS)frm).dtgCart.Rows[i].Cells["discount"].Value);
+                        double finalPrice = Convert.ToDouble(((frmPOS)frm).dtgCart.Rows[i].Cells["price"].Value);
 
-                        transactions.SaveTransactionDetails(transactions.TransactionCode, itemid, quantity, totalprice);
+                        transactions.SaveTransactionDetails(transactions.TransactionCode, itemid, quantity, totalprice, discount, finalPrice);
 
 
                         int quantity_remaining = inStock - quantity;

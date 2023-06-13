@@ -35,16 +35,10 @@ namespace Inventory.forms
             txtAddress.Text = transactions.ClientAddress;
             txtContactPerson.Text = transactions.ClientContact;
             txtPrincipalAmount.Text = val.CartTotalSales.ToString("n2");
-            cboTerms.SelectedIndex = 0;
-
+            
             installment.GenerateInstallmentID();
             lblInstallmentID.Text = installment.InstallmentID.ToString();
 
-        }
-
-        private void cboTerms_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cmdCompute_Click(sender, e);
         }
 
         private void txtInterest_KeyUp(object sender, KeyEventArgs e)
@@ -85,6 +79,19 @@ namespace Inventory.forms
             forDelivery = 1;
         }
 
+        private void txtTerms_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) //&&
+                                                                        //(e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtTerms_TextChanged(object sender, EventArgs e)
+        {
+            cmdCompute_Click(sender, e);
+        }
 
         private void txtInterest_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -100,10 +107,8 @@ namespace Inventory.forms
         {
             if (txtPrincipalAmount.Text != "")
             {
-
-
                 principal_amount = double.Parse(txtPrincipalAmount.Text);
-                terms = double.Parse(cboTerms.Text);
+                terms = double.Parse(txtTerms.Text);
 
                 if (txtDownpayment.Text == "")
                 {
@@ -157,8 +162,10 @@ namespace Inventory.forms
                                 int itemid = Convert.ToInt32(((frmPOS)frm).dtgCart.Rows[i].Cells["itemid"].Value);
                                 int quantity = Convert.ToInt32(((frmPOS)frm).dtgCart.Rows[i].Cells["quantity"].Value);
                                 double totalprice = Convert.ToDouble(((frmPOS)frm).dtgCart.Rows[i].Cells["total"].Value);
-
-                                transactions.SaveTransactionDetails(transactions.TransactionCode, itemid, quantity, totalprice);
+                                double discount = Convert.ToDouble(((frmPOS)frm).dtgCart.Rows[i].Cells["discount"].Value);
+                                double finalPrice = Convert.ToDouble(((frmPOS)frm).dtgCart.Rows[i].Cells["price"].Value);
+                                
+                                transactions.SaveTransactionDetails(transactions.TransactionCode, itemid, quantity, totalprice, discount, finalPrice);
                             }
                         }
                         catch (Exception error)

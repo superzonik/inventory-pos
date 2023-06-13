@@ -48,6 +48,8 @@
               <xs:element name="remarks" msprop:Generator_ColumnVarNameInTable="columnremarks" msprop:Generator_ColumnPropNameInRow="remarks" msprop:Generator_ColumnPropNameInTable="remarksColumn" msprop:Generator_UserColumnName="remarks" type="xs:string" minOccurs="0" />
               <xs:element name="itemquantity" msprop:Generator_ColumnVarNameInTable="columnitemquantity" msprop:Generator_ColumnPropNameInRow="itemquantity" msprop:Generator_ColumnPropNameInTable="itemquantityColumn" msprop:Generator_UserColumnName="itemquantity" type="xs:string" minOccurs="0" />
               <xs:element name="itemtotalprice" msprop:Generator_ColumnVarNameInTable="columnitemtotalprice" msprop:Generator_ColumnPropNameInRow="itemtotalprice" msprop:Generator_ColumnPropNameInTable="itemtotalpriceColumn" msprop:Generator_UserColumnName="itemtotalprice" type="xs:string" minOccurs="0" />
+              <xs:element name="itemfinalprice" msprop:Generator_ColumnVarNameInTable="columnitemfinalprice" msprop:Generator_ColumnPropNameInRow="itemfinalprice" msprop:Generator_ColumnPropNameInTable="itemfinalpriceColumn" msprop:Generator_UserColumnName="itemfinalprice" type="xs:string" minOccurs="0" />
+              <xs:element name="tin" msprop:Generator_ColumnVarNameInTable="columntin" msprop:Generator_ColumnPropNameInRow="tin" msprop:Generator_ColumnPropNameInTable="tinColumn" msprop:Generator_UserColumnName="tin" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -97,6 +99,8 @@
               <xs:element name="installmentdatecreated" msprop:Generator_ColumnVarNameInTable="columninstallmentdatecreated" msprop:Generator_ColumnPropNameInRow="installmentdatecreated" msprop:Generator_ColumnPropNameInTable="installmentdatecreatedColumn" msprop:Generator_UserColumnName="installmentdatecreated" type="xs:string" minOccurs="0" />
               <xs:element name="duedate" msprop:Generator_ColumnVarNameInTable="columnduedate" msprop:Generator_ColumnPropNameInRow="duedate" msprop:Generator_ColumnPropNameInTable="duedateColumn" msprop:Generator_UserColumnName="duedate" type="xs:string" minOccurs="0" />
               <xs:element name="installmentbalance" msprop:Generator_ColumnVarNameInTable="columninstallmentbalance" msprop:Generator_ColumnPropNameInRow="installmentbalance" msprop:Generator_ColumnPropNameInTable="installmentbalanceColumn" msprop:Generator_UserColumnName="installmentbalance" type="xs:string" minOccurs="0" />
+              <xs:element name="itemfinalprice" msprop:Generator_ColumnVarNameInTable="columnitemfinalprice" msprop:Generator_ColumnPropNameInRow="itemfinalprice" msprop:Generator_ColumnPropNameInTable="itemfinalpriceColumn" msprop:Generator_UserColumnName="itemfinalprice" type="xs:string" minOccurs="0" />
+              <xs:element name="tin" msprop:Generator_ColumnVarNameInTable="columntin" msprop:Generator_ColumnPropNameInRow="tin" msprop:Generator_ColumnPropNameInTable="tinColumn" msprop:Generator_UserColumnName="tin" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

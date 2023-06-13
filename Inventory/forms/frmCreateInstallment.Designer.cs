@@ -31,7 +31,6 @@
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.txtPrincipalAmount = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
-            this.cboTerms = new MetroFramework.Controls.MetroComboBox();
             this.txtMonthyDue = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.txtDueDate = new MetroFramework.Controls.MetroTextBox();
@@ -44,6 +43,7 @@
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.txtAddress = new MetroFramework.Controls.MetroTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtTerms = new MetroFramework.Controls.MetroTextBox();
             this.txtORNumber = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
             this.txtBalance = new MetroFramework.Controls.MetroTextBox();
@@ -114,29 +114,9 @@
             this.metroLabel2.AutoSize = true;
             this.metroLabel2.Location = new System.Drawing.Point(18, 120);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(115, 19);
+            this.metroLabel2.Size = new System.Drawing.Size(99, 19);
             this.metroLabel2.TabIndex = 3;
-            this.metroLabel2.Text = "Terms (in Months):";
-            // 
-            // cboTerms
-            // 
-            this.cboTerms.FormattingEnabled = true;
-            this.cboTerms.ItemHeight = 23;
-            this.cboTerms.Items.AddRange(new object[] {
-            "3",
-            "6",
-            "9",
-            "12",
-            "24",
-            "36",
-            "48",
-            "60"});
-            this.cboTerms.Location = new System.Drawing.Point(134, 120);
-            this.cboTerms.Name = "cboTerms";
-            this.cboTerms.Size = new System.Drawing.Size(98, 29);
-            this.cboTerms.TabIndex = 5;
-            this.cboTerms.UseSelectable = true;
-            this.cboTerms.SelectedIndexChanged += new System.EventHandler(this.cboTerms_SelectedIndexChanged);
+            this.metroLabel2.Text = "Terms (in Days):";
             // 
             // txtMonthyDue
             // 
@@ -155,7 +135,7 @@
             this.txtMonthyDue.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtMonthyDue.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
             this.txtMonthyDue.Lines = new string[0];
-            this.txtMonthyDue.Location = new System.Drawing.Point(134, 184);
+            this.txtMonthyDue.Location = new System.Drawing.Point(134, 178);
             this.txtMonthyDue.MaxLength = 32767;
             this.txtMonthyDue.Name = "txtMonthyDue";
             this.txtMonthyDue.PasswordChar = '\0';
@@ -177,7 +157,7 @@
             // metroLabel3
             // 
             this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(18, 184);
+            this.metroLabel3.Location = new System.Drawing.Point(18, 178);
             this.metroLabel3.Name = "metroLabel3";
             this.metroLabel3.Size = new System.Drawing.Size(86, 19);
             this.metroLabel3.TabIndex = 5;
@@ -199,7 +179,7 @@
             this.txtDueDate.CustomButton.Visible = false;
             this.txtDueDate.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtDueDate.Lines = new string[0];
-            this.txtDueDate.Location = new System.Drawing.Point(134, 213);
+            this.txtDueDate.Location = new System.Drawing.Point(134, 207);
             this.txtDueDate.MaxLength = 32767;
             this.txtDueDate.Name = "txtDueDate";
             this.txtDueDate.PasswordChar = '\0';
@@ -219,7 +199,7 @@
             // metroLabel4
             // 
             this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(18, 213);
+            this.metroLabel4.Location = new System.Drawing.Point(18, 207);
             this.metroLabel4.Name = "metroLabel4";
             this.metroLabel4.Size = new System.Drawing.Size(66, 19);
             this.metroLabel4.TabIndex = 7;
@@ -370,6 +350,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtTerms);
             this.groupBox2.Controls.Add(this.txtORNumber);
             this.groupBox2.Controls.Add(this.metroLabel11);
             this.groupBox2.Controls.Add(this.txtBalance);
@@ -384,7 +365,6 @@
             this.groupBox2.Controls.Add(this.txtDueDate);
             this.groupBox2.Controls.Add(this.metroLabel2);
             this.groupBox2.Controls.Add(this.metroLabel4);
-            this.groupBox2.Controls.Add(this.cboTerms);
             this.groupBox2.Controls.Add(this.txtMonthyDue);
             this.groupBox2.Controls.Add(this.metroLabel3);
             this.groupBox2.Location = new System.Drawing.Point(194, 265);
@@ -393,6 +373,44 @@
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "INSTALLMENT INFORMATION";
+            // 
+            // txtTerms
+            // 
+            // 
+            // 
+            // 
+            this.txtTerms.CustomButton.Image = null;
+            this.txtTerms.CustomButton.Location = new System.Drawing.Point(76, 1);
+            this.txtTerms.CustomButton.Name = "";
+            this.txtTerms.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.txtTerms.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtTerms.CustomButton.TabIndex = 1;
+            this.txtTerms.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtTerms.CustomButton.UseSelectable = true;
+            this.txtTerms.CustomButton.Visible = false;
+            this.txtTerms.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.txtTerms.FontWeight = MetroFramework.MetroTextBoxWeight.Bold;
+            this.txtTerms.Lines = new string[0];
+            this.txtTerms.Location = new System.Drawing.Point(134, 120);
+            this.txtTerms.MaxLength = 32767;
+            this.txtTerms.Name = "txtTerms";
+            this.txtTerms.PasswordChar = '\0';
+            this.txtTerms.PromptText = "Payment days";
+            this.txtTerms.ReadOnly = true;
+            this.txtTerms.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtTerms.SelectedText = "";
+            this.txtTerms.SelectionLength = 0;
+            this.txtTerms.SelectionStart = 0;
+            this.txtTerms.ShortcutsEnabled = true;
+            this.txtTerms.Size = new System.Drawing.Size(98, 23);
+            this.txtTerms.TabIndex = 21;
+            this.txtTerms.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTerms.UseSelectable = true;
+            this.txtTerms.WaterMark = "Payment days";
+            this.txtTerms.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtTerms.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtTerms.TextChanged += new System.EventHandler(this.txtTerms_TextChanged);
+            this.txtTerms.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTerms_KeyPress);
             // 
             // txtORNumber
             // 
@@ -410,7 +428,7 @@
             this.txtORNumber.CustomButton.Visible = false;
             this.txtORNumber.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtORNumber.Lines = new string[0];
-            this.txtORNumber.Location = new System.Drawing.Point(134, 242);
+            this.txtORNumber.Location = new System.Drawing.Point(134, 236);
             this.txtORNumber.MaxLength = 32767;
             this.txtORNumber.Name = "txtORNumber";
             this.txtORNumber.PasswordChar = '\0';
@@ -430,7 +448,7 @@
             // metroLabel11
             // 
             this.metroLabel11.AutoSize = true;
-            this.metroLabel11.Location = new System.Drawing.Point(18, 242);
+            this.metroLabel11.Location = new System.Drawing.Point(18, 236);
             this.metroLabel11.Name = "metroLabel11";
             this.metroLabel11.Size = new System.Drawing.Size(85, 19);
             this.metroLabel11.TabIndex = 19;
@@ -529,7 +547,7 @@
             // 
             // cmdCompute
             // 
-            this.cmdCompute.Location = new System.Drawing.Point(254, 272);
+            this.cmdCompute.Location = new System.Drawing.Point(254, 266);
             this.cmdCompute.Name = "cmdCompute";
             this.cmdCompute.Size = new System.Drawing.Size(87, 32);
             this.cmdCompute.TabIndex = 9;
@@ -553,7 +571,7 @@
             this.txtInterest.CustomButton.Visible = false;
             this.txtInterest.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtInterest.Lines = new string[0];
-            this.txtInterest.Location = new System.Drawing.Point(134, 155);
+            this.txtInterest.Location = new System.Drawing.Point(134, 149);
             this.txtInterest.MaxLength = 32767;
             this.txtInterest.Name = "txtInterest";
             this.txtInterest.PasswordChar = '\0';
@@ -577,7 +595,7 @@
             // metroLabel8
             // 
             this.metroLabel8.AutoSize = true;
-            this.metroLabel8.Location = new System.Drawing.Point(18, 155);
+            this.metroLabel8.Location = new System.Drawing.Point(18, 149);
             this.metroLabel8.Name = "metroLabel8";
             this.metroLabel8.Size = new System.Drawing.Size(77, 19);
             this.metroLabel8.TabIndex = 9;
@@ -682,7 +700,6 @@
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroTextBox txtPrincipalAmount;
         private MetroFramework.Controls.MetroLabel metroLabel2;
-        private MetroFramework.Controls.MetroComboBox cboTerms;
         private MetroFramework.Controls.MetroTextBox txtMonthyDue;
         private MetroFramework.Controls.MetroLabel metroLabel3;
         private MetroFramework.Controls.MetroTextBox txtDueDate;
@@ -710,5 +727,6 @@
         private MetroFramework.Controls.MetroRadioButton rdoDelivery;
         private MetroFramework.Controls.MetroTextBox txtORNumber;
         private MetroFramework.Controls.MetroLabel metroLabel11;
+        private MetroFramework.Controls.MetroTextBox txtTerms;
     }
 }

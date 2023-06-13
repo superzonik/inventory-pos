@@ -17,7 +17,7 @@ namespace Inventory.forms
         components.Connection connection = new components.Connection();
         functions.Transactions transaction = new functions.Transactions();
 
-        string _total, _cashtendered, _change, _discount, _tax, _subtotal, _transactionid, _paymentmethod, _transactiondate;
+        string _total, _cashtendered, _change, _discount, _tax, _subtotal, _transactionid, _paymentmethod, _transactiondate, _checknumber;
 
         private void frmRPTReceipt_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -51,6 +51,7 @@ namespace Inventory.forms
             _transactionid = transaction.TransactionCode.ToString();
             _paymentmethod = val.PaymentType;
             _transactiondate = val.CartTransactionDate.ToShortDateString();
+            _checknumber = val.PaymentReference.ToString();
             
         }
 
@@ -73,6 +74,7 @@ namespace Inventory.forms
                 new ReportParameter("pTransactionID", _transactionid),
                 new ReportParameter("pPaymentMethod", _paymentmethod),
                 new ReportParameter("pTransactionDate", _transactiondate),
+                new ReportParameter("pCheckNumber", _checknumber),
             };
 
             this.reportViewer1.LocalReport.SetParameters(rParams);

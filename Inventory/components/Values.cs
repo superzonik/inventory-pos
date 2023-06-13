@@ -14,11 +14,17 @@ namespace Inventory.components
         public static string server_port = "3305";
         public static string server_username = "superzonik";
         public static string server_password = "4735489";
-        
+
+        //public static string server_address = "127.0.0.1";
+        //public static string server_address = "192.168.100.212";
+        //public static string server_port = "3306";
+        //public static string server_username = "root";
+        //public static string server_password = "";
+
         //<Authorization token to authorize admin transactions>
-        public static int authorization_token;
+        public static Boolean authorization_token;
         
-        public int AuthorizationToken
+        public Boolean AuthorizationToken
         {
             get { return authorization_token; }
             set { authorization_token = value; }

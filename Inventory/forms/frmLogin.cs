@@ -56,30 +56,7 @@ namespace Inventory
         {
             MessageBox.Show(this, "Please contact the developer @ ", "FORGOT PASSWORD", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
-
-        private void cmdLogin_Click(object sender, EventArgs e)
-        {
-            if (login.AuthenticateUser(txtUserName.Text, txtPassword.Text))
-            {
-                logs.logthis(val.UserName + " logged in the system");
-                MessageBox.Show(this, "Login Successful", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                val.AuthorizationToken = 0;
-                this.Hide();
-                forms.frmDashboard dashboard = new forms.frmDashboard();
-                dashboard.FormClosing += new FormClosingEventHandler(Dashboard_FormClosing);
-                dashboard.Show();
-            }
-            else
-            {
-                MessageBox.Show(this, "Incorrect username or password",
-                    "Authentication Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtUserName.Clear();
-                txtPassword.Clear();
-                txtUserName.Focus();
-            }
-
-        }
-
+        
         private void Dashboard_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (MessageBox.Show(this, "Do you want to logout?",
@@ -104,6 +81,28 @@ namespace Inventory
         {
             transactions.GenerateTransactionCode();
             Console.WriteLine(transactions.TransactionCode);
+        }
+
+        private void cmdLogin_Click(object sender, EventArgs e)
+        {
+            if (login.AuthenticateUser(txtUserName.Text, txtPassword.Text))
+            {
+                logs.logthis(val.UserName + " logged in the system");
+                MessageBox.Show(this, "Login Successful!", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                val.AuthorizationToken = false;
+                this.Hide();
+                forms.frmDashboard dashboard = new forms.frmDashboard();
+                dashboard.FormClosing += new FormClosingEventHandler(Dashboard_FormClosing);
+                dashboard.Show();
+            }
+            else
+            {
+                MessageBox.Show(this, "Incorrect username or password",
+                    "Authentication Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtUserName.Clear();
+                txtPassword.Clear();
+                txtUserName.Focus();
+            }
         }
 
     }

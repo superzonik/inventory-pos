@@ -107,7 +107,7 @@ namespace Inventory.forms
 
         private void cmdFDASsave_Click(object sender, EventArgs e)
         {
-            SaveItem("FDAS", txtFDASprice, txtFDASquantity, txtFDASdescription, cboFDAStype);
+            SaveItem("Fire Prevention Equipment", txtFDASprice, txtFDASquantity, txtFDASdescription, cboFDAStype);
             //try
             //{
             //    if ((txtFDASprice.Text == "") || (txtFDASquantity.Text == "") || (txtFDASdescription.Text == ""))
@@ -149,7 +149,7 @@ namespace Inventory.forms
         private void AddNewArticle_FormClosing(object sender, FormClosingEventArgs e)
         {
             articles.loadArticleToCombobox(cboFXcontent, "FIRE EXTINGUISHER");
-            articles.loadArticleToCombobox(cboFDAStype, "FDAS");
+            articles.loadArticleToCombobox(cboFDAStype, "FIRE PREVENTION EQUIPMENT");
             articles.loadArticleToCombobox(cboRawMaterialName, "RAW MATERIALS");
         }
 

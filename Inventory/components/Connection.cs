@@ -7,6 +7,7 @@ namespace Inventory.components
     public class Connection
     {
         public string conString = String.Format("datasource={0};port={1};username={2};password={3}",
+        //public string conString = String.Format("datasource={0};port={1};username={2}",
             Values.server_address, Values.server_port, Values.server_username, Values.server_password);
 
         //THE GUY FROM YOUTUBE MYSQL CONNECTION
@@ -20,6 +21,8 @@ namespace Inventory.components
         {
             get
             {
+                //return $"server=127.0.0.1;port=3306;username=root;database=inventorydb;sslmode=None";
+                //return $"server=192.168.100.212;port=3306;username=root;database=inventorydb;sslmode=None";
                 return $"server=127.0.0.1;port=3305;username=superzonik;password=4735489;database=inventorydb;sslmode=None";
             }
         }

@@ -51,21 +51,21 @@ namespace Inventory.forms
 
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tileReports_Click(object sender, EventArgs e)
         {
-            Close();
+            frmReportList frmReportList = new frmReportList();
+            frmReportList.ShowDialog();
         }
 
-        private void addNewProductNameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tileSettings_Click(object sender, EventArgs e)
         {
             frmAddNewArticle addNewArticle = new frmAddNewArticle();
             addNewArticle.ShowDialog();
         }
 
-        private void tileReports_Click(object sender, EventArgs e)
+        private void metroTile2_Click(object sender, EventArgs e)
         {
-            frmReportList frmReportList = new frmReportList();
-            frmReportList.ShowDialog();
+            Close();
         }
     }
 }

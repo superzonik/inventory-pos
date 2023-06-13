@@ -216,5 +216,21 @@ namespace Inventory.forms
             frmCollectibles frmCollectibles = new frmCollectibles();
             frmCollectibles.Refresh();
         }
+
+        private void rdoCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            val.PaymentType = "CHECK";
+            lblCheckNumber.Visible = true;
+            txtCheckNumber.Visible = true;
+            txtCheckNumber.Text = "";
+        }
+
+        private void rdoCash_CheckedChanged(object sender, EventArgs e)
+        {
+            val.PaymentType = "CASH";
+            lblCheckNumber.Visible = false;
+            txtCheckNumber.Visible = false;
+            txtCheckNumber.Text = "";
+        }
     }
 }

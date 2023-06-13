@@ -194,9 +194,5 @@ namespace Inventory.forms
 
         }
 
-        private void cmdPrint_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

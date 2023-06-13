@@ -34,7 +34,7 @@ namespace Inventory.forms
         {
             if (MessageBox.Show(this, "Are you sure you want to save this customer?","Add Customer",MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                transactions.SaveClientInfo(txtCustomerName.Text, txtCustomerAddress.Text, txtContactPerson.Text, txtSalesAgent.Text, txtRemarks.Text);
+                transactions.SaveClientInfo(txtCustomerName.Text, txtCustomerAddress.Text, txtContactPerson.Text, txtSalesAgent.Text, txtRemarks.Text, txtTIN.Text);
                 MessageBox.Show(this, "Client information saved!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }

@@ -206,10 +206,36 @@ namespace Inventory.functions
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error in search module: " + e);
+                Console.WriteLine("Error in search module: " + e.Message);
             }
         }
 
+        public bool DeleteRecord(int mItemID)
+        {
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connection.conString))
+                {
+                    string sql = @"DELETE FROM inventorydb.tblitems WHERE itemid = @itemid";
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@itemid", mItemID);
+
+                        cmd.Connection.Open();
+                        MySqlDataReader dr;
+                        dr = cmd.ExecuteReader();
+                        dr.Close();
+
+                        return true;
+                    }
+                }
+            } catch (Exception e)
+            {
+                Console.WriteLine("Error Deleting Product Record: " + e.Message);
+                return false;
+            }
+        }
         public bool updateRecord(int mItemID, String mCategory, String mProductName, String mFXtype, String mFXcapacity, String mProductDescription,
             String mProductStatus, DateTime? mManufactureDate, double mProductPrice, int mQuantity)
         {

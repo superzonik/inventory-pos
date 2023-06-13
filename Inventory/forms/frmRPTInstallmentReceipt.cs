@@ -18,7 +18,7 @@ namespace Inventory.forms
         functions.Transactions transaction = new functions.Transactions();
         functions.Installment installment = new functions.Installment();
 
-        string _principalamount, _remainingbalance, _cashtendered, _newbalance, _transactionid, _paymentmethod, _transactiondate;
+        string _principalamount, _remainingbalance, _cashtendered, _newbalance, _transactionid, _paymentmethod, _transactiondate, _checknumber;
         double numNewBalance;
 
         private void frmRPTInstallmentReceipt_FormClosing(object sender, FormClosingEventArgs e)
@@ -48,6 +48,7 @@ namespace Inventory.forms
             _transactionid = transaction.TransactionCode.ToString();
             _paymentmethod = val.PaymentType;
             _transactiondate = val.CartTransactionDate.ToShortDateString();
+            _checknumber = val.PaymentReference.ToString();
         }
 
         private void frmRPTInstallmentReceipt_Load(object sender, EventArgs e)
@@ -64,6 +65,7 @@ namespace Inventory.forms
                 new ReportParameter("pTransactionID", _transactionid),
                 new ReportParameter("pPaymentMethod", _paymentmethod),
                 new ReportParameter("pTransactionDate", _transactiondate),
+                new ReportParameter("pCheckNumber", _checknumber),
 
             };
 

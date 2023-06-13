@@ -350,6 +350,7 @@
             this.rdoCheck.TabIndex = 76;
             this.rdoCheck.Text = "CHECK";
             this.rdoCheck.UseSelectable = true;
+            this.rdoCheck.CheckedChanged += new System.EventHandler(this.rdoCheck_CheckedChanged);
             // 
             // rdoCash
             // 
@@ -362,6 +363,7 @@
             this.rdoCash.TabStop = true;
             this.rdoCash.Text = "CASH";
             this.rdoCash.UseSelectable = true;
+            this.rdoCash.CheckedChanged += new System.EventHandler(this.rdoCash_CheckedChanged);
             // 
             // metroLabel4
             // 

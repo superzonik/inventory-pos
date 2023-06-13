@@ -33,7 +33,7 @@ namespace Inventory.forms
         {
             if (login.AuthenticateAdmin(txtUserName.Text, txtPassword.Text))
             {
-                val.AuthorizationToken = 1;
+                val.AuthorizationToken = true;
                 MessageBox.Show(this, "Authorization Successful!", "Authorization", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
@@ -41,7 +41,7 @@ namespace Inventory.forms
             {
                 MessageBox.Show(this, "Incorrect admin username or password!",
                     "Authorization", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                val.AuthorizationToken = 0;
+                val.AuthorizationToken = false;
                 this.Close();
             }
 

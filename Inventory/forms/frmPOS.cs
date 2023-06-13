@@ -72,12 +72,14 @@ namespace Inventory.forms
                     transactions.ClientContact = (string)mDataGrid["contactperson", row].Value.ToString();
                     transactions.ClientSalesAgent = (string)mDataGrid["salesagent", row].Value.ToString();
                     transactions.ClientRemarks = (string)mDataGrid["remarks", row].Value.ToString();
+                    transactions.ClientTIN = (string)mDataGrid["tin", row].Value.ToString();
 
                     this.lblClientID.Text = transactions.ClientID.ToString();
                     this.txtCustomerName.Text = transactions.ClientName;
                     this.txtCustomerAddress.Text = transactions.ClientAddress;
                     this.txtContactPerson.Text= transactions.ClientContact;
                     this.txtSalesAgent.Text= transactions.ClientSalesAgent;
+                    this.txtTIN.Text = transactions.ClientTIN;
                     this.txtRemarks.Text = transactions.ClientRemarks;
 
                 }
@@ -169,6 +171,7 @@ namespace Inventory.forms
             grpCustomerInformation.Enabled = true;
             cmdNewTrans.Enabled = false;
             cmdNewTrans.Style = MetroFramework.MetroColorStyle.Silver;
+            txtClientSearch.Focus();
 
         }
 
@@ -379,8 +382,10 @@ namespace Inventory.forms
         {
             double sum = 0;
             double vatableSale = 0;
+            double vat = 0;
             double discount = 0;
             double grandtotal = 0;
+            double subtotal = 0;
             //sum = val.CartItemPrice + double.Parse(lblTopPrice.Text);
             //vatableSale = sum * .12;
 
@@ -388,13 +393,26 @@ namespace Inventory.forms
             {
                 sum += Convert.ToDouble(dtgCart.Rows[i].Cells["price"].Value) * Convert.ToDouble(dtgCart.Rows[i].Cells["quantity"].Value);
                 discount += Convert.ToDouble(dtgCart.Rows[i].Cells["discount"].Value);
-                grandtotal += Convert.ToDouble(dtgCart.Rows[i].Cells["total"].Value);
+                subtotal += Convert.ToDouble(dtgCart.Rows[i].Cells["total"].Value);
+                
             }
+
+            if (lblVAT.Text == "")
+            {
+                vat = 0;
+            }
+            else
+            {
+                vat = double.Parse(lblVAT.Text);
+            }
+            vatableSale = subtotal * (vat / 100);
+            grandtotal = subtotal;
 
             lblTopPrice.Text = grandtotal.ToString("n2");
             lblSubTotal.Text = sum.ToString("n2");
             lblDiscount.Text = discount.ToString("n2");
             lblGrandTotal.Text = grandtotal.ToString("n2");
+            lblVatableSales.Text = vatableSale.ToString("n2");
             val.CartTotalDue = grandtotal;
             val.CartDiscount = discount;
             val.CartTotalSales = sum;
@@ -432,7 +450,7 @@ namespace Inventory.forms
 
             inputBox.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             inputBox.ClientSize = size;
-            inputBox.Text = "Enter Discount Amount";
+            inputBox.Text = "Enter Amount";
             inputBox.StartPosition = FormStartPosition.CenterScreen;
             inputBox.MaximizeBox = false;
             inputBox.MinimizeBox = false;
@@ -606,6 +624,67 @@ namespace Inventory.forms
                 transactions.TransactionSuccess = 0;
             }
 
+        }
+
+        
+        private void txtClientSearch_TextChanged(object sender, EventArgs e)
+        {
+            transactions.SearchClient(dtgClients, lblRecordCount, txtClientSearch.Text);
+            dtgClients.Refresh();
+            if (dtgClients.RowCount != 0)
+            {
+                items.SetRowNumber(dtgClients);
+                PopulateTextboxes(0, dtgClients);
+            }
+        }
+
+        private void dtgCart_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dtgCart.Rows.Count != 0)
+            {
+                int row = dtgCart.CurrentCell.RowIndex;
+                int col = dtgCart.CurrentCell.ColumnIndex;
+
+                if (e.ColumnIndex == 2)
+                {
+                    String strPrice = "";
+                    double price = Convert.ToDouble(dtgCart.Rows[row].Cells["price"].Value);
+                    double quantity = Convert.ToDouble(dtgCart.Rows[row].Cells["quantity"].Value);
+                    double discount = Convert.ToDouble(dtgCart.Rows[row].Cells["discount"].Value);
+                                       
+                    ShowInputDiscountDialog(ref strPrice);
+                    if (strPrice != "")
+                    {
+                        price = double.Parse(strPrice);
+
+                        dtgCart.Rows[row].Cells["price"].Value = price;
+                        dtgCart.Rows[row].Cells["total"].Value = (price * quantity) - discount;
+
+                        ComputePrice();
+                    }
+                }
+            }
+            
+        }
+
+        private void lblVAT_TextChanged(object sender, EventArgs e)
+        {
+            ComputePrice();
+        }
+
+        private void lblVAT_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) //&&
+        //(e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            //if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            //{
+            //    e.Handled = true;
+            //}
         }
     }
 }

@@ -25,6 +25,7 @@ namespace Inventory.functions
         public static string client_contact;
         public static string client_salesagent;
         public static string client_remarks;
+        public static string client_TIN;
 
         public int ClientID
         {
@@ -60,6 +61,12 @@ namespace Inventory.functions
         {
             get { return client_remarks; }
             set { client_remarks = value; }
+        }
+
+        public string ClientTIN
+        {
+            get { return client_TIN; }
+            set { client_TIN = value; }
         }
 
         public int TransactionSuccess
@@ -116,7 +123,11 @@ namespace Inventory.functions
             {
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
-                    string sql = @"SELECT * FROM inventorydb.tbltransactions WHERE date(tbltransactions.transactiondate) = @transactiondate";
+                    string sql = @"SELECT * FROM inventorydb.tbltransactions 
+                            inner join inventorydb.tbltransactiondetails on tbltransactions.transactionid = tbltransactiondetails.transactionid
+                            inner join inventorydb.tblitems on tbltransactiondetails.itemid = tblitems.itemid
+                            inner join inventorydb.tblclients on tbltransactions.clientid = tblclients.clientid
+                            WHERE date(tbltransactions.transactiondate) = @transactiondate";
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
@@ -285,20 +296,22 @@ namespace Inventory.functions
             }
         }
 
-        public bool SaveTransactionDetails(long mTransactionID, int mItemID, int mQuantity, double mTotalPrice)
+        public bool SaveTransactionDetails(long mTransactionID, int mItemID, int mQuantity, double mTotalPrice, double mDiscount, double mFinalPrice)
         {
             try
             {
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
-                    string sql = @"INSERT INTO inventorydb.tbltransactiondetails(transactionid, itemid, itemquantity, itemtotalprice) " +
-                        "VALUES (@transactionid, @itemid, @itemquantity, @itemtotalprice);";
+                    string sql = @"INSERT INTO inventorydb.tbltransactiondetails(transactionid, itemid, itemquantity, itemtotalprice, itemdiscount, itemfinalprice) " +
+                        "VALUES (@transactionid, @itemid, @itemquantity, @itemtotalprice, @itemdiscount, @itemfinalprice);";
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
                         cmd.Parameters.AddWithValue("@transactionid", mTransactionID);
                         cmd.Parameters.AddWithValue("@itemid", mItemID);
                         cmd.Parameters.AddWithValue("@itemquantity", mQuantity);
                         cmd.Parameters.AddWithValue("@itemtotalprice", mTotalPrice);
+                        cmd.Parameters.AddWithValue("@itemdiscount", mDiscount);
+                        cmd.Parameters.AddWithValue("@itemfinalprice", mFinalPrice);
 
                         cmd.Connection.Open();
                         MySqlDataReader dr;
@@ -316,14 +329,14 @@ namespace Inventory.functions
             }
         }
 
-        public bool SaveClientInfo(string mClientName, string mClientAddress, string mContactPerson, string mSalesAgent, string mRemarks)
+        public bool SaveClientInfo(string mClientName, string mClientAddress, string mContactPerson, string mSalesAgent, string mRemarks, string mTIN)
         {
             try
             {
                 using (MySqlConnection con = new MySqlConnection(connection.conString))
                 {
-                    string sql = @"INSERT INTO inventorydb.tblclients(clientname, clientaddress, contactperson, salesagent, remarks) " +
-                        "VALUES (@clientname, @clientaddress, @contactperson, @salesagent, @remarks);";
+                    string sql = @"INSERT INTO inventorydb.tblclients(clientname, clientaddress, contactperson, salesagent, remarks, tin) " +
+                        "VALUES (@clientname, @clientaddress, @contactperson, @salesagent, @remarks, @tin);";
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {
@@ -332,6 +345,7 @@ namespace Inventory.functions
                         cmd.Parameters.AddWithValue("@contactperson", mContactPerson);
                         cmd.Parameters.AddWithValue("@salesagent", mSalesAgent);
                         cmd.Parameters.AddWithValue("@remarks", mRemarks);
+                        cmd.Parameters.AddWithValue("@tin", mTIN);
 
                         cmd.Connection.Open();
                         MySqlDataReader dr;
@@ -374,17 +388,58 @@ namespace Inventory.functions
                             mDatagrid.Columns["contactperson"].Visible = false;
                             mDatagrid.Columns["salesagent"].Visible = false;
                             mDatagrid.Columns["remarks"].Visible = false;
-
+                            mDatagrid.Columns["tin"].Visible = false;
+                        
                             lblRecordCount.Text = mDatagrid.RowCount.ToString();
                         }
                     }
-
                 }
             }
             catch (Exception e)
             {
                 //LOG ERROR IN LOADING ITEM DATA TO DATAGRID
 
+                Console.WriteLine("Error loading client data to datagrid: " + e);
+            }
+        }
+
+        public void SearchClient(DataGridView mDatagrid, Label lblRecordCount, String mTxtKeyword)
+        {
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connection.conString))
+                {
+                    string sql = @"SELECT * FROM inventorydb.tblclients WHERE clientname LIKE @keyword";
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@keyword", String.Format("{0}{1}{2}", "%", mTxtKeyword, "%"));
+                        MySqlDataAdapter da = new MySqlDataAdapter();
+                        da.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        dt.Clear();
+                        da.Fill(dt);
+
+                        if (dt.Rows.Count != 0)
+                        {
+                            mDatagrid.DataSource = dt;
+                            mDatagrid.Columns["clientid"].Visible = false;
+                            mDatagrid.Columns["clientname"].HeaderText = "Customer Name";
+                            mDatagrid.Columns["clientaddress"].HeaderText = "Customer Address";
+                            mDatagrid.Columns["clientaddress"].Width = 100;
+                            mDatagrid.Columns["contactperson"].Visible = false;
+                            mDatagrid.Columns["salesagent"].Visible = false;
+                            mDatagrid.Columns["remarks"].Visible = false;
+                            mDatagrid.Columns["tin"].Visible = false;
+                            mDatagrid.Refresh();
+                            lblRecordCount.Text = mDatagrid.RowCount.ToString();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                //LOG ERROR IN LOADING ITEM DATA TO DATAGRID
                 Console.WriteLine("Error loading client data to datagrid: " + e);
             }
         }

@@ -36,7 +36,7 @@ namespace Inventory.forms
         private void searchdate(DateTime mSearchDate)
         {
             dataset.salesreport dsDailySales = transaction.GetDailySales(mSearchDate.Date);
-            ReportDataSource datasource = new ReportDataSource("dailysales", dsDailySales.Tables["dailysales"]);
+             ReportDataSource datasource = new ReportDataSource("dailysales", dsDailySales.Tables["dailysales"]);
             ReportParameter[] rParams = new ReportParameter[] {
                 new ReportParameter("pTransactionDate", dtDateSelected.Value.ToShortDateString()),
 
@@ -46,6 +46,12 @@ namespace Inventory.forms
             this.reportViewer1.LocalReport.DataSources.Clear();
             this.reportViewer1.LocalReport.DataSources.Add(datasource);
             this.reportViewer1.RefreshReport();
+        }
+
+        private void frmReportDaily_SizeChanged(object sender, EventArgs e)
+        {
+            reportViewer1.RefreshReport();
+            reportViewer1.Dock = DockStyle.Fill;
         }
     }
 }

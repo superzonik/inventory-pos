@@ -18,7 +18,10 @@ namespace Inventory.forms
         functions.Logs logs = new functions.Logs();
 
         int StockQuantity = 0;
-        
+
+        //OPERATION CODE: 0 = NONE; 1 = DELETE; 2 = UPDATE;
+        int OperationCode = 0;
+
         public frmInventory()
         {
             InitializeComponent();
@@ -307,65 +310,95 @@ namespace Inventory.forms
 
         private void AuthenticateAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
-            int i = dtgInventory.CurrentRow.Index;
 
-            if (val.AuthorizationToken == 1)
+            if (val.AuthorizationToken)
             {                                
-                if (txtCategory.Text == "Fire Extinguisher")
+                if (OperationCode == 1)
                 {
-                    items.updateRecord(int.Parse(lblRecordID.Text), txtCategory.Text, txtProductName.Text, txtFireExType.Text, txtFireExCapacity.Text, "",
-                    txtProductStatus.Text, dtManufactureDate.Value, double.Parse(txtProductPrice.Text), 1);
-                   
-                    //LOG ADMIN AUTHORIZING UPDATE OF RECORD
-                    logs.logthis(val.UserName + " authorized update of record for: " + txtProductName.Text + ", " + txtFireExCapacity.Text + " " + txtFireExType.Text);
-
-                }
-                else if (txtCategory.Text == "FDAS")
+                    //DELETE
+                    DeleteItem();
+                    OperationCode = 0;
+                } else if (OperationCode == 2)
                 {
-                    int xStock = (int)dtgInventory["quantity", i].Value;
-                    MessageBox.Show(this, "Current Stock: " + xStock + " Additional Stock: " + StockQuantity, "Current Stock: " + xStock + " Additional Stock: " + StockQuantity, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    StockQuantity = StockQuantity + (int)dtgInventory["quantity", i].Value;
-                    
-                    items.updateRecord(int.Parse(lblRecordID.Text), txtCategory.Text, txtProductName.Text, "", "", txtProductDescription.Text,
-                    "", null, double.Parse(txtProductPrice.Text), StockQuantity);
-                    
-                    //LOG ADMIN AUTHORIZING UPDATE OF RECORD
-                    logs.logthis(val.UserName + " authorized update of record for: " + txtProductName.Text );
-                    StockQuantity = 0;
-
+                    //UPDATE
+                    UpdateItem();
+                    OperationCode = 0;
                 }
-                else if (txtCategory.Text == "Raw Materials")
-                {                   
-                    int xStock = (int)dtgInventory["quantity", i].Value;
-                    MessageBox.Show(this, "Current Stock: " + xStock + " Additional Stock: " + StockQuantity, "Current Stock: " + xStock + " Additional Stock: " + StockQuantity, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    StockQuantity = StockQuantity + (int)dtgInventory["quantity", i].Value;
-                   
-                    items.updateRecord(int.Parse(lblRecordID.Text), txtCategory.Text, txtProductName.Text, "", "", txtProductDescription.Text,
-                    "", null, double.Parse(txtProductPrice.Text), StockQuantity);
-                    //LOG ADMIN AUTHORIZING UPDATE OF RECORD
-                    logs.logthis(val.UserName + " authorized update of record for: " + txtProductName.Text);
-                    StockQuantity = 0;
-                }
-
-                MessageBox.Show(this, "Item record updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                items.loadItemData(dtgInventory, lblRecordCount);
-                populateTextboxes(0, dtgInventory);
-
-                //DISABLE CONTROL BUTTONS AND ENABLE UPDATE BUTTON
-                cmdSave.Enabled = false;
-                cmdCancel.Enabled = false;
-                cmdUpdate.Enabled = true;
-
-                lockTextboxes();
-
-                val.AuthorizationToken = 0;
-
             }
             else
             {
-                MessageBox.Show(this, "Update not authorized!", "Invalid Authorization", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                val.AuthorizationToken = 0;
+                MessageBox.Show(this, "Operation not authorized!", "Invalid Authorization", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                val.AuthorizationToken = false;
             }
+        }
+
+        private void DeleteItem()
+        {
+            int i = dtgInventory.CurrentRow.Index;
+            items.DeleteRecord(int.Parse(lblRecordID.Text));
+
+            items.loadItemData(dtgInventory, lblRecordCount);
+            dtgInventory.Refresh();
+            populateTextboxes(0, dtgInventory);
+            logs.logthis(val.UserName + " authorized removal of record for: " + txtProductName.Text);
+
+            MessageBox.Show(this, "Item removed from inventory!", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            val.AuthorizationToken = false;
+
+        }
+        private void UpdateItem()
+        {
+            int i = dtgInventory.CurrentRow.Index;
+
+            if (txtCategory.Text == "Fire Extinguisher")
+            {
+                items.updateRecord(int.Parse(lblRecordID.Text), txtCategory.Text, txtProductName.Text, txtFireExType.Text, txtFireExCapacity.Text, "",
+                txtProductStatus.Text, dtManufactureDate.Value, double.Parse(txtProductPrice.Text), 1);
+
+                //LOG ADMIN AUTHORIZING UPDATE OF RECORD
+                logs.logthis(val.UserName + " authorized update of record for: " + txtProductName.Text + ", " + txtFireExCapacity.Text + " " + txtFireExType.Text);
+
+            }
+            else if (txtCategory.Text == "Fire Prevention Equipment")
+            {
+                int xStock = (int)dtgInventory["quantity", i].Value;
+                MessageBox.Show(this, "Current Stock: " + xStock + " Additional Stock: " + StockQuantity, "Stocks", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                StockQuantity = StockQuantity + (int)dtgInventory["quantity", i].Value;
+
+                items.updateRecord(int.Parse(lblRecordID.Text), txtCategory.Text, txtProductName.Text, "", "", txtProductDescription.Text,
+                "", null, double.Parse(txtProductPrice.Text), StockQuantity);
+
+                //LOG ADMIN AUTHORIZING UPDATE OF RECORD
+                logs.logthis(val.UserName + " authorized update of record for: " + txtProductName.Text);
+                StockQuantity = 0;
+
+            }
+            else if (txtCategory.Text == "Raw Materials")
+            {
+                int xStock = (int)dtgInventory["quantity", i].Value;
+                MessageBox.Show(this, "Current Stock: " + xStock + " Additional Stock: " + StockQuantity, "Stocks", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                StockQuantity = StockQuantity + (int)dtgInventory["quantity", i].Value;
+
+                items.updateRecord(int.Parse(lblRecordID.Text), txtCategory.Text, txtProductName.Text, "", "", txtProductDescription.Text,
+                "", null, double.Parse(txtProductPrice.Text), StockQuantity);
+                //LOG ADMIN AUTHORIZING UPDATE OF RECORD
+                logs.logthis(val.UserName + " authorized update of record for: " + txtProductName.Text);
+                StockQuantity = 0;
+            }
+
+            MessageBox.Show(this, "Item record updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            items.loadItemData(dtgInventory, lblRecordCount);
+            dtgInventory.Refresh();
+            populateTextboxes(0, dtgInventory);
+
+            //DISABLE CONTROL BUTTONS AND ENABLE UPDATE BUTTON
+            cmdSave.Enabled = false;
+            cmdCancel.Enabled = false;
+            cmdUpdate.Enabled = true;
+
+            lockTextboxes();
+
+            val.AuthorizationToken = false;
         }
 
         private void dtgInventory_Sorted(object sender, EventArgs e)
@@ -447,6 +480,25 @@ namespace Inventory.forms
 
             return result;
 
+        }
+
+        private void cmdDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show(this, "Are you sure you want to delete this inventory item?", "Delete",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    OperationCode = 1;
+                    forms.frmAuthenticateAdmin authenticateAdmin = new forms.frmAuthenticateAdmin();
+                    authenticateAdmin.FormClosing += new FormClosingEventHandler(AuthenticateAdmin_FormClosing);
+                    authenticateAdmin.ShowDialog();
+                }
+                
+            }
+            catch (Exception error)
+            {
+                logs.logthis("Error Deleting Record: " + error.Message);
+            }
         }
     }
 }

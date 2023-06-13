@@ -50,8 +50,8 @@
             this.cboCategory.FormattingEnabled = true;
             this.cboCategory.ItemHeight = 23;
             this.cboCategory.Items.AddRange(new object[] {
-            "FDAS",
             "Fire Extinguisher",
+            "Fire Prevention Equipment",
             "Raw Materials"});
             this.cboCategory.Location = new System.Drawing.Point(127, 93);
             this.cboCategory.Name = "cboCategory";

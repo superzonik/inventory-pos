@@ -380,6 +380,10 @@ namespace Inventory.dataset {
             
             private global::System.Data.DataColumn columnitemtotalprice;
             
+            private global::System.Data.DataColumn columnitemfinalprice;
+            
+            private global::System.Data.DataColumn columntin;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public receiptDataTable() {
@@ -679,6 +683,22 @@ namespace Inventory.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn itemfinalpriceColumn {
+                get {
+                    return this.columnitemfinalprice;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn tinColumn {
+                get {
+                    return this.columntin;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -747,7 +767,9 @@ namespace Inventory.dataset {
                         string salesagent, 
                         string remarks, 
                         string itemquantity, 
-                        string itemtotalprice) {
+                        string itemtotalprice, 
+                        string itemfinalprice, 
+                        string tin) {
                 receiptRow rowreceiptRow = ((receiptRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         transactionid,
@@ -782,7 +804,9 @@ namespace Inventory.dataset {
                         salesagent,
                         remarks,
                         itemquantity,
-                        itemtotalprice};
+                        itemtotalprice,
+                        itemfinalprice,
+                        tin};
                 rowreceiptRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowreceiptRow);
                 return rowreceiptRow;
@@ -838,6 +862,8 @@ namespace Inventory.dataset {
                 this.columnremarks = base.Columns["remarks"];
                 this.columnitemquantity = base.Columns["itemquantity"];
                 this.columnitemtotalprice = base.Columns["itemtotalprice"];
+                this.columnitemfinalprice = base.Columns["itemfinalprice"];
+                this.columntin = base.Columns["tin"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -909,6 +935,10 @@ namespace Inventory.dataset {
                 base.Columns.Add(this.columnitemquantity);
                 this.columnitemtotalprice = new global::System.Data.DataColumn("itemtotalprice", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnitemtotalprice);
+                this.columnitemfinalprice = new global::System.Data.DataColumn("itemfinalprice", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnitemfinalprice);
+                this.columntin = new global::System.Data.DataColumn("tin", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntin);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1127,6 +1157,10 @@ namespace Inventory.dataset {
             private global::System.Data.DataColumn columnduedate;
             
             private global::System.Data.DataColumn columninstallmentbalance;
+            
+            private global::System.Data.DataColumn columnitemfinalprice;
+            
+            private global::System.Data.DataColumn columntin;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -1507,6 +1541,22 @@ namespace Inventory.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn itemfinalpriceColumn {
+                get {
+                    return this.columnitemfinalprice;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn tinColumn {
+                get {
+                    return this.columntin;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1585,7 +1635,9 @@ namespace Inventory.dataset {
                         string interest, 
                         string installmentdatecreated, 
                         string duedate, 
-                        string installmentbalance) {
+                        string installmentbalance, 
+                        string itemfinalprice, 
+                        string tin) {
                 installmentreceiptRow rowinstallmentreceiptRow = ((installmentreceiptRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         transactionid,
@@ -1630,7 +1682,9 @@ namespace Inventory.dataset {
                         interest,
                         installmentdatecreated,
                         duedate,
-                        installmentbalance};
+                        installmentbalance,
+                        itemfinalprice,
+                        tin};
                 rowinstallmentreceiptRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowinstallmentreceiptRow);
                 return rowinstallmentreceiptRow;
@@ -1696,6 +1750,8 @@ namespace Inventory.dataset {
                 this.columninstallmentdatecreated = base.Columns["installmentdatecreated"];
                 this.columnduedate = base.Columns["duedate"];
                 this.columninstallmentbalance = base.Columns["installmentbalance"];
+                this.columnitemfinalprice = base.Columns["itemfinalprice"];
+                this.columntin = base.Columns["tin"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1787,6 +1843,10 @@ namespace Inventory.dataset {
                 base.Columns.Add(this.columnduedate);
                 this.columninstallmentbalance = new global::System.Data.DataColumn("installmentbalance", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columninstallmentbalance);
+                this.columnitemfinalprice = new global::System.Data.DataColumn("itemfinalprice", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnitemfinalprice);
+                this.columntin = new global::System.Data.DataColumn("tin", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntin);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2458,6 +2518,38 @@ namespace Inventory.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string itemfinalprice {
+                get {
+                    try {
+                        return ((string)(this[this.tablereceipt.itemfinalpriceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'itemfinalprice\' in table \'receipt\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablereceipt.itemfinalpriceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string tin {
+                get {
+                    try {
+                        return ((string)(this[this.tablereceipt.tinColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'tin\' in table \'receipt\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablereceipt.tinColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IstransactionidNull() {
                 return this.IsNull(this.tablereceipt.transactionidColumn);
             }
@@ -2850,6 +2942,30 @@ namespace Inventory.dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetitemtotalpriceNull() {
                 this[this.tablereceipt.itemtotalpriceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsitemfinalpriceNull() {
+                return this.IsNull(this.tablereceipt.itemfinalpriceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetitemfinalpriceNull() {
+                this[this.tablereceipt.itemfinalpriceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IstinNull() {
+                return this.IsNull(this.tablereceipt.tinColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SettinNull() {
+                this[this.tablereceipt.tinColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3565,6 +3681,38 @@ namespace Inventory.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string itemfinalprice {
+                get {
+                    try {
+                        return ((string)(this[this.tableinstallmentreceipt.itemfinalpriceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'itemfinalprice\' in table \'installmentreceipt\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinstallmentreceipt.itemfinalpriceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string tin {
+                get {
+                    try {
+                        return ((string)(this[this.tableinstallmentreceipt.tinColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'tin\' in table \'installmentreceipt\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinstallmentreceipt.tinColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IstransactionidNull() {
                 return this.IsNull(this.tableinstallmentreceipt.transactionidColumn);
             }
@@ -4077,6 +4225,30 @@ namespace Inventory.dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetinstallmentbalanceNull() {
                 this[this.tableinstallmentreceipt.installmentbalanceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsitemfinalpriceNull() {
+                return this.IsNull(this.tableinstallmentreceipt.itemfinalpriceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetitemfinalpriceNull() {
+                this[this.tableinstallmentreceipt.itemfinalpriceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IstinNull() {
+                return this.IsNull(this.tableinstallmentreceipt.tinColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SettinNull() {
+                this[this.tableinstallmentreceipt.tinColumn] = global::System.Convert.DBNull;
             }
         }
         

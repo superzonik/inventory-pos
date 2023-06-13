@@ -211,7 +211,7 @@ namespace Inventory.forms
 
         private void AuthenticateAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (val.AuthorizationToken == 1)
+            if (val.AuthorizationToken)
             {
                 //LOG ADMIN AUTHORIZING UPDATE OF RECORD
                 logs.logthis(val.UserName + " authorized delete of delivery record by: " + txtDeliveredBy.Text + " with DR Number " + txtDRNum.Text + " on " + dtDeliveryDate.Value.Date);
@@ -220,13 +220,13 @@ namespace Inventory.forms
                 MessageBox.Show(this, "Delivery detail deleted!", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 frmDelivery_Load(sender, e);
 
-                val.AuthorizationToken = 0;
+                val.AuthorizationToken = false;
 
             }
             else
             {
                 MessageBox.Show(this, "Delete not authorized!", "Invalid Authorization", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                val.AuthorizationToken = 0;
+                val.AuthorizationToken = false;
             }
         }
 
@@ -238,6 +238,11 @@ namespace Inventory.forms
         private void lblTransactionID_TextChanged(object sender, EventArgs e)
         {
             cmdDeliver.Enabled = true;
+        }
+
+        private void cmdPrint_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

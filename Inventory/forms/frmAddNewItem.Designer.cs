@@ -102,9 +102,9 @@
             // 
             // 
             this.txtFDASquantity.CustomButton.Image = null;
-            this.txtFDASquantity.CustomButton.Location = new System.Drawing.Point(104, 1);
+            this.txtFDASquantity.CustomButton.Location = new System.Drawing.Point(139, 1);
             this.txtFDASquantity.CustomButton.Name = "";
-            this.txtFDASquantity.CustomButton.Size = new System.Drawing.Size(16, 17);
+            this.txtFDASquantity.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.txtFDASquantity.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtFDASquantity.CustomButton.TabIndex = 1;
             this.txtFDASquantity.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -143,9 +143,9 @@
             // 
             // 
             this.txtFDASprice.CustomButton.Image = null;
-            this.txtFDASprice.CustomButton.Location = new System.Drawing.Point(177, 1);
+            this.txtFDASprice.CustomButton.Location = new System.Drawing.Point(236, 1);
             this.txtFDASprice.CustomButton.Name = "";
-            this.txtFDASprice.CustomButton.Size = new System.Drawing.Size(16, 17);
+            this.txtFDASprice.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.txtFDASprice.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtFDASprice.CustomButton.TabIndex = 1;
             this.txtFDASprice.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -184,9 +184,9 @@
             // 
             // 
             this.txtFDASdescription.CustomButton.Image = null;
-            this.txtFDASdescription.CustomButton.Location = new System.Drawing.Point(98, 2);
+            this.txtFDASdescription.CustomButton.Location = new System.Drawing.Point(130, 2);
             this.txtFDASdescription.CustomButton.Name = "";
-            this.txtFDASdescription.CustomButton.Size = new System.Drawing.Size(94, 102);
+            this.txtFDASdescription.CustomButton.Size = new System.Drawing.Size(125, 125);
             this.txtFDASdescription.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtFDASdescription.CustomButton.TabIndex = 1;
             this.txtFDASdescription.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -302,9 +302,9 @@
             // 
             // 
             this.txtRawQuantity.CustomButton.Image = null;
-            this.txtRawQuantity.CustomButton.Location = new System.Drawing.Point(101, 1);
+            this.txtRawQuantity.CustomButton.Location = new System.Drawing.Point(135, 1);
             this.txtRawQuantity.CustomButton.Name = "";
-            this.txtRawQuantity.CustomButton.Size = new System.Drawing.Size(16, 17);
+            this.txtRawQuantity.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.txtRawQuantity.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtRawQuantity.CustomButton.TabIndex = 1;
             this.txtRawQuantity.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -343,9 +343,9 @@
             // 
             // 
             this.txtRawPrice.CustomButton.Image = null;
-            this.txtRawPrice.CustomButton.Location = new System.Drawing.Point(174, 1);
+            this.txtRawPrice.CustomButton.Location = new System.Drawing.Point(232, 1);
             this.txtRawPrice.CustomButton.Name = "";
-            this.txtRawPrice.CustomButton.Size = new System.Drawing.Size(16, 17);
+            this.txtRawPrice.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.txtRawPrice.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtRawPrice.CustomButton.TabIndex = 1;
             this.txtRawPrice.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -384,9 +384,9 @@
             // 
             // 
             this.txtRawDescription.CustomButton.Image = null;
-            this.txtRawDescription.CustomButton.Location = new System.Drawing.Point(94, 2);
+            this.txtRawDescription.CustomButton.Location = new System.Drawing.Point(126, 2);
             this.txtRawDescription.CustomButton.Name = "";
-            this.txtRawDescription.CustomButton.Size = new System.Drawing.Size(94, 102);
+            this.txtRawDescription.CustomButton.Size = new System.Drawing.Size(125, 125);
             this.txtRawDescription.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtRawDescription.CustomButton.TabIndex = 1;
             this.txtRawDescription.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -467,7 +467,7 @@
             this.metroTabPage2.Name = "metroTabPage2";
             this.metroTabPage2.Size = new System.Drawing.Size(454, 445);
             this.metroTabPage2.TabIndex = 1;
-            this.metroTabPage2.Text = "Fire Detection and Alarm System";
+            this.metroTabPage2.Text = "Fire Prevention Equipment";
             this.metroTabPage2.VerticalScrollbarBarColor = true;
             this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage2.VerticalScrollbarSize = 10;
@@ -481,7 +481,7 @@
             this.metroTile2.Size = new System.Drawing.Size(446, 96);
             this.metroTile2.Style = MetroFramework.MetroColorStyle.Red;
             this.metroTile2.TabIndex = 29;
-            this.metroTile2.Text = "FIRE DETECTION AND ALARM SYSTEM (FDAS)";
+            this.metroTile2.Text = "FIRE PREVENTION EQUIPMENT";
             this.metroTile2.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall;
             this.metroTile2.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
             this.metroTile2.UseSelectable = true;
@@ -538,7 +538,7 @@
             this.dtManufactureDate.Location = new System.Drawing.Point(169, 262);
             this.dtManufactureDate.MinimumSize = new System.Drawing.Size(0, 29);
             this.dtManufactureDate.Name = "dtManufactureDate";
-            this.dtManufactureDate.Size = new System.Drawing.Size(133, 30);
+            this.dtManufactureDate.Size = new System.Drawing.Size(133, 29);
             this.dtManufactureDate.TabIndex = 10;
             // 
             // metroLabel11
@@ -556,9 +556,9 @@
             // 
             // 
             this.txtFXquantity.CustomButton.Image = null;
-            this.txtFXquantity.CustomButton.Location = new System.Drawing.Point(56, 1);
+            this.txtFXquantity.CustomButton.Location = new System.Drawing.Point(75, 1);
             this.txtFXquantity.CustomButton.Name = "";
-            this.txtFXquantity.CustomButton.Size = new System.Drawing.Size(16, 17);
+            this.txtFXquantity.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.txtFXquantity.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtFXquantity.CustomButton.TabIndex = 1;
             this.txtFXquantity.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -683,9 +683,9 @@
             // 
             // 
             this.txtFXprice.CustomButton.Image = null;
-            this.txtFXprice.CustomButton.Location = new System.Drawing.Point(156, 1);
+            this.txtFXprice.CustomButton.Location = new System.Drawing.Point(208, 1);
             this.txtFXprice.CustomButton.Name = "";
-            this.txtFXprice.CustomButton.Size = new System.Drawing.Size(16, 17);
+            this.txtFXprice.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.txtFXprice.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtFXprice.CustomButton.TabIndex = 1;
             this.txtFXprice.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -748,7 +748,7 @@
             this.metroTabControl1.Controls.Add(this.metroTabPage3);
             this.metroTabControl1.Location = new System.Drawing.Point(23, 81);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 2;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(462, 490);
             this.metroTabControl1.Style = MetroFramework.MetroColorStyle.Red;
             this.metroTabControl1.TabIndex = 3;
